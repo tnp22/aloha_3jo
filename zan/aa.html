@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>그리드 드래그 앤 드롭</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(6, 50px);
+      gap: 5px;
+    }
+    .grid-item {
+      border: 1px solid #ccc;
+      text-align: center;
+      line-height: 50px;
+    }
+    .draggable {
+      background-color: lightblue;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+  <div id="grid" class="grid-container"></div>
+  <button id="save">JSON 저장</button>
+  <button id="load">JSON 불러오기</button>
+  <input type="file" id="file-input" />
+  <script src="script.js"></script>
+</body>
+</html>
