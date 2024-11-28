@@ -1,0 +1,39 @@
+<th:block th:each="comment : ${commentList}">
+    <div style="display: flex; flex-wrap: wrap; width: 400px;">
+        <th:block th:if="${comment.no != comment.parentNo}">
+            <span style="padding: 20px;"></span>
+        </th:block>
+        <table border="1" style="width: 300px;">
+            <tr>
+                <td><span th:text="${comment.writer}" class="comment-writer">작성자</span></td>
+                <td><span th:text="${ #dates.format( comment.createdAt, 'yyyy-MM-dd HH:mm:ss' ) }">
+                    등록일자</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p th:text="${comment.content}"class="comment-content"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!-- 답글 -->
+                    <th:block th:if="${ comment.no == comment.parentNo}">
+                        <button type="button" th:onclick="insertReply( this, [[${comment.no}]] )">답글</button>
+                    </th:block>
+                    <!-- 재답글 -->
+                    <th:block th:if="${ comment.no != comment.parentNo}">
+                        <button type="button" th:onclick="insertReply( this, [[${comment.parentNo}]] )">재답글</button>
+                    </th:block>
+                </td>
+                <td colspan="2" align="right">
+                    <button type="button" th:onclick="editComment(this,[[${comment.id}]])">
+                        수정</button>
+                    <button type="button" 
+                    th:onclick="removeComment([[${comment.id}]])">삭제</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</th:block>

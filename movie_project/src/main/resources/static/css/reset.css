@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+*{margin: 0; padding: 0; list-style: none; box-sizing: border-box;}
+
+:root{
+    --back-color : #000000;
+}
+
+a { text-decoration: none; }
+
+body{
+    background-color: var(--back-color);
+}
