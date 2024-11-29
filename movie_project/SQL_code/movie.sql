@@ -1,5 +1,6 @@
 CREATE TABLE `movie` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
+	`no` int AUTO_INCREMENT PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
 	`title`	varchar(255)	NOT NULL,
 	`content`	text	NOT NULL,
 	`type`	varchar(400)	NOT NULL,
@@ -9,8 +10,10 @@ CREATE TABLE `movie` (
 );
 
 CREATE TABLE `users` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`pw`	varchar(255)	NOT NULL,
+	`no` int AUTO_INCREMENT PRIMARY KEY,
+	`id` VARCHAR(200) NOT NULL,
+	`username`	varchar(200)	NOT NULL UNIQUE,
+	`password`	varchar(255)	NOT NULL,
 	`name`	varchar(100)	NOT NULL,
 	`email`	varchar(100)	NOT NULL,
 	`enabled`	boolean	NOT NULL	DEFAULT false,
@@ -19,20 +22,21 @@ CREATE TABLE `users` (
 );
 
 CREATE TABLE `auth_list` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`type_name`	varchar(100)	NOT NULL UNIQUE
+	`no` int AUTO_INCREMENT PRIMARY KEY,
+	`type_name`	varchar(100)	NOT NULL UNIQUE,
+	`description` VARCHAR(300) null
 );
 
-
 CREATE TABLE `user_auth` (
-	`id`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`user_id`	varchar(100)	NOT NULL,
 	`auth`	varchar(100)	NOT NULL,
 	FOREIGN KEY (`auth`) REFERENCES `auth_list`(`type_name`) ON UPDATE CASCADE
 );
 
 CREATE TABLE `cinema` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(100)	NOT NULL UNIQUE,
 	`auth`	varchar(100)	NOT NULL,
 	`area`	varchar(100)	NOT NULL,
 	`area_sub`	varchar(100)	NOT NULL,
@@ -40,7 +44,8 @@ CREATE TABLE `cinema` (
 );
 
 CREATE TABLE `theater` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
 	`cinema_id`	varchar(100)	NOT NULL,
 	`map`	text	NOT NULL,
     FOREIGN KEY (`cinema_id`) REFERENCES `cinema`(id) ON DELETE RESTRICT
@@ -49,7 +54,8 @@ CREATE TABLE `theater` (
 
 
 CREATE TABLE `notice` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY, 
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL, 
 	`title`	varchar(255)	NOT NULL,
 	`content`	text	NOT NULL,
 	`reg_date`	timestamp	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
@@ -57,7 +63,8 @@ CREATE TABLE `notice` (
 );
 
 CREATE TABLE `files` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
 	`fk_table`	varchar(100)	NOT NULL,
 	`fk_id`	varchar(100)	NOT NULL,
 	`division`	varchar(200)	NOT NULL,
@@ -65,16 +72,18 @@ CREATE TABLE `files` (
 );
 
 CREATE TABLE `review` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
 	`movie_id`	varchar(100)	NOT NULL,
 	`user_id`	varchar(100)	NOT NULL,
 	`content`	text	NOT NULL
 );
 
 CREATE TABLE `reserve` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`user_id`	varchar(100)	NOT NULL,
-	`theater_list_id`	varchar(100)	NOT NULL,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
+	`user_id`	varchar(200)	NOT NULL,
+	`theater_list_id`	varchar(200)	NOT NULL,
 	`pos_x`	int	NOT NULL,
 	`pos_y`	int	NOT NULL
 );
@@ -84,32 +93,36 @@ CREATE TABLE `reserve` (
 
 
 CREATE TABLE `theater_list` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`movie_id`	varchar(100)	NOT NULL,
-	`theater_id`	varchar(100)	NOT NULL,
-	`cinema_id`	varchar(100)	NOT NULL,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
+	`movie_id`	varchar(200)	NOT NULL,
+	`theater_id`	varchar(200)	NOT NULL,
+	`cinema_id`	varchar(200)	NOT NULL,
 	`time`	timestamp	NOT NULL
 );
 
 CREATE TABLE `rating` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`review_id`	varchar(100)	NOT NULL,
-	`user_id`	varchar(100)	NOT NULL,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
+	`review_id`	varchar(200)	NOT NULL,
+	`user_id`	varchar(200)	NOT NULL,
 	`rating_vaule`	int	NOT NULL
 );
 
 
 
 CREATE TABLE `inspection` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`cinema_id`	varchar(100)	NOT NULL,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
+	`cinema_id`	varchar(200)	NOT NULL,
 	`start_time`	timestamp	NOT NULL,
 	`end_time`	timestamp	NOT NULL
 );
 
 CREATE TABLE `cast` (
-	`id`	varchar(100)	NOT NULL PRIMARY KEY,
-	`movie_id`	varchar(100)	NOT NULL,
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(200)	NOT NULL,
+	`movie_id`	varchar(200)	NOT NULL,
 	`rule`	varchar(100)	NOT NULL,
 	`name`	varchar(100)	NOT NULL
 );

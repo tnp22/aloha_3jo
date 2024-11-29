@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean login(Users user, HttpServletRequest request) throws Exception {
         // // 💍 토큰 생성
-        String username = user.getId();    // 아이디
-        String password = user.getPw();    // 암호화되지 않은 비밀번호
+        String username = user.getUsername();    // 아이디
+        String password = user.getPassword();    // 암호화되지 않은 비밀번호
         UsernamePasswordAuthenticationToken token 
             = new UsernamePasswordAuthenticationToken(username, password);
         
@@ -67,10 +67,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional // 트랜잭션 처리를 설정 (회원정보, 회원권한)
     public int join(Users user) throws Exception {
-        String username = user.getId();
-        String password = user.getPw();
+        String username = user.getUsername();
+        String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
-        user.setPw(encodedPassword);
+        user.setPassword(encodedPassword);
         user.setEnabled(true);
         // 회원 등록
         int result = userMapper.join(user);

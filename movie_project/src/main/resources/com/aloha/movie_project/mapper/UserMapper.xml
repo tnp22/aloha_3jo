@@ -6,10 +6,10 @@
 <mapper namespace="com.aloha.movie_project.mapper.UserMapper">
 
     <resultMap type="Users" id="userMap">
-        <id property="id" column="id" />
+        <id property="username" column="username" />
         
-        <result property="id" column="id" />
-        <result property="pw" column="pw" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
         <result property="name" column="name" />
         <result property="email" column="email" />
         <result property="enabled" column="enabled" />
@@ -28,22 +28,22 @@
   
     <!-- 회원 조회 - id -->
     <select id="select" resultMap="userMap">
-        SELECT u.id
-              ,pw
+        SELECT u.username
+              ,password
               ,name
               ,email
               ,enabled
               ,reg_date
               ,upd_date
               ,auth
-        FROM users u LEFT OUTER JOIN user_auth auth ON u.id = auth.user_id
-        WHERE u.id = #{id}
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.username = auth.user_id
+        WHERE u.username = #{username}
     </select>
 
     <!-- 회원 가입 -->
     <insert id="join">
-        INSERT INTO users ( id, pw, name, email, enabled)
-        VALUES ( #{id}, #{pw}, #{name}, #{email}, #{enabled} )
+        INSERT INTO users (id, username, password, name, email, enabled)
+        VALUES (#{id}, #{username}, #{password}, #{name}, #{email}, #{enabled} )
     </insert>
 
     <!-- 회원 정보 수정 -->
@@ -52,7 +52,7 @@
            SET name = #{name}
               ,email = #{email}
               ,upd_date = now()
-        WHERE id = #{id}
+        WHERE username = #{username}
     </update>
 
     <!-- 회원 권한 등록 -->
