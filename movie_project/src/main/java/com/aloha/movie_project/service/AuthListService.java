@@ -11,4 +11,6 @@ public interface AuthListService {
 
     // 권한 생성
     public int insert(AuthList authList) throws Exception;
+
+    public int delete(int no) throws Exception;  
 }

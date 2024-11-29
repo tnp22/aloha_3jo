@@ -29,5 +29,11 @@ public class AuthListServiceImpl implements AuthListService  {
         List<AuthList> list = authListMapper.list();
         return list;
     }
+
+    @Override
+    public int delete(int no) throws Exception {
+        int result = authListMapper.delete(no);
+        return result;
+    }
     
 }
