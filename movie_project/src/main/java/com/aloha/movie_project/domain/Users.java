@@ -7,14 +7,13 @@ import lombok.Data;
 
 @Data
 public class Users {
-    private Long no;
-    private String username;
-    private String password;
+    private String id;
+    private String pw;
     private String name;
     private String email;
-    private Date createdAt;
-    private Date updatedAt;
-    private int enabled;
+    private boolean enabled;
+    private Date regDate;
+    private Date updDate;
 
     private List<UserAuth> authList;
 

@@ -36,12 +36,12 @@ public class CustomUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getPw();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getName();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CustomUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEnabled() == 0 ? false : true;
+        return user.isEnabled();
     }
     
 }
