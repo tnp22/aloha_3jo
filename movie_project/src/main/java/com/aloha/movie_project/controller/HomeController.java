@@ -106,7 +106,7 @@ public class HomeController {
         log.info("user : " + user);
 
         // 암호화 전 비밀번호
-        String plainPassword = user.getPassword();
+        String plainPassword = user.getPw();
         // 회원 가입 요청
         int result = userService.join(user);
         
@@ -115,7 +115,7 @@ public class HomeController {
         if( result > 0 ) {
             // 암호화 전 비밀번호 다시 세팅
             // 회원가입 시, 비밀번호 암호화하기 때문에, 
-            user.setPassword(plainPassword);
+            user.setPw(plainPassword);
             loginResult = userService.login(user, request);
         }
         if (loginResult) {
@@ -163,16 +163,18 @@ public class HomeController {
         // - required=true (default)  : 쿠키를 필수로 가져와서 없으면 에러
         // - required=false           : 쿠키 필수 ❌ ➡ 쿠키가 없으면 null, 에러❌
         log.info(":::::::::: 로그인 페이지 ::::::::::");
+        //log.info("user : " + user);
 
-        String username = "";
+
+        String id = "";
         boolean rememberId = false;
         if( cookie != null ) {
             log.info("CookieName : " + cookie.getName());
             log.info("CookieValue : " + cookie.getValue());
-            username = cookie.getValue();
+            id = cookie.getValue();
             rememberId = true;
         }
-        model.addAttribute("username", username);
+        model.addAttribute("id", id);
         model.addAttribute("rememberId", rememberId);
         return "/login";
     }

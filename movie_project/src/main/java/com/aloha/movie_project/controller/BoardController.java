@@ -147,7 +147,7 @@ public class BoardController {
         String username = authentication.getName();
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         model.addAttribute("username", username);
-        model.addAttribute("userNo", customUser.getUser().getNo());
+        // model.addAttribute("userNo", customUser.getUser().getNo());
         return "/board/insert";
     }
     

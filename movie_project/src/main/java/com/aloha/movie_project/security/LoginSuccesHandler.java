@@ -35,19 +35,19 @@ public class LoginSuccesHandler extends SavedRequestAwareAuthenticationSuccessHa
 
         // 아이디 저장
         String rememberId = request.getParameter("remember-id"); // 아이디 저장 여부
-        String username = request.getParameter("id");
+        String id = request.getParameter("id");
         log.info("remeberId"+rememberId);
-        log.info("username"+username);
+        log.info("username"+id);
 
         // 아이디 저장 체크 여부 확인
         if(rememberId != null && rememberId.equals("on")){
-            Cookie cookie = new Cookie("remember-id",username);
+            Cookie cookie = new Cookie("remember-id",id);
             cookie.setMaxAge(60*60*24*7);
             cookie.setPath("/");
             response.addCookie(cookie);
         }
         else{
-            Cookie cookie = new Cookie("remember-id",username);
+            Cookie cookie = new Cookie("remember-id",id);
             cookie.setMaxAge(0);
             cookie.setPath("/");
             response.addCookie(cookie);
@@ -58,8 +58,8 @@ public class LoginSuccesHandler extends SavedRequestAwareAuthenticationSuccessHa
         CustomUser customuser = (CustomUser) authentication.getPrincipal();
         Users user = customuser.getUser();
 
-        log.info("아이디 : "+user.getUsername());
-        log.info("비밀번호 : "+user.getPassword());
+        log.info("아이디 : "+user.getId());
+        log.info("비밀번호 : "+user.getPw());
         log.info("권한 : "+user.getAuthList());
 
 

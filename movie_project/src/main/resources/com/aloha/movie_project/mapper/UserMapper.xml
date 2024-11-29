@@ -6,61 +6,59 @@
 <mapper namespace="com.aloha.movie_project.mapper.UserMapper">
 
     <resultMap type="Users" id="userMap">
-        <id property="no" column="no" />
+        <id property="id" column="id" />
         
-        <result property="no" column="no" />
-        <result property="username" column="username" />
-        <result property="password" column="password" />
+        <result property="id" column="id" />
+        <result property="pw" column="pw" />
         <result property="name" column="name" />
         <result property="email" column="email" />
         <result property="enabled" column="enabled" />
-        <result property="createdAt" column="created_at" />
-        <result property="updatedAt" column="updated_at" />
+        <result property="regDate" column="reg_date" />
+        <result property="updDate" column="upd_date" />
         
         <collection property="authList" resultMap="authMap"></collection>
     </resultMap>
         
     <resultMap type="UserAuth" id="authMap">
-        <result property="no" column="no" />
-        <result property="username" column="username" />
+        <result property="id" column="id" />
+        <result property="userId" column="user_id" />
         <result property="auth" column="auth" />
     </resultMap>
 
   
     <!-- 회원 조회 - id -->
     <select id="select" resultMap="userMap">
-        SELECT u.no
-              ,u.username
-              ,password
+        SELECT u.id
+              ,pw
               ,name
               ,email
               ,enabled
-              ,created_at
-              ,updated_at
+              ,reg_date
+              ,upd_date
               ,auth
-        FROM user u LEFT OUTER JOIN user_auth auth ON u.username = auth.username
-        WHERE u.username = #{username}
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.id = auth.user_id
+        WHERE u.id = #{id}
     </select>
 
     <!-- 회원 가입 -->
     <insert id="join">
-        INSERT INTO user ( username, password, name, email)
-        VALUES ( #{username}, #{password}, #{name}, #{email} )
+        INSERT INTO users ( id, pw, name, email, enabled)
+        VALUES ( #{id}, #{pw}, #{name}, #{email}, #{enabled} )
     </insert>
 
     <!-- 회원 정보 수정 -->
     <update id="update">
-        UPDATE user
+        UPDATE users
            SET name = #{name}
               ,email = #{email}
-              ,updated_at = now()
-        WHERE username = #{username}
+              ,upd_date = now()
+        WHERE id = #{id}
     </update>
 
     <!-- 회원 권한 등록 -->
     <insert id="insertAuth">
-        INSERT INTO user_auth( username, auth )
-        VALUES ( #{username}, #{auth} )
+        INSERT INTO user_auth( user_id, auth )
+        VALUES ( #{userId}, #{auth} )
     </insert>
 
 </mapper>

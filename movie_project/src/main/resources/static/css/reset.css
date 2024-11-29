@@ -1,13 +1,25 @@
 @charset "utf-8";
 
-*{margin: 0; padding: 0; list-style: none; box-sizing: border-box;}
+/* *{margin: 0; padding: 0; list-style: none; box-sizing: border-box;} */
+*{list-style: none;}
 
-:root{
-    --back-color : #000000;
-}
+a {
+    text-decoration: none;
+    color: inherit;
+  }
+  a:hover {
+    color: #0d6efd;
+  }
 
-a { text-decoration: none; }
+  .butten{
+    border: none; 
+    width: 80px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  .butten:hover{
+    background-color: #0d6efd;
+    color: #ffffff;
+  }
 
-body{
-    background-color: var(--back-color);
-}
+
