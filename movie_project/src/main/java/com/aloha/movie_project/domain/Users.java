@@ -2,13 +2,16 @@ package com.aloha.movie_project.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import lombok.Data;
 
 @Data
 public class Users {
+    private int no;
     private String id;
-    private String pw;
+    private String username;
+    private String password;
     private String name;
     private String email;
     private boolean enabled;
@@ -17,4 +20,7 @@ public class Users {
 
     private List<UserAuth> authList;
 
+    public Users(){
+        this.id = UUID.randomUUID().toString();
+    } 
 }

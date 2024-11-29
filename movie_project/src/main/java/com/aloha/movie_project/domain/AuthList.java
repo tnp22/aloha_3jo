@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class AuthList {
-    private String id;
+    private int no;
     private String typeName;
+    private String description;
 }

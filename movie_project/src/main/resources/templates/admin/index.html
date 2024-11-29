@@ -19,8 +19,8 @@
 </head>
 <body>
     <div class="container-fluid" style="height: 98vh;">
-        <br>
-        <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="name"></span></a></h1>
+        <br><!--<span sec:authentication="name"></span> -->
+        <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="principal.user.name"></span></a></h1>
         <hr class="w-50 ms-0">
         <div class="row" style="height: 90%;">
             <div class="col-md-2" style="border: 1px solid black;">

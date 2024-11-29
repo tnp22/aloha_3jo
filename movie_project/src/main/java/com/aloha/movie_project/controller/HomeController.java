@@ -106,7 +106,7 @@ public class HomeController {
         log.info("user : " + user);
 
         // 암호화 전 비밀번호
-        String plainPassword = user.getPw();
+        String plainPassword = user.getPassword();
         // 회원 가입 요청
         int result = userService.join(user);
         
@@ -115,7 +115,7 @@ public class HomeController {
         if( result > 0 ) {
             // 암호화 전 비밀번호 다시 세팅
             // 회원가입 시, 비밀번호 암호화하기 때문에, 
-            user.setPw(plainPassword);
+            user.setPassword(plainPassword);
             loginResult = userService.login(user, request);
         }
         if (loginResult) {
@@ -166,15 +166,15 @@ public class HomeController {
         //log.info("user : " + user);
 
 
-        String id = "";
+        String username = "";
         boolean rememberId = false;
         if( cookie != null ) {
             log.info("CookieName : " + cookie.getName());
             log.info("CookieValue : " + cookie.getValue());
-            id = cookie.getValue();
+            username = cookie.getValue();
             rememberId = true;
         }
-        model.addAttribute("id", id);
+        model.addAttribute("username", username);
         model.addAttribute("rememberId", rememberId);
         return "/login";
     }
