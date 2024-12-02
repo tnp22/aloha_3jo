@@ -1,5 +1,7 @@
 package com.aloha.movie_project.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.aloha.movie_project.domain.UserAuth;
@@ -17,8 +19,15 @@ public interface UserMapper {
     // 회원 수정
     public int update(Users user) throws Exception;
 
+    // 회원 수정
+    public int updatePw(Users user) throws Exception;
+
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
 
+    // 권한 조회
+    public List<Users> list() throws Exception;
+    // 권한 검색 조회
+    public List<Users> search(String search) throws Exception;
 }
 

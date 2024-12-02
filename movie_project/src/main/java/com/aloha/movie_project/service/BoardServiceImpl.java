@@ -10,8 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.aloha.movie_project.domain.Board;
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Option;
-import com.aloha.movie_project.domain.Page;
+import com.aloha.movie_project.domain.Pagination;
 import com.aloha.movie_project.mapper.BoardMapper;
+import com.github.pagehelper.Page;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +28,12 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<Board> list() throws Exception {
-        List<Board> list = boardMapper.list(new Page(),new Option());
+        List<Board> list = boardMapper.list(new Pagination(),new Option());
         return list;
     }
 
     @Override
-    public List<Board> list(Page page,Option option) throws Exception {
+    public List<Board> list(Pagination page,Option option) throws Exception {
         int total = count2();
         page.setTotal(total);
         List<Board> list = boardMapper.list(page,option);
@@ -100,7 +101,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> search(String search,int searchCode,Page page,Option option) throws Exception {
+    public List<Board> search(String search,int searchCode,Pagination page,Option option) throws Exception {
         int total = count(search, searchCode, option);
         page.setTotal(total);
         List<Board> searchList = boardMapper.search(search,searchCode,page,option);

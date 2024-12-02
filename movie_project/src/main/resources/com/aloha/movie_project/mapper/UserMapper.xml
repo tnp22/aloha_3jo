@@ -55,10 +55,46 @@
         WHERE username = #{username}
     </update>
 
+    <!-- 회원 정보 수정 -->
+    <update id="updatePw">
+        UPDATE users
+           SET password = #{password}
+              ,upd_date = now()
+        WHERE username = #{username}
+    </update>
+
     <!-- 회원 권한 등록 -->
     <insert id="insertAuth">
         INSERT INTO user_auth( user_id, auth )
         VALUES ( #{userId}, #{auth} )
     </insert>
+
+    <!-- 목록 -->
+    <select id="list" resultMap="userMap">
+        SELECT u.username
+              ,name
+              ,email
+              ,enabled
+              ,reg_date
+              ,upd_date
+              ,auth
+        FROM users u LEFT OUTER JOIN user_auth auth ON u.username = auth.user_id
+    </select>
+
+    <!-- 검색 목록 -->
+    <select id="search" parameterType="String" resultMap="userMap">
+        SELECT u.username,
+            u.name,
+            u.email,
+            u.enabled,
+            u.reg_date,
+            u.upd_date,
+            auth.auth
+        FROM users u
+        LEFT OUTER JOIN user_auth auth ON u.username = auth.user_id
+        WHERE u.username LIKE CONCAT('%', #{keyword}, '%')
+        OR u.name LIKE CONCAT('%', #{keyword}, '%')
+        OR auth.auth LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 
 </mapper>

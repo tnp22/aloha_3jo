@@ -11,6 +11,8 @@ public interface AuthListMapper {
     
     // 권한 조회
     public List<AuthList> list() throws Exception;
+    // 권한 검색 조회
+    public List<AuthList> search(String search) throws Exception;
 
     // 권한 생성
     public int insert(AuthList authList) throws Exception;

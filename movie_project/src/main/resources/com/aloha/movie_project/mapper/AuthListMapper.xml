@@ -17,6 +17,13 @@
         FROM `auth_list`
     </select>
 
+    <!-- 검색 목록 -->
+    <select id="search" parameterType="String" resultType="AuthList">
+        SELECT *
+        FROM `auth_list`
+        WHERE `type_name` LIKE CONCAT('%', #{keyword}, '%') OR `description` LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
     <!-- 권한 삭제 -->
     <delete id="delete">
         DELETE FROM `auth_list`

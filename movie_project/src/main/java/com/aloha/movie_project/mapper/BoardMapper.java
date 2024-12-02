@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.aloha.movie_project.domain.Board;
 import com.aloha.movie_project.domain.Option;
-import com.aloha.movie_project.domain.Page;
+import com.aloha.movie_project.domain.Pagination;
 
 @Mapper
 public interface BoardMapper {
@@ -18,7 +18,7 @@ public interface BoardMapper {
      // 전체 목록
     public List<Board> list() throws Exception;
 
-    public List<Board> list(@Param("page") Page page, @Param("option") Option option) throws Exception;
+    public List<Board> list(@Param("page") Pagination page, @Param("option") Option option) throws Exception;
 
     public Board select(@Param("id") String id) throws Exception;
 
@@ -29,7 +29,7 @@ public interface BoardMapper {
     public int delete(String id) throws Exception;
 
     public List<Board> search(@Param("search") String search
-    ,@Param("searchCode") int searchCode,@Param("page") Page page
+    ,@Param("searchCode") int searchCode,@Param("page") Pagination page
     ,@Param("option") Option option) throws Exception;
 
     public int count(@Param("search") String search

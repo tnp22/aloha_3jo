@@ -44,7 +44,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <th:block th:each="Auth : ${AuthList}">
+                        <th:block th:each="Auth : ${pageInfo.list}">
                             <tr style="line-height: 40px;">
                                 <th th:text="${Auth.no}"></th>
                                 <td th:text="${Auth.typeName}"></td>
@@ -61,26 +61,55 @@
                       <a href="#" class="btn btn-primary">글 작성</a>
                     </div> -->
                 </div>
-                <div class="container mt-3">
-                    <form class="d-flex" role="search">
-                      <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
-                      <button class="btn btn-outline-success" type="submit">검색</button>
+                <div class="container mt-4">
+                    <form action="/admin/userManager/auth/list" class="d-flex" method="get">
+                      <input class="form-control me-3" style="width: 90%;" name="search" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+                      <input class="btn btn-outline-success" type="submit"></input>
                     </form>
                 </div>
-                <nav class="mt-4">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">이전</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
-                      </li>
+                <!-- 페이지네이션 -->
+                <!-- ⚡ 유동적인 페이지 번호 출력 (pagehelper)  -->
+                <th:block th:if="${pageInfo.pages > 0}">
+                  <div class="pagination flex justify-content-center">
+                    <nav class="mt-4">
+                      <ul class="pagination justify-content-center">
+                        <li class="page-item" th:if="${pageInfo.pageNum > 1}">
+                            <a class="page-link" th:href="@{/admin/userManager/auth/list(page=1, search=${search}, size=${pageInfo.pageSize})}">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
+                                <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
+                              </svg>
+                            </a>
+                        </li>
+                        <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+                            <a class="page-link" th:href="@{/admin/userManager/auth/list(page=${pageInfo.prePage},search=${search}, size=${pageInfo.pageSize})}">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor"><path d="M34.52 239l194.34-194.34c9.37-9.37 24.57-9.37 33.94 0l22.34 22.34c9.37 9.37 9.37 24.57 0 33.94L128.97 256l156.17 156.17c9.37 9.37 9.37 24.57 0 33.94l-22.34 22.34c-9.37 9.37-24.57 9.37-33.94 0L34.52 273c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
+                            </a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(pageInfo.navigateFirstPage, pageInfo.navigateLastPage)}">
+                            <a  th:href="@{/admin/userManager/auth/list(page=${i},search=${search}, size=${pageInfo.pageSize})}" 
+                                th:text="${i}"
+                                class="page-link"
+                                th:classappend="${pageInfo.pageNum == i} ? 'active' : ''"></a>
+                        </li>
+                        <li class="page-item" th:if="${pageInfo.hasNextPage}">
+                            <a class="page-link" th:href="@{/admin/userManager/auth/list(page=${pageInfo.nextPage},search=${search}, size=${pageInfo.pageSize})}">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor"><path d="M285.48 273l-194.34 194.34c-9.37 9.37-24.57 9.37-33.94 0l-22.34-22.34c-9.37-9.37-9.37-24.57 0-33.94L191.03 256 34.86 99.83c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L285.48 239c9.37 9.37 9.37 24.57 0 33.94z"/></svg>
+                            </a>
+                        </li>
+                        <li class="page-item" th:if="${pageInfo.pageNum < pageInfo.pages}">
+                            <a class="page-link" th:href="@{/admin/userManager/auth/list(page=${pageInfo.pages},search=${search}, size=${pageInfo.pageSize})}">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+                                <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
+                              </svg>
+                            </a>
+                        </li>
                     </ul>
-                  </nav>                  
+                    </nav>
+                  </div>
+                </th:block>               
+            
             </div>
+
             <div class="col-md-2">
                 <div style="margin-top: 100px; font-size: 26px;">
                     <ul class="mt-5">
@@ -89,8 +118,10 @@
                 </div>
             </div>
         </div>
-
-
+        <div>
+          <br><br><br><br><br><br>
+          <br><br><br>
+        </div>
     </div>
 
     <Script>

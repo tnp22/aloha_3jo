@@ -20,7 +20,7 @@ import com.aloha.movie_project.domain.Comments;
 import com.aloha.movie_project.domain.CustomUser;
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Option;
-import com.aloha.movie_project.domain.Page;
+import com.aloha.movie_project.domain.Pagination;
 import com.aloha.movie_project.service.BoardService;
 import com.aloha.movie_project.service.CommentService;
 import com.aloha.movie_project.service.FileService;
@@ -74,11 +74,11 @@ public class BoardController {
         @RequestParam(name="search", required = false) String search,
         @RequestParam(name="searchCode", required = false, defaultValue = "-1") Integer searchCode
         ,@RequestParam(name="rows", defaultValue = "10") int rows
-        ,Page page
+        ,Pagination page
         , Option option) throws Exception {
         List<Board> boardList = null;
         if(search==null){
-            page.setRows(rows);
+            page.setSize(rows);
             boardList = boardService.list(page,option);
             model.addAttribute("page", page);
         }
@@ -89,7 +89,7 @@ public class BoardController {
             model.addAttribute("search", search);
             model.addAttribute("searchCode", searchCode);
         }
-        model.addAttribute("rows", page.getRows());
+        model.addAttribute("rows", page.getSize());
         model.addAttribute("option", option);
         model.addAttribute("boardList", boardList);
         
@@ -97,7 +97,7 @@ public class BoardController {
                             //.queryParam("page",page)
                             .queryParam("search",search)
                             .queryParam("searchCode",searchCode)
-                            .queryParam("rows",page.getRows())
+                            .queryParam("rows",page.getSize())
                             .queryParam("option",option.getOrderCode())
                             .toUriString();
         model.addAttribute("pageUrl", pageUrl);
