@@ -59,7 +59,7 @@
                                 <button class="btn btn-primary" 
                                 type="button" th:onclick="select( [[${user.username}]] )">조회</button>
                                 <button class="btn btn-primary" 
-                                type="button" th:onclick="remove( [[${user.id}]] )">비활성화</button>
+                                type="button" th:onclick="remove( [[${user.username}]] )">활성화 전환</button>
                               </td>
                             </tr> 
                       </th:block>
@@ -135,11 +135,11 @@
       function select( username ){
         window.location.href = '/admin/userManager/user/select?username='+ username   // action 속성 변경                  // 요청 전송
       }
-      function remove( id ){
-        if( !confirm('정말로 비활성화 하시겠습니까?') )
+      function remove( username ){
+        if( !confirm('정말로 전환 하시겠습니까?') )
               return
-        console.log(id)
-        window.location.href = '/admin/userManager/user/sleep?id='+ id   // action 속성 변경                  // 요청 전송
+        console.log(username)
+        window.location.href = '/admin/userManager/user/sleep?username='+ username   // action 속성 변경                  // 요청 전송
       }
   </Script>
 </body>

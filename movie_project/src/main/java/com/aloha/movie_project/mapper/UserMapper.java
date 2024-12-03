@@ -25,6 +25,9 @@ public interface UserMapper {
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
 
+    // 회원 권한 삭제
+    public int deleteAuth(int no) throws Exception;
+
     // 권한 조회
     public List<Users> list() throws Exception;
     // 권한 검색 조회

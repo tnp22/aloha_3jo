@@ -20,7 +20,7 @@
     </resultMap>
         
     <resultMap type="UserAuth" id="authMap">
-        <result property="id" column="id" />
+        <result property="no" column="no" />
         <result property="userId" column="user_id" />
         <result property="auth" column="auth" />
     </resultMap>
@@ -35,6 +35,7 @@
               ,enabled
               ,reg_date
               ,upd_date
+              ,auth.no
               ,auth
         FROM users u LEFT OUTER JOIN user_auth auth ON u.username = auth.user_id
         WHERE u.username = #{username}
@@ -51,6 +52,7 @@
         UPDATE users
            SET name = #{name}
               ,email = #{email}
+              ,enabled = #{enabled}
               ,upd_date = now()
         WHERE username = #{username}
     </update>
@@ -67,6 +69,12 @@
     <insert id="insertAuth">
         INSERT INTO user_auth( user_id, auth )
         VALUES ( #{userId}, #{auth} )
+    </insert>
+
+    <!-- 회원 권한 등록 -->
+    <insert id="deleteAuth">
+        DELETE FROM `user_auth`
+        WHERE no = #{no}
     </insert>
 
     <!-- 목록 -->

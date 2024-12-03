@@ -102,6 +102,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int deleteAuth(int no) throws Exception {
+        int result = userMapper.deleteAuth(no);
+        return result;
+    }
+
+    @Override
     public PageInfo<Users> list(int page, int size) throws Exception {
        // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
         PageHelper.startPage(page, size);
@@ -134,6 +140,8 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.updatePw(user);
         return result;
     }
+
+
 
 
     

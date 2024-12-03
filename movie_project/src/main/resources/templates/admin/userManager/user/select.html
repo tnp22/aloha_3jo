@@ -67,7 +67,12 @@
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">권한 목록</th>
                             <td>
-                                <li th:text="${user.authList}"></li>
+                                <li>
+                                    <th:block th:each="sub, iterStat : ${user.authList}">
+                                        <span th:text="${sub.auth}"></span>
+                                        <span th:if="!${iterStat.last}">,</span>
+                                    </th:block>
+                                </li>
                             </td>
                         </tr>
                         <tr>
@@ -85,8 +90,8 @@
                     </table>
                     <br>
                     <div style="display: flex; justify-content: center;">
-                        <a href="javascript:history.back()" class="btn btn-primary" style="margin-right: 20px;">취소</a>
-                        <input type="submit" value="생성" class="butten"/>
+                        <a href="/admin/userManager/user/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                        <a th:href="|/admin/userManager/user/update?username=${user.username}|" th:text="수정" class="a_butten"></a>
                     </div>
                 </div>
             </div>
