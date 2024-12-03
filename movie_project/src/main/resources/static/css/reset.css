@@ -3,23 +3,59 @@
 /* *{margin: 0; padding: 0; list-style: none; box-sizing: border-box;} */
 *{list-style: none;}
 
-a {
+a{
     text-decoration: none;
     color: inherit;
-  }
-  a:hover {
-    color: #0d6efd;
-  }
+}
+a:hover {
+  color: #0d6efd;
+}
 
-  .butten{
-    border: none; 
-    width: 80px;
-    height: 40px;
-    border-radius: 12px;
-  }
-  .butten:hover{
-    background-color: #0d6efd;
-    color: #ffffff;
-  }
+.butten{
+  border: none; 
+  width: 80px;
+  height: 40px;
+  border-radius: 12px;
+}
+.butten:hover{
+  background-color: #0d6efd;
+  color: #ffffff;
+}
+.a_butten{
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border: none;
+  background: #dfdfdf;
+  border-radius: 12px;
+}
+.a_butten:hover{
+  background-color: #0d6efd;
+  color: #ffffff;
+}
 
-
+.li_butten{
+  width: 70px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  border: none;
+  background: #dfdfdf;
+  border-radius: 12px;
+}
+.li_butten:hover{
+  cursor: pointer;
+  background-color: #0d6efd;
+  color: #ffffff;
+}
+.li_butten a{
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  display: inline-block;
+}
+.li_butten a:hover{
+  background-color: #0d6efd;
+  color: #ffffff;
+}
