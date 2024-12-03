@@ -1,5 +1,7 @@
 package com.aloha.movie_project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aloha.movie_project.domain.CustomUser;
+import com.aloha.movie_project.domain.Movie;
+import com.aloha.movie_project.domain.Notice;
 import com.aloha.movie_project.domain.Users;
+import com.aloha.movie_project.service.MovieService;
+import com.aloha.movie_project.service.NoticeService;
 import com.aloha.movie_project.service.UserService;
 
 import jakarta.servlet.http.Cookie;
@@ -26,7 +32,10 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private MovieService movieService;
+    @Autowired
+    private NoticeService noticeService;
     /**
      * 메인 화면
      * 🔗 [GET] - / 
@@ -34,41 +43,12 @@ public class HomeController {
      * @return
      * @throws Exception 
     */
-    @GetMapping("")
+    @GetMapping("/")
     // public String home(Principal principal, Model model) throws Exception {
     // public String home(Authentication authentication, Model model) throws Exception {
     // public String home(@AuthenticationPrincipal User authUser, Model model) throws Exception {
     public String home(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
         log.info(":::::::::: 메인 화면 ::::::::::");
-
-        // if (principal != null) {
-        //     String username = principal.getName();           // 인증된 사용자 아이디
-        //     log.info("username : " + username);
-        //     Users user = userService.select(username);       // 사용자 정보 조회
-        //     log.info("user : " + user);         
-        //     model.addAttribute("user", user);                // 사용자 정보를 모델에 등록
-        // } else {
-        //     log.info("principal is null");
-        // }
-
-        // if( authentication != null ) {
-        //     User authAuth = (User) authentication.getPrincipal();
-        //     String username = authAuth.getUsername();
-        //     log.info("username : " + username);
-        //     Users user = userService.select(username);          // 사용자 정보 조회
-        //     log.info("user : " + user);         
-        //     model.addAttribute("user", user);
-        // }
-
-       
-        // if( authUser != null ) {
-        //     String username = authUser.getUsername();           // 인증된 사용자 아이디
-        //     log.info("username : " + username);
-        //     Users user = userService.select(username);          // 사용자 정보 조회
-        //     log.info("user : " + user);         
-        //     model.addAttribute("user", user);     // 사용자 정보를 모델에 등록
-        //     log.info("authAuth : " + authUser);
-        // }
 
         if( authUser != null ) {
             log.info("authUser : " + authUser);
@@ -76,6 +56,13 @@ public class HomeController {
             model.addAttribute("user", user);
         }
         
+        List<Movie> movieList = movieService.movieList();
+        List<Movie> expectList = movieService.expectList();
+        List<Notice> noticeList = noticeService.list();
+        model.addAttribute("movieList", movieList);
+        model.addAttribute("expectList", expectList);
+        model.addAttribute("noticeList", noticeList);
+
         return "index";
     }
 
