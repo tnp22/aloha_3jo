@@ -1,5 +1,7 @@
 package com.aloha.movie_project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aloha.movie_project.domain.UserAuth;
 import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.mapper.UserMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -96,6 +100,50 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.insertAuth(userAuth);
         return result;
     }
+
+    @Override
+    public int deleteAuth(int no) throws Exception {
+        int result = userMapper.deleteAuth(no);
+        return result;
+    }
+
+    @Override
+    public PageInfo<Users> list(int page, int size) throws Exception {
+       // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
+        PageHelper.startPage(page, size);
+        List<Users> list = userMapper.list();
+        
+        // ⭐ PageInfo<Board>( 리스트, 노출 페이지 개수 )
+        PageInfo<Users> pageInfo = new PageInfo<Users>(list, 5);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Users> list(int page, int size, String search) throws Exception {
+         // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
+         PageHelper.startPage(page, size);
+         List<Users> list = userMapper.search(search);
+ 
+         // ⭐ PageInfo<Board>( 리스트, 노출 페이지 개수 )
+         PageInfo<Users> pageInfo = new PageInfo<Users>(list, 5);
+         return pageInfo;
+    }
+
+    @Override
+    public List<Users> list() throws Exception {
+        List<Users> list = userMapper.list();
+        return list;
+    }
+
+    @Override
+    public int updatePw(Users user) throws Exception {
+        int result = userMapper.updatePw(user);
+        return result;
+    }
+
+
+
+
     
 }
 

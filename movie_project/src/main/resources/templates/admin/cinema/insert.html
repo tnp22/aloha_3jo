@@ -70,8 +70,12 @@
                             <tr>
                                 <th style="padding: 12px 0; width: 20%; text-align: center;">권한</th>
                                 <td>
-                                    <li><input style="width: 90%;"
-                                        type="text"  id=""/></li>
+                                    <li>                                                    <select name="auth" id="">
+                                        <th:block th:each="authL : ${authList}">
+                                            <option th:value="${authL.typeName}" th:text="${authL.typeName}"></option>
+                                        </th:block>
+                                    </select>
+                                </li>
                                 </td>
                             </tr>
                             <tr>
