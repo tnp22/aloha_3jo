@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -17,7 +19,7 @@ public class Users {
     private boolean enabled;
     private Date regDate;
     private Date updDate;
-
+    private MultipartFile file;
     private List<UserAuth> authList;
 
     public Users(){

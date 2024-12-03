@@ -1,5 +1,6 @@
 package com.aloha.movie_project.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.UserAuth;
 import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.mapper.UserMapper;
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private FileService fileService;
+    
     @Override
     public Users select(String username) throws Exception {
         Users user = userMapper.select(username);
@@ -74,6 +79,12 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(true);
         // 회원 등록
         int result = userMapper.join(user);
+        // Files files = new Files();
+        // files.setFkId(user.getId());
+        // files.setFkTable("user");
+        // files.setFile(user.getFile());
+        // files.setDivision("main");
+        // fileService.upload(files);
 
         if( result > 0 ) {
             // 회원 기본 권한 등록

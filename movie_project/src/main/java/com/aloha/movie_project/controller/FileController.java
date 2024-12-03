@@ -42,7 +42,27 @@ public class FileController {
     public ResponseEntity<byte[]> thumbnail(@RequestParam("id") String id) throws Exception {
         Files file = fileService.select(id);
         
-        String filePath = file.getFilePath();
+        String filePath = file.getUrl();
+        // 파일 객체 생성
+        File f = new File(filePath);
+
+        // 파일 데이터
+        byte[] fileData = FileCopyUtils.copyToByteArray(f);
+
+        // 컨텐츠 타입 지정 
+        // 확장자로 컨텐츠 타입 지정
+        // - 확장자 : .jpg, .png ...
+        String ext = filePath.substring( filePath.lastIndexOf(".") + 1); // 확장자
+        MediaType mediaType = MediaUtil.getMediaType(ext);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(mediaType);
+        
+        return new ResponseEntity<>( fileData, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/image")
+    public ResponseEntity<byte[]> image(@RequestParam("id") String id) throws Exception {
+        String filePath = id;
         // 파일 객체 생성
         File f = new File(filePath);
 
@@ -70,8 +90,8 @@ public class FileController {
     @GetMapping("/file/{id}")
     public ResponseEntity<byte[]> download(@PathVariable("id") String id) throws Exception {
         Files file = fileService.select(id);
-        String filePath = file.getFilePath();
-        String fileName = file.getFileName();
+        String filePath = file.getUrl();
+        String fileName = filePath.substring(filePath.lastIndexOf("/")+1); // 확장자
         fileName = URLEncoder.encode(filePath, "UTF-8");
         // 파일 객체 생성
         File f = new File(filePath);

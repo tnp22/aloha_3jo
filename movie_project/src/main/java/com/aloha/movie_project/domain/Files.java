@@ -1,6 +1,5 @@
 package com.aloha.movie_project.domain;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -15,17 +14,11 @@ import lombok.Data;
 public class Files {
     private int no;
     private String id;
-    private String fileName;            // 파일명
-    private String filePath;            // 파일경로
-    private Long fileSize;              // 용량
-    private String type;                // 타입 ('main', 'sub')
-    private String parentTable;         // 부모테이블 ex) 'board'
-    private int parentNo;               // 부모번호         10
-    private Date createdAt;             
-    private Date updatedAt;
-
-    private MultipartFile file;         // 파일
-
+    private String fkId;
+    private String fkTable;
+    private String division;
+    private String url;
+    private MultipartFile file;
     public Files() {
         this.id = UUID.randomUUID().toString();
     }

@@ -22,12 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 등록 -->
     <insert id="insert">
         INSERT INTO files ( 
-            id, file_name, file_path, file_size, 
-            type, parent_table, parent_no
+            id, fk_table, fk_id, division, url
         )
         VALUES (
-            #{id}, #{fileName}, #{filePath}, #{fileSize}, 
-            #{type}, #{parentTable}, #{parentNo}
+            #{id}, #{fkTable}, #{fkId}, #{division}, #{url}
         )
     </insert>
 
