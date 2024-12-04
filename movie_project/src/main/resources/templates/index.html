@@ -35,7 +35,7 @@
             <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#movie-chart" type="button">영화 차트</a>
             <h3 style="opacity: 50%;">│</h3>
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#upcome-chart" type="button">상영 예정작</a>
-            <a href="/movielist" class="btn all-button d-flex align-items-center" style="position: absolute; right: 0;">
+            <a href="/movie/movieChart" class="btn all-button d-flex align-items-center" style="position: absolute; right: 0;">
                 <span>전체보기</span>
                 <i class="bi bi-chevron-right"></i>
             </a>
@@ -45,7 +45,7 @@
                 <button class="slider-btn prev-btn hidden"><i class="bi bi-chevron-left"></i></button>
                 <div class="slider-wrapper">
                     <div class="row movie-chart slider" id="movie-slider">
-                        <th:block th:each="movie : ${movieList}">
+                        <th:block th:each="movie : ${moviePageInfo.list}">
                             <div class="col">
                                 <div class="image-container">
                                     <img th:src="|/img?id=${movie.files.id}|">
@@ -68,7 +68,7 @@
                 <button class="slider-btn prev-btn hidden"><i class="bi bi-chevron-left"></i></button>
                 <div class="slider-wrapper">
                     <div class="row movie-chart slider" id="upcome-slider">
-                        <th:block th:each="expect : ${expectList}">
+                        <th:block th:each="expect : ${expectPageInfo.list}">
                             <div class="col">
                                 <div class="image-container">
                                     <img th:src="|/img?id=${expect.files.id}|">

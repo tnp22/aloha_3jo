@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 
 public interface MovieService {
     public List<Movie> movieList();
+    public PageInfo<Movie> movieList(int page, int size);
     public List<Movie> expectList();
 
     // 조회
@@ -22,4 +23,5 @@ public interface MovieService {
     public PageInfo<Movie> list(int page, int size,String search) throws Exception;
     // 권한 조회
     public List<Movie> list() throws Exception;
+    public PageInfo<Movie> expectList(int page, int size);
 }

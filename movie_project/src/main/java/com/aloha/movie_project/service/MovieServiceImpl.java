@@ -24,8 +24,30 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> expectList() {
-        List<Movie> movieList = movieMapper.expectList();
-        return movieList;
+        List<Movie> expectList = movieMapper.expectList();
+        return expectList;
+    }
+
+    @Override
+    public PageInfo<Movie> movieList(int page, int size) {
+        // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
+        PageHelper.startPage(page, size);
+        List<Movie> movieList = movieMapper.movieList();
+        
+        // ⭐ PageInfo( 리스트, 노출 페이지 개수 )
+        PageInfo<Movie> pageInfo = new PageInfo<Movie>(movieList, 10);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Movie> expectList(int page, int size) {
+        // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
+        PageHelper.startPage(page, size);
+        List<Movie> expectList = movieMapper.expectList();
+        
+        // ⭐ PageInfo( 리스트, 노출 페이지 개수 )
+        PageInfo<Movie> pageInfo = new PageInfo<Movie>(expectList, 10);
+        return pageInfo;
     }
 
     @Override
