@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aloha.movie_project.domain.CustomUser;
@@ -21,6 +22,7 @@ import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.NoticeService;
 import com.aloha.movie_project.service.UserService;
+import com.github.pagehelper.PageInfo;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,7 +49,8 @@ public class HomeController {
     // public String home(Principal principal, Model model) throws Exception {
     // public String home(Authentication authentication, Model model) throws Exception {
     // public String home(@AuthenticationPrincipal User authUser, Model model) throws Exception {
-    public String home(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
+    public String home(@AuthenticationPrincipal CustomUser authUser, Model model  ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+    ,@RequestParam(name = "size", required = false, defaultValue = "18") Integer size) throws Exception {
         log.info(":::::::::: 메인 화면 ::::::::::");
 
         if( authUser != null ) {
@@ -56,11 +59,12 @@ public class HomeController {
             model.addAttribute("user", user);
         }
         
-        List<Movie> movieList = movieService.movieList();
-        List<Movie> expectList = movieService.expectList();
+        PageInfo<Movie> moviePageInfo = movieService.movieList(page, size);
+        PageInfo<Movie> expectPageInfo = movieService.expectList(page, size);
+        model.addAttribute("moviePageInfo", moviePageInfo);
+        model.addAttribute("expectPageInfo", expectPageInfo);
         List<Notice> noticeList = noticeService.list();
-        model.addAttribute("movieList", movieList);
-        model.addAttribute("expectList", expectList);
+
         model.addAttribute("noticeList", noticeList);
 
         return "index";
