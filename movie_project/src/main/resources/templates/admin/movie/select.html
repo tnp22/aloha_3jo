@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/admin.css">
     <script src="/script/jquery.js"></script>
-    <!-- <script src="/script/adminScript.js"></script> -->
+    <script src="/script/adminScript.js"></script>
+    <style>
+        .subLi{
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid " style="height: 720px;">
@@ -21,11 +26,11 @@
                 <div style="margin-top: 100px; font-size: 26px;">
                     <ul>
                         <li><a href="/admin/cinema/list" >영화관</a></li>
-                        <li><a href="/admin/movie/list">영화관리</a></li>
+                        <li><a href="/admin/movie/list" style="color: blue;">영화관리</a></li>
                         <li class="mainLi">
-                            <a href="/admin/userManager/user/list" style="color: blue;">유저관리</a>
+                            <a href="/admin/userManager/user/list">유저관리</a>
                             <nav class="subLi">
-                                <li><a href="/admin/userManager/user/list" style="color: blue;">유저 관리</a></li>
+                                <li><a href="/admin/userManager/user/list">유저 관리</a></li>
                                 <li><a href="/admin/userManager/auth/list" >권한 관리</a></li>
                             </nav>
                         </li>
@@ -35,37 +40,38 @@
             </div>
             <div class="col-md-8">
                 <br>
-                <h1>유저 조회</h1>
+                <h1>영화 조회</h1>
                 <br>
-                <div>
+                <div style="display: flex;">
+                    <img class="w-25 mx-auto" style="overflow: hidden;" th:src="|/img?id=${movie.files.id}|" th:alt="${movie.files}">
                     <table style="width: 100%;">
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">
-                                아이디
+                                제목
                             </th>
                             <td>
-                                <li th:text="${user.username}"></li>
+                                <li th:text="${movie.title}"></li>
                             </td>
                         </tr>
                         <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">이름</th>
+                            <th style="padding: 12px 0; width: 20%; text-align: center;">내용</th>
                             <td>
-                                <li th:text="${user.name}"></li>
+                                <li th:text="${movie.content}"></li>
                             </td>
                         </tr>
                         <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">이메일</th>
+                            <th style="padding: 12px 0; width: 20%; text-align: center;">장르</th>
                             <td>
-                                <li th:text="${user.email}"></li>
+                                <li th:text="${movie.type}"></li>
                             </td>
                         </tr>
                         <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">활성화 여부</th>
+                            <th style="padding: 12px 0; width: 20%; text-align: center;">개봉일</th>
                             <td>
-                                <li th:text="${user.enabled}"></li>
+                                <li th:text="${movie.releaseDate}"></li>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">권한 목록</th>
                             <td>
                                 <li>
@@ -75,25 +81,25 @@
                                     </th:block>
                                 </li>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">가입 일자</th>
+                            <th style="padding: 12px 0; width: 20%; text-align: center;">기입 일자</th>
                             <td>
-                                <li th:text="${user.regDate}"></li>
+                                <li th:text="${movie.regDate}"></li>
                             </td>
                         </tr>
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">수정 일자</th>
                             <td>
-                                <li th:text="${user.updDate}"></li>
+                                <li th:text="${movie.updDate}"></li>
                             </td>
                         </tr>
                     </table>
-                    <br>
-                    <div style="display: flex; justify-content: center;">
-                        <a href="/admin/userManager/user/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
-                        <a th:href="|/admin/userManager/user/update?username=${user.username}|" th:text="수정" class="a_butten"></a>
-                    </div>
+                </div>
+                <br>
+                <div style="display: flex; justify-content: center;">
+                    <a href="/admin/movie/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                    <a th:href="|/admin/movie/update?id=${movie.id}|" th:text="수정" class="a_butten"></a>
                 </div>
             </div>
             <div class="col-md-2">

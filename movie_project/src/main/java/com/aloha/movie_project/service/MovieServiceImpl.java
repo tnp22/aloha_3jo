@@ -49,5 +49,55 @@ public class MovieServiceImpl implements MovieService {
         PageInfo<Movie> pageInfo = new PageInfo<Movie>(expectList, 10);
         return pageInfo;
     }
+
+    @Override
+    public int insert(Movie movie) throws Exception {
+        int result = movieMapper.insert(movie);
+        return result;
+    }
+
+    @Override
+    public List<Movie> list() throws Exception {
+        List<Movie> list = movieMapper.list();
+        return list;
+    }
+
+    @Override
+    public PageInfo<Movie> list(int page, int size) throws Exception {
+        // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
+        PageHelper.startPage(page, size);
+        List<Movie> list = movieMapper.list();
+        
+        // ⭐ PageInfo<Board>( 리스트, 노출 페이지 개수 )
+        PageInfo<Movie> pageInfo = new PageInfo<Movie>(list, 5);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Movie> list(int page, int size, String search) throws Exception {
+        // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
+        PageHelper.startPage(page, size);
+        List<Movie> list = movieMapper.search(search);
+
+        // ⭐ PageInfo<Board>( 리스트, 노출 페이지 개수 )
+        PageInfo<Movie> pageInfo = new PageInfo<Movie>(list, 5);
+        return pageInfo;
+    }
+
+
+
+    @Override
+    public Movie select(String id) throws Exception {
+        Movie movie = movieMapper.select(id);
+        return movie;
+    }
+
+    @Override
+    public int update(Movie movie) throws Exception {
+        int result = movieMapper.update(movie);
+        return result;
+    }
+
+    
     
 }
