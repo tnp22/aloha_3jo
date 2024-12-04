@@ -58,22 +58,22 @@ public class FileServiceImpl implements FileService {
     public int delete(String id) throws Exception {
         // 1️⃣ 파일 시스템의 파일 삭제
         Files file = select(id);
-        // String filePath = file.getFilePath();
+        String filePath = file.getUrl();
 
-        // File deleteFile = new File(filePath);
-        // // 파일 존재 여부 확인
-        // if( !deleteFile.exists() ) {
-        //     log.error("파일이 존재하지 않습니다.");
-        //     log.error("filePath : " + filePath);
-        //     return 0;
-        // }
+        File deleteFile = new File(filePath);
+        // 파일 존재 여부 확인
+        if( !deleteFile.exists() ) {
+            log.error("파일이 존재하지 않습니다.");
+            log.error("filePath : " + filePath);
+            return 0;
+        }
         int result = 0;
-        // if( deleteFile.delete() ) {
-        //     log.info("[FS] 파일 삭제 성공");
-        //     // 2️⃣ DB 파일 정보 삭제
-        //     result = fileMapper.delete(id);
-        //     log.info("[DB] 파일 정보 삭제 성공");
-        // }
+        if( deleteFile.delete() ) {
+            log.info("[FS] 파일 삭제 성공");
+            // 2️⃣ DB 파일 정보 삭제
+            result = fileMapper.delete(id);
+            log.info("[DB] 파일 정보 삭제 성공");
+        }
         return result;
     }
 
@@ -122,12 +122,12 @@ public class FileServiceImpl implements FileService {
         List<Files> deleteFileList = fileMapper.listByParent(file);
 
         // 1️⃣ 파일 시스템 파일 삭제
-        // for (Files f : deleteFileList) {
-            // File deleteFile = new File(f.getFilePath());
-        //     if ( deleteFile.exists() ) {
-        //         deleteFile.delete();
-        //     }
-        // }
+        for (Files f : deleteFileList) {
+            File deleteFile = new File(f.getUrl());
+            if ( deleteFile.exists() ) {
+                deleteFile.delete();
+            }
+        }
         // 2️⃣ 첨부된 파일 전체 한 번에 삭제
         int result = fileMapper.deleteByParent(file);
         log.info(result + "건의 파일 정보가 삭제되었습니다.");

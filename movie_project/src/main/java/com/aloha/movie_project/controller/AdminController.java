@@ -1,5 +1,6 @@
 package com.aloha.movie_project.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.AuthList;
+import com.aloha.movie_project.domain.Files;
+import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.Pagination;
 import com.aloha.movie_project.domain.UserAuth;
 import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.service.AuthListService;
+import com.aloha.movie_project.service.FileService;
+import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.UserService;
 import com.github.pagehelper.PageInfo;
 
@@ -32,6 +38,12 @@ public class AdminController {
     private AuthListService authListService;
 
     @Autowired
+    private MovieService movieService;
+
+    @Autowired
+    private FileService fileService;
+
+    @Autowired
     private UserService userService;
 
 
@@ -41,7 +53,6 @@ public class AdminController {
      * 관리자 페이지
      * @return
      */
-    @Secured("ROLE_SUPER")
     @GetMapping({"" , "/","/cinema/list","/cinema","/cinema/"})
     public String index() {
         log.info("/admin");
@@ -57,6 +68,123 @@ public class AdminController {
     }
 
     /* ------------------------------------- 영화관 끝------------------------------------- */
+
+    /* ------------------------------------- 영화 관련------------------------------------- */
+
+    /**
+     * 영화 리스트
+     * @param model
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/movie/list")
+    public String movieList(Model model
+                      ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+                      ,@RequestParam(name = "size", required = false, defaultValue = "6") Integer size
+                      ,@RequestParam(name = "search", required = false) String search) throws Exception {
+        // 데이터 요청
+        PageInfo<Movie> pageInfo = null;
+        if(search == null || search.equals("")){
+            pageInfo = movieService.list(page, size);
+        }
+        else{
+            pageInfo = movieService.list(page, size, search);
+        }
+        Pagination pagination = new Pagination();
+        pagination.setPage(page);
+        pagination.setSize(size);
+        pagination.setTotal( pageInfo.getTotal());
+
+        // 모델 등록
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("search", search);
+        // 뷰 페이지 지정
+        return "/admin/movie/list";
+    }
+
+
+    /**
+     * 영화 선택
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/movie/select")
+    public String movieSelect(Model model,@RequestParam("id") String id) throws Exception {
+        Movie movie = movieService.select(id);
+        // log.info(movie.toString());
+        model.addAttribute("movie", movie);
+        return "/admin/movie/select";
+    }
+
+    /**
+     * 영화 생성
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/movie/insert")
+    public String movieInsert(Model model) throws Exception {
+
+        return "/admin/movie/insert";
+    }
+
+    /**
+     * 영화 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/movie/insert")
+    public String movieInsert(Model model,
+                              Movie movie) throws Exception {
+        int result = movieService.insert(movie);
+        if(result>0){
+            for (MultipartFile files : movie.getMainFiles()) {
+                Files file = new Files();
+                file.setFile(files);
+                file.setDivision("main");
+                file.setFkTable("movie");
+                file.setFkId(movie.getId());
+    
+                fileService.upload(file);
+            }
+
+            for (MultipartFile stilcut : movie.getStilcuts()) {
+                Files stilfile = new Files();
+                stilfile.setFile(stilcut);
+                stilfile.setDivision("stilcut");
+                stilfile.setFkTable("movie");
+                stilfile.setFkId(movie.getId());
+                fileService.upload(stilfile);
+            }
+            return "redirect:/admin/movie/list";
+        }
+        return "redirect:/admin/movie/list&error";
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /* ------------------------------------- 영화 끝------------------------------------- */
+
 
     /* ------------------------------------- 유저 리스트 관 련------------------------------------- */
 

@@ -10,4 +10,17 @@ public interface MovieService {
     public PageInfo<Movie> movieList(int page, int size);
     public List<Movie> expectList();
     public PageInfo<Movie> expectList(int page, int size);
+    // 조회
+    public Movie select(String id) throws Exception;
+    // 생성
+    public int insert(Movie movie) throws Exception;
+    // 수정
+    public int update(Movie movie) throws Exception;
+    
+    //페이징 목록
+    public PageInfo<Movie> list(int page, int size) throws Exception;
+    // 검색까지
+    public PageInfo<Movie> list(int page, int size,String search) throws Exception;
+    // 권한 조회
+    public List<Movie> list() throws Exception;
 }
