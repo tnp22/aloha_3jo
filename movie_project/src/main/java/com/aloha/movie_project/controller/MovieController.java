@@ -28,13 +28,12 @@ public class MovieController {
     public String movieChart(Model model
     ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
     ,@RequestParam(name = "size", required = false, defaultValue = "8") Integer size
-    ,@RequestParam(name = "tab", required = false, defaultValue = "all") String tab) {
-        if(tab.equals("all")){
+    ,@RequestParam(name = "tab", required = false, defaultValue = "movie") String tab) {
+
             PageInfo<Movie> moviePageInfo = movieService.movieList(page, size);
             PageInfo<Movie> expectPageInfo = movieService.expectList(page, size);
             model.addAttribute("moviePageInfo", moviePageInfo);
             model.addAttribute("expectPageInfo", expectPageInfo);
-        }
         return "/movie/movieChart";
     }
     
