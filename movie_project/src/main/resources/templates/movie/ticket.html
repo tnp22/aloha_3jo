@@ -1,74 +1,177 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>영화 예매</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>영화 예매 페이지</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* 스크롤 박스 스타일 */
+    .scroll {
+      max-height: 200px; /* 스크롤 가능한 높이 */
+      overflow-y: auto; /* 수직 스크롤 활성화 */
+      border: 1px solid #ddd; /* 경계선 */
+      border-radius: 5px; /* 둥근 모서리 */
+      padding: 10px; /* 내부 여백 */
+    }
+
+    /* 스크롤 커스터마이징 */
+    .scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .scroll::-webkit-scrollbar-track {
+      background: #ddd;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+      background: #666;
+    }
+  </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <!-- 선택 섹션 -->
-        <div class="row">
-            <div class="col-2">
-                <h6 class="text-center">지역</h6>
-                <select class="form-select" aria-label="지역 선택">
-                    <option selected>서울</option>
-                    <option value="1">인천</option>
-                    <option value="2">경기</option>
-                    <option value="3">강원</option>
-                    <option value="4">부산</option>
-                </select>
-            </div>
-            <div class="col-3">
-                <h6 class="text-center">극장</h6>
-                <select class="form-select" aria-label="극장 선택">
-                    <option selected>강남</option>
-                    <option value="1">신촌</option>
-                    <option value="2">영등포</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <h6 class="text-center">날짜</h6>
-                <ul class="list-group">
-                    <li class="list-group-item text-center">25일</li>
-                    <li class="list-group-item text-center">26일</li>
-                    <li class="list-group-item text-center bg-primary text-white">28일</li>
-                    <li class="list-group-item text-center">29일</li>
-                </ul>
-            </div>
-            <div class="col-5">
-                <h6 class="text-center">시간</h6>
-                <div class="d-flex flex-wrap">
-                    <button class="btn btn-outline-secondary m-1">9:10</button>
-                    <button class="btn btn-outline-secondary m-1">11:45</button>
-                    <button class="btn btn-outline-secondary m-1">14:20</button>
-                    <button class="btn btn-outline-secondary m-1">16:55</button>
-                    <button class="btn btn-outline-secondary m-1">19:55</button>
-                </div>
-            </div>
+  <div class="container mt-4">
+    <div class="row g-3">
+      <!-- 지역 -->
+      <div class="col-md-3">
+        <h5>지역</h5>
+        <div class="scroll">
+          <ul class="list-group" id="region-list">
+            <li class="list-group-item" data-region="서울">서울</li>
+            <li class="list-group-item" data-region="경기">경기</li>
+            <li class="list-group-item" data-region="부산">부산</li>
+            <li class="list-group-item" data-region="부산">부산</li>
+            <li class="list-group-item" data-region="부산">부산</li>
+            <li class="list-group-item" data-region="부산">부산</li>
+            <li class="list-group-item" data-region="부산">부산</li>
+          </ul>
         </div>
+      </div>
 
-        <!-- 선택된 영화 정보 -->
-        <div class="row mt-4 border rounded p-3">
-            <div class="col-md-2">
-                <img src="movie.jpg" alt="영화 포스터" class="img-fluid rounded">
-            </div>
-            <div class="col-md-8">
-                <h5>모아나 2</h5>
-                <p>극장: 강남 VORA<br>
-                    날짜: 2024.12.18 (화)<br>
-                    시간: 오전 11:55<br>
-                    관람: 일반</p>
-            </div>
-            <div class="col-md-2 d-flex align-items-center">
-                <button class="btn btn-primary w-100">좌석 선택</button>
-            </div>
+      <!-- 극장 -->
+      <div class="col-md-3">
+        <h5>극장</h5>
+        <div class="scroll">
+          <ul class="list-group" id="theater-list">
+            <!-- 동적 생성 -->
+          </ul>
         </div>
+      </div>
+
+      <!-- 날짜 -->
+      <div class="col-md-3">
+        <h5>날짜</h5>
+        <div class="scroll">
+          <ul class="list-group" id="date-list">
+            <!-- 동적 생성 -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- 시간 -->
+      <div class="col-md-3">
+        <h5>시간</h5>
+        <div id="time-container" class="scroll">
+          <!-- 동적 생성 -->
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 지역별 극장 데이터
+    const regionTheaterData = {
+      "서울": ["강남", "홍대", "종로"],
+      "경기": ["수원", "안양", "부천"],
+      "부산": ["해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동"],
+    };
+
+    // 극장별 날짜 데이터
+    const theaterDateData = {
+      "강남": ["2024-12-25", "2024-12-26"],
+      "홍대": ["2024-12-27", "2024-12-28"],
+      "종로": ["2024-12-29", "2024-12-30"],
+      "수원": ["2024-12-25", "2024-12-26"],
+      "안양": ["2024-12-27", "2024-12-28"],
+      "부천": ["2024-12-29", "2024-12-30"],
+      "해운대": ["2024-12-25", "2024-12-26"],
+      "서면": ["2024-12-27", "2024-12-28"],
+      "남포동": ["2024-12-29", "2024-12-30"]
+    };
+
+    // 날짜별 시간 데이터
+    const dateTimeData = {
+      "2024-12-25": ["09:10", "12:00", "14:30"],
+      "2024-12-26": ["10:00", "13:00", "15:45"],
+      "2024-12-27": ["09:30", "11:15", "16:00"],
+      "2024-12-28": ["08:45", "12:20", "18:30"],
+      "2024-12-29": ["09:00", "13:30", "20:00"],
+      "2024-12-30": ["10:10", "14:00", "19:45"]
+    };
+
+    // DOM 요소
+    const regionList = document.getElementById("region-list");
+    const theaterList = document.getElementById("theater-list");
+    const dateList = document.getElementById("date-list");
+    const timeContainer = document.getElementById("time-container");
+
+    // 지역 클릭 이벤트
+    regionList.addEventListener("click", function (e) {
+      const region = e.target.getAttribute("data-region");
+      if (!region) return;
+
+      // 극장 리스트 업데이트
+      theaterList.innerHTML = "";
+      regionTheaterData[region].forEach(theater => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = theater;
+        li.setAttribute("data-theater", theater);
+        theaterList.appendChild(li);
+      });
+
+      // 초기화
+      dateList.innerHTML = "";
+      timeContainer.innerHTML = "";
+    });
+
+    // 극장 클릭 이벤트
+    theaterList.addEventListener("click", function (e) {
+      const theater = e.target.getAttribute("data-theater");
+      if (!theater) return;
+
+      // 날짜 리스트 업데이트
+      dateList.innerHTML = "";
+      theaterDateData[theater].forEach(date => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = date;
+        li.setAttribute("data-date", date);
+        dateList.appendChild(li);
+      });
+
+      // 초기화
+      timeContainer.innerHTML = "";
+    });
+
+    // 날짜 클릭 이벤트
+    dateList.addEventListener("click", function (e) {
+      const date = e.target.getAttribute("data-date");
+      if (!date) return;
+
+      // 시간 리스트 업데이트
+      timeContainer.innerHTML = "";
+      const times = dateTimeData[date] || [];
+      times.forEach(time => {
+        const button = document.createElement("button");
+        button.className = "btn btn-outline-primary m-1";
+        button.textContent = time;
+        timeContainer.appendChild(button);
+      });
+    });
+  </script>
 </body>
 </html>
