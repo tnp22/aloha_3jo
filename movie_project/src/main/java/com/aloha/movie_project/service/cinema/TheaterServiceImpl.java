@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.aloha.movie_project.domain.Cinema;
 import com.aloha.movie_project.domain.Theater;
 import com.aloha.movie_project.domain.UserAuth;
-import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.mapper.CinemaMapper;
 import com.aloha.movie_project.mapper.TheaterMapper;
 import com.github.pagehelper.PageHelper;

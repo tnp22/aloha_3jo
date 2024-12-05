@@ -29,18 +29,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where m.id = #{id}
     </select>
 
-    <!-- 영화 생성 -->
+    <!-- 생성 -->
     <insert id="insert">
         INSERT INTO `theater` (`id`,`name`,`cinema_id`,`map`)
         VALUES ( #{id},#{name}, #{cinemaId}, #{map})
     </insert>
 
-    <!-- 영화 정보 수정 -->
+    <!-- 정보 수정 -->
     <update id="update">
         UPDATE `theater`
-           SET id = #{id}
-              ,cinema_id = #{cinemaId}
-              ,area = #{area}
+           SET name = #{name}
               ,map = #{map}
         WHERE id = #{id}
     </update>

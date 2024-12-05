@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,20 +18,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.AuthList;
 import com.aloha.movie_project.domain.Cinema;
-import com.aloha.movie_project.domain.CustomUser;
 import com.aloha.movie_project.domain.FileText;
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.Pagination;
 import com.aloha.movie_project.domain.Theater;
+import com.aloha.movie_project.domain.TheaterList;
 import com.aloha.movie_project.domain.UserAuth;
 import com.aloha.movie_project.domain.Users;
-import com.aloha.movie_project.domain.addMap;
 import com.aloha.movie_project.service.AuthListService;
 import com.aloha.movie_project.service.FileService;
 import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.UserService;
 import com.aloha.movie_project.service.cinema.CinemaService;
+import com.aloha.movie_project.service.cinema.TheaterListService;
 import com.aloha.movie_project.service.cinema.TheaterService;
 import com.github.pagehelper.PageInfo;
 
@@ -62,6 +61,9 @@ public class AdminController {
 
     @Autowired
     private TheaterService theaterService;
+
+    @Autowired
+    private TheaterListService theaterListService;
 
 
     /* ------------------------------------- 영화관 관 련------------------------------------- */
@@ -380,6 +382,65 @@ public class AdminController {
 
 
     /* ------------------------------------- 시어터 끝------------------------------------- */
+
+
+    /* --------------------------------------상영 리스트 -------------------------------- */
+
+
+    /**
+     * 상영 리스트 진입
+     * @return
+     */
+    //해당 아이디 권한 추가 요망
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theaterList/list")
+    public String theaterListList(Model model, @RequestParam("id") String id
+    ,@RequestParam(name = "search", required = false) String search
+    ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+    ) throws Exception {
+        // 데이터 요청
+        PageInfo<TheaterList> pageInfo = null;
+
+        if(search == null || search.equals("")){
+            pageInfo = theaterListService.list(page, size, id);
+        }
+        else
+        {
+            pageInfo = theaterListService.list(page, size, id, search);
+            model.addAttribute("search", search);
+        }
+        
+        
+        // 모델 등록
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("id", id);
+        return "/admin/theaterList/list";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* --------------------------------------상영 리스트 끝 -------------------------------- */
+
+
+
 
 
 

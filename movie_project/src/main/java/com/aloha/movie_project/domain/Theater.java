@@ -1,9 +1,6 @@
 package com.aloha.movie_project.domain;
 
 import java.util.List;
-import java.util.UUID;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
