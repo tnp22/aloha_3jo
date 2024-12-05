@@ -40,8 +40,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by m.release_date desc
     </select>
 
+    <!-- 전체 목록 -->
+    <select id="list" resultMap="MovieMap">
+        SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
+        FROM movie m join files f on m.id = f.fk_id
+        where f.division = "main"
+        order by m.reg_date DESC
+    </select>
+    <!-- 조회 -->
+    <select id="select" resultMap="MovieMap">
+        SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
+        FROM movie m join files f on m.id = f.fk_id
+        where m.id = #{id}
+    </select>
+        <!-- 영화 생성 -->
+    <insert id="insert">
+        INSERT INTO `movie` (`id`,`title`,`content`,`type`,release_date,reg_date,upd_date)
+        VALUES ( #{id}, #{title}, #{content}, #{type}, #{releaseDate}, now(), now())
+    </insert>
+        <!-- 검색 목록 -->
+    <select id="search" parameterType="String" resultMap="MovieMap">
+        SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
+        FROM movie m join files f on m.id = f.fk_id
+        WHERE (m.title LIKE CONCAT('%', #{keyword}, '%') OR m.content LIKE CONCAT('%', #{keyword}, '%')
+                OR m.type LIKE CONCAT('%', #{keyword}, '%')) and f.division = 'main'
+    </select>
 
+    <!-- 영화 상세보기 스틸컷 리스트 -->
+    <select id="stilList" resultType="Files">
+        select * from files where fk_id=#{id} and fk_table='movie' and division = 'stilcut'
+    </select>
 
-
-
-</mapper>
+    <select id="reviewList" resultType="ReviewInfo">
+        select u.username, f.id, e.content, a.rating_value 
+        from rating a, review e, users u, files f 
+        where a.review_id = e.id and e.user_id = u.id and u.id = f.fk_id and f.division = 'profile' and e.movie_id = #{id}
+    </select>
+    <select id="movieInfo" resultMap="MovieMap">
+        SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
+        FROM movie m join files f on m.id = f.fk_id
+        where m.id = #{id} and f.division='main'
+    </select>
+</mapper> 

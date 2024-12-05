@@ -41,6 +41,7 @@
     object-fit: cover;
 }
 .nav-tabs .nav-link{
+    color: black;
     font-weight: normal;
     border: none;
 }
@@ -51,4 +52,31 @@
 .pagination {
     justify-content: center;
     margin-top: 20px;
+}
+.page {
+    color: gray;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page:hover {
+    color: #5a379e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.page.active {
+    color: #5a379e;
+    font-weight: bold;
+}
+
+.icon{
+    fill: gray;
+    transition: fill 0.3s;
+}
+
+.icon:hover{
+    fill: #5a379e;
+    transition: fill 0.3s;
 }

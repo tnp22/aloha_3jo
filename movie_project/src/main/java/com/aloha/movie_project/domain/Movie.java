@@ -1,6 +1,7 @@
 package com.aloha.movie_project.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,7 @@ public class Movie {
     private Date regDate;
     private Date updDate;
     private Files files;
+    private List<Files> fileList;
 
     private MultipartFile[] mainFiles;
     private MultipartFile[] stilcuts;
