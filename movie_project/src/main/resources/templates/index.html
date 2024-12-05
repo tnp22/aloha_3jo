@@ -50,10 +50,10 @@
                                 <div class="image-container">
                                     <img th:src="|/img?id=${movie.files.id}|">
                                     <div class="image-overlay">
-                                        <a href="|/movieinfo?id=${movie.id}|" class="info-btn">상세보기</a>
+                                        <a th:href="|/movie/movieInfo?id=${movie.id}|" class="info-btn">상세보기</a>
                                         <br>
                                         <br>
-                                        <a href="|/reserve?id=${movie.id}|" class="reserve-btn">예매하기</a>
+                                        <a th:href="|/reserve?id=${movie.id}|" class="reserve-btn">예매하기</a>
                                     </div>
                                 </div>
                                 <p class="text-center mt-2" th:text="${movie.title}"></p>
@@ -73,10 +73,10 @@
                                 <div class="image-container">
                                     <img th:src="|/img?id=${expect.files.id}|">
                                     <div class="image-overlay">
-                                        <a href="|/movieinfo?id=${expect.id}|" class="info-btn">상세보기</a>
+                                        <a th:href="|/movie/movieInfo?id=${expect.id}|" class="info-btn">상세보기</a>
                                         <br>
                                         <br>
-                                        <a href="|/reserve?id=${expect.id}|" class="reserve-btn">예매하기</a>
+                                        <a th:href="|/reserve?id=${expect.id}|" class="reserve-btn">예매하기</a>
                                     </div>
                                 </div>
                                 <p class="text-center mt-2" th:text="${expect.title}"></p>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.aloha.movie_project.mapper.CastMapper">
+
+    <resultMap id="CastMap" type="Cast">
+        <id property="no" column="no" />
+        <result property="id" column="id" />
+        <result property="movieId" column="movie_id" />
+        <result property="rule" column="rule" />
+        <result property="name" column="name" />
+
+        <association property="files" javaType="Files">
+            <id property="no" column="file_no" />
+            <result property="id" column="file_id" />
+            <result property="fkId" column="fk_id"/>
+            <result property="fkTable" column="fk_table"/>
+            <result property="division" column="division"/>
+            <result property="url" column="url"/>
+        </association>
+    </resultMap>
+
+    <select id="castList" resultMap="CastMap">
+        SELECT c.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
+        FROM `cast` c join files f on c.id = f.fk_id
+        where c.movie_id = #{id}
+    </select>
+</mapper> 

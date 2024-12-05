@@ -1,4 +1,6 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+a { text-decoration: none; color: black;}
+*{font-family: 'Noto Sans KR', sans-serif;}
 .navbar {
     border-bottom: 2px solid #583BBF; 
 }
@@ -51,7 +53,6 @@
     gap: 10px;
 }
 .search-input {
-    flex: 1;
     max-width: 300px;
 }
 footer {
@@ -77,5 +78,7 @@ footer {
 .footer-info p{
     margin-bottom: 1px;
 }
-a { text-decoration: none; color: black;}
-*{font-family: 'Noto Sans KR', sans-serif;}
+.btn-search{
+    border: none;
+    background-color: white;
+}
