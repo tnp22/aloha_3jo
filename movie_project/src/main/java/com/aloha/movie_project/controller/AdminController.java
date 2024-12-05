@@ -1,6 +1,7 @@
 package com.aloha.movie_project.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -10,19 +11,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.AuthList;
 import com.aloha.movie_project.domain.Cinema;
 import com.aloha.movie_project.domain.CustomUser;
+import com.aloha.movie_project.domain.FileText;
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.Pagination;
 import com.aloha.movie_project.domain.Theater;
 import com.aloha.movie_project.domain.UserAuth;
 import com.aloha.movie_project.domain.Users;
+import com.aloha.movie_project.domain.addMap;
 import com.aloha.movie_project.service.AuthListService;
 import com.aloha.movie_project.service.FileService;
 import com.aloha.movie_project.service.MovieService;
@@ -266,15 +271,82 @@ public class AdminController {
         PageInfo<Theater> pageInfo = null;
 
         pageInfo = theaterService.list(page, size, id);
-
+        
         // 모델 등록
         model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("cinema", cinemaService.select(id));
         model.addAttribute("search", id);
         return "/admin/theater/list";
     }
 
+    /**
+     * 상영관 생성 진입
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theater/insert")
+    public String theaterInsert(Model model,@RequestParam("id") String id,
+                    @RequestParam(name = "fileName", required = false) String fileName) throws Exception {
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("UUID", UUID.randomUUID().toString());
+        model.addAttribute("fileName", fileName);
+        return "/admin/theater/insert";
+    }
 
 
+    FileText ft = new FileText();
+
+    /**
+     * 시네마 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @ResponseBody
+    @PostMapping("/theater/insert")
+    public String theaterInsert(Model model,
+                              @RequestBody Theater theater) throws Exception {
+        theater.setMap(theater.getId());
+        int rs = theaterService.insert(theater);
+
+        /*****----------------------------------------------- */
+        theater.setMapSize(theater.getX() * theater.getY());
+
+        log.info("*******맵 : " + theater);
+
+        // 맵 위치 확인 로직 예시
+        List<List<String>> mapData = theater.getMapData();
+        // log.info("맵 위치 3.0 : " + mapData.get(3).get(0)); //출력결과 기본값 D_1 (4번째줄 첫번째값)
+
+        // 2차원 리스트를 문자열로 변환
+        StringBuilder sb = new StringBuilder();
+        for (List<String> row : mapData) {
+            if (sb.length() > 0) {
+                sb.append("\n"); // 행 구분자 추가
+            }
+            sb.append(String.join(",", row)); // 내부 리스트를 문자열로 변환
+        }
+        String result = sb.toString();
+
+        String path = "C:\\upload\\test"; // 파일 저장 경로
+        String fileName = theater.getId();
+        String fileName_1 = fileName+".txt"; // 파일 이름
+
+        // text 파일로 저장
+        ft.write(path, fileName_1, result);
+
+
+    /*****----------------------------------------------- */
+
+        if(rs>0){
+            return "SUCCESS";
+        }
+        return "FAIL";
+    }
 
 
 

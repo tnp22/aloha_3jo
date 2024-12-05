@@ -46,6 +46,7 @@ CREATE TABLE `cinema` (
 CREATE TABLE `theater` (
 	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`id`	varchar(200)	NOT NULL,
+	`name` VARCHAR(200) not null,
 	`cinema_id`	varchar(100)	NOT NULL,
 	`map`	text	NOT NULL,
     FOREIGN KEY (`cinema_id`) REFERENCES `cinema`(id) ON DELETE RESTRICT
