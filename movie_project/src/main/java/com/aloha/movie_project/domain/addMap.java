@@ -14,6 +14,8 @@ public class addMap {
     private int x;
     private int y;
 
+    private String fileName;
+
     private int mapSize;
 
     private List<List<String>> mapData;
