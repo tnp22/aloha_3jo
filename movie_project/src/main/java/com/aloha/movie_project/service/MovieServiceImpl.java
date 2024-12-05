@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Movie;
+import com.aloha.movie_project.domain.ReviewInfo;
 import com.aloha.movie_project.mapper.MovieMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -96,6 +98,24 @@ public class MovieServiceImpl implements MovieService {
     public int update(Movie movie) throws Exception {
         int result = movieMapper.update(movie);
         return result;
+    }
+
+    @Override
+    public List<Files> stilList(String id) throws Exception {
+        List<Files> stilList = movieMapper.stilList(id);
+        return stilList;
+    }
+
+    @Override
+    public List<ReviewInfo> reviewList(String id) throws Exception {
+        List<ReviewInfo> reviewList = movieMapper.reviewList(id);
+        return reviewList;
+    }
+
+    @Override
+    public Movie movieInfo(String id) throws Exception {
+        Movie movie = movieMapper.movieInfo(id);
+        return movie;
     }
 
     

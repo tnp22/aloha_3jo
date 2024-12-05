@@ -23,6 +23,7 @@ public class Movie {
     private Date regDate;
     private Date updDate;
     private Files files;
+    private List<Files> fileList;
 
     private List<Files> filesList;
 
