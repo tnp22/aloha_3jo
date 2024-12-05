@@ -40,6 +40,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by m.release_date desc
     </select>
 
+    <resultMap id="MovieMap_select" type="Movie">
+        <id property="no" column="no" />
+        <result property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="type" column="type" />
+        <result property="releaseDate" column="release_date" />
+        <result property="regDate" column="reg_date" />
+        <result property="updDate" column="upd_date" />
+
+        <collection property="filesList" resultMap="files_select"></collection>
+    </resultMap>
+
+    
+    <resultMap type="Files" id="files_select">
+        <id property="no" column="file_no" />
+        <result property="id" column="file_id" />
+        <result property="fkId" column="fk_id"/>
+        <result property="fkTable" column="fk_table"/>
+        <result property="division" column="division"/>
+        <result property="url" column="url"/>
+    </resultMap>
+
+
     <!-- 전체 목록 -->
     <select id="list" resultMap="MovieMap">
         SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
@@ -47,18 +71,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where f.division = "main"
         order by m.reg_date DESC
     </select>
-    <!-- 조회 -->
-    <select id="select" resultMap="MovieMap">
+
+    <!-- 사진 하나 조회 -->
+    <select id="select_a" resultMap="MovieMap">
         SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
         FROM movie m join files f on m.id = f.fk_id
         where m.id = #{id}
     </select>
-        <!-- 영화 생성 -->
+
+    <!-- 사진 여러 개 조회 -->
+    <select id="select" resultMap="MovieMap_select">
+        SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
+        FROM movie m LEFT OUTER JOIN files f on m.id = f.fk_id
+        where m.id = #{id}
+    </select>
+
+    <!-- 영화 생성 -->
     <insert id="insert">
         INSERT INTO `movie` (`id`,`title`,`content`,`type`,release_date,reg_date,upd_date)
         VALUES ( #{id}, #{title}, #{content}, #{type}, #{releaseDate}, now(), now())
     </insert>
-        <!-- 검색 목록 -->
+
+
+    <!-- 영화 정보 수정 -->
+    <update id="update">
+        UPDATE `movie`
+           SET title = #{title}
+              ,content = #{content}
+              ,type = #{type}
+              ,release_date = #{releaseDate}
+              ,upd_date = now()
+        WHERE id = #{id}
+    </update>
+
+    
+
+    <!-- 검색 목록 -->
     <select id="search" parameterType="String" resultMap="MovieMap">
         SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
         FROM movie m join files f on m.id = f.fk_id
