@@ -20,9 +20,9 @@ public interface MovieMapper {
     public int update(Movie movie) throws Exception;
     // 삭제
 
-    // 권한 조회
+    // 리스트 조회
     public List<Movie> list() throws Exception;
 
-    // 권한 검색 조회
+    // 리스트 검색 조회
     public List<Movie> search(String search) throws Exception;
 }

@@ -15,8 +15,6 @@ public interface FileMapper {
 
     public int insert(Files file) throws Exception;
 
-    public int update(Files file) throws Exception;
-
     public int delete(String id) throws Exception;
 
     // 부모 테이블 기준 파일 목록

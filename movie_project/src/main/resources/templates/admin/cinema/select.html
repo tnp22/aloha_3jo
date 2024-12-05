@@ -25,8 +25,8 @@
             <div class="col-md-2">
                 <div style="margin-top: 100px; font-size: 26px;">
                     <ul>
-                        <li><a href="/admin/cinema/list" >영화관</a></li>
-                        <li><a href="/admin/movie/list" style="color: blue;">영화관리</a></li>
+                        <li><a href="/admin/cinema/updateList" style="color: blue;">영화관 관리</a></li>
+                        <li><a href="/admin/movie/list" >영화관리</a></li>
                         <li class="mainLi">
                             <a href="/admin/userManager/user/list">유저관리</a>
                             <nav class="subLi">
@@ -40,10 +40,10 @@
             </div>
             <div class="col-md-8">
                 <br>
-                <h1>영화 조회</h1>
+                <h1>영화관 조회</h1>
                 <br>
                 <div style="display: flex;">
-                    <th:block th:each="files : ${movie.filesList}">
+                    <th:block th:each="files : ${cinema.filesList}">
                         <th:block th:if="${files.division == 'main'}">
                             <img class="w-25 mx-auto" style="overflow: hidden;" th:src="|/img?id=${files.id}|" th:alt="${files.id}">
                         </th:block>
@@ -51,61 +51,32 @@
                     <table style="width: 100%;">
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">
-                                제목
+                                지역
                             </th>
                             <td>
-                                <li th:text="${movie.title}"></li>
+                                <li th:text="${cinema.area}"></li>
                             </td>
                         </tr>
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">내용</th>
                             <td>
-                                <li th:text="${movie.content}"></li>
+                                <li th:text="${cinema.areaSub}"></li>
                             </td>
                         </tr>
                         <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">장르</th>
+                            <th style="padding: 12px 0; width: 20%; text-align: center;">권한</th>
                             <td>
-                                <li th:text="${movie.type}"></li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">개봉일</th>
-                            <td>
-                                <li th:text="${movie.releaseDate}"></li>
-                            </td>
-                        </tr>
-                        <!-- <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">권한 목록</th>
-                            <td>
-                                <li>
-                                    <th:block th:each="sub, iterStat : ${user.authList}">
-                                        <span th:text="${sub.auth}"></span>
-                                        <span th:if="!${iterStat.last}">,</span>
-                                    </th:block>
-                                </li>
-                            </td>
-                        </tr> -->
-                        <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">기입 일자</th>
-                            <td>
-                                <li th:text="${movie.regDate}"></li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">수정 일자</th>
-                            <td>
-                                <li th:text="${movie.updDate}"></li>
+                                <li th:text="${cinema.auth}"></li>
                             </td>
                         </tr>
                     </table>
                 </div>
                 <br><br><br>
                 <div>
-                    <h4>스틸 컷</h4>
+                    <h4>풍경</h4>
                     <div style="display: grid; grid-template-columns: repeat(3,1fr); column-gap: 30px; row-gap: 30px;">
-                        <th:block th:each="files : ${movie.filesList}">
-                            <th:block th:if="${files.division == 'stilcut'}">
+                        <th:block th:each="files : ${cinema.filesList}">
+                            <th:block th:if="${files.division == 'main'}">
                                 <img class="w-100 mx-auto" style="overflow: hidden;" th:src="|/img?id=${files.id}|" th:alt="${files.id}">
                             </th:block>
                         </th:block>
@@ -113,8 +84,8 @@
                 </div>
                 <br><br>
                 <div style="display: flex; justify-content: center;">
-                    <a href="/admin/movie/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
-                    <a th:href="|/admin/movie/update?id=${movie.id}|" th:text="수정" class="a_butten"></a>
+                    <a href="/admin/cinema/updateList" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                    <a th:href="|/admin/cinema/update?id=${cinema.id}|" th:text="수정" class="a_butten"></a>
                 </div>
             </div>
             <div class="col-md-2">
