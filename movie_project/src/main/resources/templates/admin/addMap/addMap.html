@@ -553,9 +553,9 @@ justify-content: center;  /* 가로 가운데 정렬 */
                         }
                     }
                 }
-                if(value1 == '통로'){
+                if(value1 == '통로' && mapvalue[0] != 'null'){
                     map.value = mapvalue[0]+"_"+value1;
-                    map.textContent = '빈공간';
+                    map.textContent = mapvalue[0];
                 } else if(mapvalue == 'null'){
                     map.value = mapvalue[0];
                     map.textContent = '빈공간';

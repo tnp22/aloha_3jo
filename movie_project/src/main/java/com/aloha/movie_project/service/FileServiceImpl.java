@@ -43,12 +43,6 @@ public class FileServiceImpl implements FileService {
         return result;
     }
 
-    @Override
-    public int update(Files file) throws Exception {
-        int result = fileMapper.update(file);
-        return result;
-    }
-
     /**
      * 파일 삭제
      * 1️⃣ 파일 시스템의 파일 삭제
@@ -83,6 +77,13 @@ public class FileServiceImpl implements FileService {
 
         //파일 정보
         MultipartFile mf = file.getFile();
+
+            // 빈 파일인지 확인
+        if (mf == null || mf.isEmpty()) {
+            log.warn("업로드된 파일이 비어 있습니다.");
+            return false; // 파일이 없거나 비어있으면 저장하지 않고 false 반환
+        }
+
         String origninName = mf.getOriginalFilename();
         long fileSize = mf.getSize();
         byte[] fileData = mf.getBytes();

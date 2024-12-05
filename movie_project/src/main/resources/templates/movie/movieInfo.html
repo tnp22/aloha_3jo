@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="/css/movieInfo.css">
+</head>
+<body layout:fragment="content">
+    <div class="container py-4">
+        <div class="movie-header d-flex align-items-start gap-4">
+            <img th:src="|/img?id=${movie.files.id}|" alt="Moana 2" class="img-fluid" style="width: 200px;">
+            <div style="width: 100%;">
+                <h1 th:text="${movie.title}"></h1>
+                <p th:text="|개봉일 ${ #dates.format( movie.releaseDate, 'yyyy-MM-dd' ) }|"></p>
+                <hr>
+                <p th:text="|장르 : ${movie.type}|"></p>
+                <p>
+                    감독 : 
+                    <span th:each="cast, iter : ${castList}" 
+                          th:if="${cast.rule == 'director'}"
+                          th:text="${cast.name}"></span>
+                </p>
+                <p>
+                    배우 :
+                    <span th:each="cast, iter : ${castList}" 
+                          th:if="${cast.rule == 'actor'}"
+                          th:text="${cast.name} + ${!iter.last ? ', ' : ''}"></span>
+                </p>
+                <button class="btn btn-purple">예매하기</button>
+            </div>
+        </div>
+
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#info">주요 정보</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#cast">감독/출연</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#stills">스틸컷</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#reviews">평점/리뷰</a>
+            </li>
+        </ul>
+
+        <div class="tab-content py-4">
+
+            <div class="tab-pane fade show active" id="info" style="width: 400px;">
+                <h3 class="ms-3 mb-4">주요 정보</h3>
+                <p th:text="${movie.content}" style="word-wrap: break-word;"></p>
+            </div>
+
+            <div class="tab-pane fade" id="cast">
+                <h3 class="ms-3 mb-4">감독 / 출연</h3>
+                <div class="row">
+                    <h4>감독</h4>
+                    <div class="mb-4">
+                        <th:block th:each="cast : ${castList}" th:if="${cast.rule == 'director'}">
+                            <div class="col-md-4 text-center d-flex">
+                                <img th:src="|/img?id=${cast.files.id}|" class="thumbnail">
+                                <p th:text="${cast.name}" class="align-content-end ms-3" style="margin-bottom: 0;"></p>
+                            </div>
+                        </th:block>
+                    </div>
+                    <h4>출현</h4>
+                    <th:block th:each="cast : ${castList}" th:if="${cast.rule == 'actor'}">
+                        <div class="col-md-4 text-center d-flex">
+                            <img th:src="|/img?id=${cast.files.id}|" class="thumbnail">
+                            <p th:text="${cast.name}" class="align-content-end ms-3" style="margin-bottom: 0;"></p>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="stills">
+                <h3 class="ms-3 mb-4">스틸컷</h3>
+                <div class="row g-3">
+                    <th:block th:each="stil : ${stilList}">
+                    <div class="col-md-3">
+                        <img th:src="|/img?id=${stil.id}|" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="reviews">
+                <h3 class="ms-3 mb-4">평점 / 리뷰</h3>
+                <div class="row g-6">
+                    <th:block th:each="review : ${reviewList}">
+                        <div class="col-md-6">
+                            <div class="review-section">
+                                <div class="review-user">
+                                    <img th:src="|/img?id=${review.id}|" alt="User 1">
+                                    <p th:text="${review.username}"></p>
+                                    <p th:text="${review.ratingValue}"></p>
+                                    <p th:text="${review.content}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
