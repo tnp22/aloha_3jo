@@ -15,7 +15,7 @@
             display: none;
         }
     </style>
-    <!-- <script src="/script/adminScript.js"></script> -->
+    <script src="/script/adminScript.js"></script>
 </head>
 <body>
     <div class="container-fluid" style="height: 98vh;">
@@ -43,29 +43,70 @@
                 </div>
             </div>
             <div class="col-md-8" style="text-align: center; border: 1px solid black; padding: 20px;">
-                <h1>영화관 관리</h1>
+                <h1>영화관</h1>
                 <br>
                 <div class="row">
                     <div style="display: grid; grid-template-columns: repeat(3,1fr); 
                     column-gap: 20px; row-gap: 20px;">
-                        <th:block th:each="i : ${#numbers.sequence(1, 6)}">
-                            <div class="card">
-                                <img class="mx-auto" src="" alt="상영관 사진">
-                                <span class="mx-auto" th:text="'상영관 ' + ${i}">상영관 이름</span>
+                        <th:block th:each="cinema : ${pageInfo.list}">
+                            <div class="card" style="border: none; font-size: 20px;">
+                                <a th:href="|/admin/cinema/enter?id=${cinema.id}|"><img class="w-50 mx-auto" style="overflow: hidden;" th:src="|/img?id=${cinema.files.id}|" th:alt="${cinema.files}"></a>
+                                <a th:href="|/admin/cinema/enter?id=${cinema.id}|"><span class="mx-auto" th:text="|${cinema.area} ${cinema.areaSub}점|"></span></a>
                             </div>
                         </th:block>
                     </div>
-                    <div style="border: 1px solid black; text-align: center; margin-top: 30px;">
-                        <span>
-                            <a href=""><<<<<<<<>>>>>>>>>></a>
-                        </span>
+                    <div class="container mt-4">
+                        <form action="/admin/cinema/list" class="d-flex" method="get">
+                          <input class="form-control me-3" style="width: 90%;" name="search" type="search" th:value="${search}" placeholder="검색어를 입력하세요" aria-label="Search">
+                          <input class="btn btn-outline-success" type="submit" value="검색"></input>
+                        </form>
                     </div>
+                    <!-- 페이지네이션 -->
+                    <!-- ⚡ 유동적인 페이지 번호 출력 (pagehelper)  -->
+                    <th:block th:if="${pageInfo.pages > 0}">
+                    <div class="pagination flex justify-content-center">
+                        <nav class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:if="${pageInfo.pageNum > 1}">
+                                <a class="page-link" th:href="@{/admin/cinema/list(page=1, search=${search}, size=${pageInfo.pageSize})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
+                                    <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
+                                </svg>
+                                </a>
+                            </li>
+                            <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
+                                <a class="page-link" th:href="@{/admin/cinema/list(page=${pageInfo.prePage},search=${search}, size=${pageInfo.pageSize})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor"><path d="M34.52 239l194.34-194.34c9.37-9.37 24.57-9.37 33.94 0l22.34 22.34c9.37 9.37 9.37 24.57 0 33.94L128.97 256l156.17 156.17c9.37 9.37 9.37 24.57 0 33.94l-22.34 22.34c-9.37 9.37-24.57 9.37-33.94 0L34.52 273c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(pageInfo.navigateFirstPage, pageInfo.navigateLastPage)}">
+                                <a  th:href="@{/admin/cinema/list(page=${i},search=${search}, size=${pageInfo.pageSize})}" 
+                                    th:text="${i}"
+                                    class="page-link"
+                                    th:classappend="${pageInfo.pageNum == i} ? 'active' : ''"></a>
+                            </li>
+                            <li class="page-item" th:if="${pageInfo.hasNextPage}">
+                                <a class="page-link" th:href="@{/admin/cinema/list(page=${pageInfo.nextPage},search=${search}, size=${pageInfo.pageSize})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor"><path d="M285.48 273l-194.34 194.34c-9.37 9.37-24.57 9.37-33.94 0l-22.34-22.34c-9.37-9.37-9.37-24.57 0-33.94L191.03 256 34.86 99.83c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L285.48 239c9.37 9.37 9.37 24.57 0 33.94z"/></svg>
+                                </a>
+                            </li>
+                            <li class="page-item" th:if="${pageInfo.pageNum < pageInfo.pages}">
+                                <a class="page-link" th:href="@{/admin/cinema/list(page=${pageInfo.pages},search=${search}, size=${pageInfo.pageSize})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+                                    <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
+                                </svg>
+                                </a>
+                            </li>
+                        </ul>
+                        </nav>
+                    </div>
+                    </th:block>              
                 </div>
             </div>
             <div class="col-md-2" style="border: 1px solid black;">
                 <div style="margin-top: 100px; font-size: 26px;">
                     <ul class="mt-5">
-                        <li><a href="/admin/cinema/insert">영화관 생성</a></li>
+                        <li><a href="/admin/cinema/updateList">영화관 관리</a></li>
                     </ul>
                 </div>
             </div>

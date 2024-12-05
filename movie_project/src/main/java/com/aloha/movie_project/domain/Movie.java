@@ -25,8 +25,11 @@ public class Movie {
     private Files files;
     private List<Files> fileList;
 
+    private List<Files> filesList;
+
     private MultipartFile[] mainFiles;
     private MultipartFile[] stilcuts;
+    private String FileId;
 
     public Movie(){
         this.id = UUID.randomUUID().toString();

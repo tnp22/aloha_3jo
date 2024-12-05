@@ -29,18 +29,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         )
     </insert>
 
-    <!-- 수정(수정안됨) -->
-    <update id="update">
-        UPDATE files
-           SET file_name = #{fileName}
-              ,file_path = #{filePath}
-              ,file_size = #{fileSize}
-              ,type = #{type}
-              ,parent_table = #{parentTable}
-              ,parent_no = #{parentNo}
-        WHERE id = #{id}
-    </update>
-
     <!-- 삭제 -->
 	<delete id="delete">
         DELETE FROM files

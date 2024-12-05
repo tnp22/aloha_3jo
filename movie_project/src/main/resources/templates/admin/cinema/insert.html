@@ -43,45 +43,39 @@
                 <h1> 영화관 생성</h1>
                 <br>
                 <div>
-                    <form action="/admin/cinema/insert" method="post">
+                    <form action="/admin/cinema/insert" method="post" enctype="multipart/form-data">
+                        <!-- CSRF TOKEN -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <table style="width: 100%;">
-                            <tr>
-                                <th style="padding: 12px 0; width: 20%; text-align: center;">
-                                    영화관 이름
-                                </th>
-                                <td>
-                                    <li><input style="width: 90%;"
-                                         type="text" name="cinemaName" id=""/></li>
-                                </td>
-                            </tr>
                             <tr>
                                 <th style="padding: 12px 0; width: 20%; text-align: center;">지역</th>
                                 <td>
                                     <li><input style="width: 90%;"
-                                        type="text" name="cinemaName" id=""/></li>
+                                        type="text" name="area" id=""/></li>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="padding: 12px 0; width: 20%; text-align: center;">상세지역</th>
                                 <td>
                                     <li><input style="width: 90%;"
-                                        type="text" name="cinemaName" id=""/></li>
+                                        type="text" name="areaSub" id=""/></li>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="padding: 12px 0; width: 20%; text-align: center;">권한</th>
                                 <td>
-                                    <li>                                                    <select name="auth" id="">
+                                    <li>
+                                    <select name="auth" id="">
                                         <th:block th:each="authL : ${authList}">
                                             <option th:value="${authL.typeName}" th:text="${authL.typeName}"></option>
                                         </th:block>
                                     </select>
-                                </li>
+                                    </li>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="padding: 12px 0; width: 20%; text-align: center;">이미지</th>
-                                <td><input type="file" name="cinemaImage"/></td>
+                                <td><input type="file" name="mainFiles" multiple/></td>
                             </tr>
                         </table>
                         <br>

@@ -12,8 +12,6 @@ public interface FileService {
 
     public int insert(Files file) throws Exception;
 
-    public int update(Files file) throws Exception;
-
     public int delete(String id) throws Exception;
 
     // 파일 업로드
