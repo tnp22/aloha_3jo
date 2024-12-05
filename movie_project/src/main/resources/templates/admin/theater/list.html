@@ -28,16 +28,34 @@
             <div class="col-md-8" style="text-align: center;">
                 <h1 th:text="|${cinema.area} ${cinema.areaSub}점|"></h1>
                 <br>
-                <div class="row">
-                    <div style="display: grid; grid-template-columns: repeat(3,1fr); 
-                    column-gap: 20px; row-gap: 20px;">
+                <div class="container mt-5">
+                    <table class="table table-striped table-hover">
+                      <thead class="table-light">
+                        <tr>
+                          <th scope="col">영화관</th>
+                          <th scope="col">이름</th>
+                          <th scope="col">비고</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                         <th:block th:each="theater : ${pageInfo.list}">
-                            <div class="card" style="border: none; font-size: 20px;">
-                                <a th:href="|/admin/theater/select?id=${theater.id}|"><span class="mx-auto" th:text="${theater.name}"></span></a>
-                            </div>
+                            <tr style="line-height: 40px;">
+                                <td th:text="|${cinema.area} ${cinema.areaSub}점|"></td>
+                                <td th:text="${theater.name}"></td>
+                                <td> 
+                                <a th:href="|/admin/theater/select?id=${theater.id}|" class="btn btn-primary">조회</a>
+                                </td>
+                              </tr> 
                         </th:block>
-                    </div>
-
+                        <!-- 추가 행 삽입 -->
+                      </tbody>
+                    </table>
+                    <!-- 글 작성 버튼 -->
+                    <!-- <div class="text-end">
+                      <a href="#" class="btn btn-primary">글 작성</a>
+                    </div> -->
+                </div>
+                <div class="row">
                     <!-- <div class="container mt-4">
                         <form action="/admin/theater/list" class="d-flex" method="get">
                           <input class="form-control me-3" style="width: 90%;" name="search" type="search" th:value="${search}" placeholder="검색어를 입력하세요" aria-label="Search">
