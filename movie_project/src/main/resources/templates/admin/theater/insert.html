@@ -475,13 +475,24 @@
 
                 for(var i = 1; i <= x; i++){
                     var map = document.getElementById(ascii2 + count);
+                    var mapvalue = document.getElementById(ascii2 + count).value.split("_");
+
+                    // value 값 추가
+                    map.value = ascii2 + count;
+                    var valueId = ascii2 + count
+                    
+                    // 텍스트 추가
+                    removeNode(map, valueId);
+
+                    // 통로 구분
                     if (map != null) {
-                        // value 값 추가
-                        map.value = ascii2 + count;
-                        var valueId = ascii2 + count
+                        for(let m of mapvalue){
+                            if(m == '통로'){
+                                console.log(mapvalue);
+                                map.value = valueId + "_통로";
+                            }
+                        }
                         
-                        // 텍스트 추가
-                        removeNode(map, valueId);
                         
 
                     } else {
