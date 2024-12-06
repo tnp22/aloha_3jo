@@ -11,6 +11,7 @@ public class Theater {
     private String name;
     private String cinemaId;
     private String map;
+    private int seat;
 
 
     //애드맵

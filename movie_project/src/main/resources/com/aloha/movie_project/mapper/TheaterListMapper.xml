@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <result property="id" column="theater_id" />
             <result property="name" column="theater_name" />
             <result property="map" column="map" />
+            <result property="seat" column="seat" />
         </association>
     
         <association property="movie" javaType="Movie">
@@ -40,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 조회 -->
     <select id="select" resultMap="TheaterMap">
         SELECT tl.*, c.no cinema_no, c.id cinema_id, c.area, c.area_sub
-            , t.no theater_no, t.id theater_id, t.name theater_name, t.map
+            , t.no theater_no, t.id theater_id, t.name theater_name, t.map,t.seat seat
             , m.no movie_no, m.id movie_id, m.title
         FROM 
             theater_list tl
@@ -73,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 검색 목록 -->
     <select id="search" parameterType="Map" resultMap="TheaterMap">
         SELECT tl.*, c.no cinema_no, c.id cinema_id, c.area, c.area_sub
-            , t.no theater_no, t.id theater_id, t.name theater_name, t.map
+            , t.no theater_no, t.id theater_id, t.name theater_name, t.map,t.seat seat
             , m.no movie_no, m.id movie_id, m.title
         FROM 
             theater_list tl
@@ -91,7 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <!-- 검색 목록 -->
     <select id="list" parameterType="String" resultMap="TheaterMap">
         SELECT tl.*, c.no cinema_no, c.id cinema_id, c.area, c.area_sub
-            , t.no theater_no, t.id theater_id, t.name theater_name, t.map
+            , t.no theater_no, t.id theater_id, t.name theater_name, t.map,t.seat seat
             , m.no movie_no, m.id movie_id, m.title
         FROM 
             theater_list tl
@@ -108,7 +109,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 검색 목록 -->
     <select id="timeSearch" parameterType="String" resultMap="TheaterMap">
         SELECT tl.*, c.no cinema_no, c.id cinema_id, c.area, c.area_sub
-            , t.no theater_no, t.id theater_id, t.name theater_name, t.map
+            , t.no theater_no, t.id theater_id, t.name theater_name, t.map,t.seat seat
             , m.no movie_no, m.id movie_id, m.title
         FROM 
             theater_list tl
