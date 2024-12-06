@@ -89,25 +89,80 @@
     </div>
   </div>
 
+  <!-- html로 ticketList 전체 출력 예문 -->
+  <!-- <p th:text="${ticketList}"></p> -->
+
+  <!-- 안에 값 출력 예문 -->
+  <!-- <h1><div th:each="ticket : ${ticketList}"><p th:text="${ticket.theaterName}"></p></div></h1> -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JSON 형식으로 list 안에 값 저장 -->
+  <!-- <script th:inline="javascript">
+    var ticketList = /*[[${ticketList}]]*/ [];
+
+    // 출력(값불러오기) 예문
+    // console.log("리스트 : ", ticketList); // list[] 안에있는 모든값 로그 출력
+    // console.log("리스트 : ", ticketList[0].theaterName); // JSON 데이터 출력 ?관 출력
+    // console.log("리스트 : ", ticketList[1].theaterName); // JSON 데이터 출력 ?관 출력
+  </script> -->
   <script>
+
+    // let Region = [] // 지역 데이터 저장
+    // let Theaters = [] // 극장 데이터 저장
+    // let Date = [] // 날짜 데이터 저장
+    // let Time = [] // 시간 데이터 저장
+
+    // // 지역 데이터 저장
+    // for(var list of ticketList){
+    //   Region.push(list.area);
+    // }
+    // Region = [...new Set(Region)].sort((a, b) => a.localeCompare(b));
+    // console.log(Region);
+
+    // // 지역데이터에 비교해서 극장 데이터 저장
+    // for(var R of Region){
+    //   let Theater = []
+    //   for(var list of ticketList){
+    //     if(R == list.area){
+    //       Theater.push(list.areaSub)
+    //     }
+    //   }
+    //   Theaters.push(Theater);
+    // }
+    // console.log(Theaters)
+
+    // // JSON 저장 로그출력 예시
+    // const regionTheaterData = {};
+    // regionTheaterData[Region[0]] = Theaters;
+    // console.log(regionTheaterData);
+
+
+    /** 저장 예시  **/
     // 지역별 극장 데이터
     const regionTheaterData = {
       "서울": ["강남", "홍대", "종로"],
       "경기": ["수원", "안양", "부천"],
       "부산": ["해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동"],
     };
+    // regionTheaterData = { "지역" : ["극장", "극장", "극장"] }
+
+    // 극장별 날짜 데이터
+    // theaterDateData = { "극장" : ["날짜", "날짜"] }
+
+    // 날짜별 시간 데이터
+    // dateTimeData = { "날짜" :  [ "시간", "시간", "시간" ] }
+    // 지역별 극장 데이터
+
+    
+    // const regionTheaterData = {
+    //   "경기": ["부평"]
+    // };
 
     // 극장별 날짜 데이터
     const theaterDateData = {
-      "강남": ["2024-12-25", "2024-12-26"],
-      "홍대": ["2024-12-27", "2024-12-28"],
-      "종로": ["2024-12-29", "2024-12-30"],
-      "수원": ["2024-12-25", "2024-12-26"],
-      "안양": ["2024-12-27", "2024-12-28"],
-      "부천": ["2024-12-29", "2024-12-30"],
-      "해운대": ["2024-12-25", "2024-12-26"],
-      "서면": ["2024-12-27", "2024-12-28"],
-      "남포동": ["2024-12-29", "2024-12-30"]
+      "부평": ["2024-12-25", "2024-12-26"],
     };
 
     // 날짜별 시간 데이터

@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         JOIN 
             movie m ON tl.movie_id = m.id  <!-- 수정된 부분 -->
         WHERE
-            <![CDATA[where tl.time <= CURRENT_TIMESTAMP]]> and m.id LIKE CONCAT('%', #{keyword}, '%')
+            <![CDATA[tl.time >= CURRENT_TIMESTAMP]]> and m.id LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
 </mapper>
