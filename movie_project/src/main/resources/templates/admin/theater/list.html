@@ -69,30 +69,30 @@
                         <nav class="mt-4">
                         <ul class="pagination justify-content-center">
                             <li class="page-item" th:if="${pageInfo.pageNum > 1}">
-                                <a class="page-link" th:href="@{/admin/theater/list(page=1, search=${search}, size=${pageInfo.pageSize})}">
+                                <a class="page-link" th:href="@{/admin/cinema/enter(page=1, id=${search}, size=${pageInfo.pageSize})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor" transform="scale(-1, 1)">
                                     <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
                                 </svg>
                                 </a>
                             </li>
                             <li class="page-item" th:if="${pageInfo.hasPreviousPage}">
-                                <a class="page-link" th:href="@{/admin/theater/list(page=${pageInfo.prePage},search=${search}, size=${pageInfo.pageSize})}">
+                                <a class="page-link" th:href="@{/admin/cinema/enter(page=${pageInfo.prePage},id=${search}, size=${pageInfo.pageSize})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor"><path d="M34.52 239l194.34-194.34c9.37-9.37 24.57-9.37 33.94 0l22.34 22.34c9.37 9.37 9.37 24.57 0 33.94L128.97 256l156.17 156.17c9.37 9.37 9.37 24.57 0 33.94l-22.34 22.34c-9.37 9.37-24.57 9.37-33.94 0L34.52 273c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
                                 </a>
                             </li>
                             <li class="page-item" th:each="i : ${#numbers.sequence(pageInfo.navigateFirstPage, pageInfo.navigateLastPage)}">
-                                <a  th:href="@{/admin/theater/list(page=${i},search=${search}, size=${pageInfo.pageSize})}" 
+                                <a  th:href="@{/admin/cinema/enter(page=${i},id=${search}, size=${pageInfo.pageSize})}" 
                                     th:text="${i}"
                                     class="page-link"
                                     th:classappend="${pageInfo.pageNum == i} ? 'active' : ''"></a>
                             </li>
                             <li class="page-item" th:if="${pageInfo.hasNextPage}">
-                                <a class="page-link" th:href="@{/admin/theater/list(page=${pageInfo.nextPage},search=${search}, size=${pageInfo.pageSize})}">
+                                <a class="page-link" th:href="@{/admin/cinema/enter(page=${pageInfo.nextPage},id=${search}, size=${pageInfo.pageSize})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor"><path d="M285.48 273l-194.34 194.34c-9.37 9.37-24.57 9.37-33.94 0l-22.34-22.34c-9.37-9.37-9.37-24.57 0-33.94L191.03 256 34.86 99.83c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L285.48 239c9.37 9.37 9.37 24.57 0 33.94z"/></svg>
                                 </a>
                             </li>
                             <li class="page-item" th:if="${pageInfo.pageNum < pageInfo.pages}">
-                                <a class="page-link" th:href="@{/admin/theater/list(page=${pageInfo.pages},search=${search}, size=${pageInfo.pageSize})}">
+                                <a class="page-link" th:href="@{/admin/cinema/enter(page=${pageInfo.pages},id=${search}, size=${pageInfo.pageSize})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
                                     <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
                                 </svg>

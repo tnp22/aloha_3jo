@@ -1,5 +1,6 @@
 package com.aloha.movie_project.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -267,7 +268,7 @@ public class AdminController {
     @GetMapping("/cinema/enter")
     public String cinemaEnter(Model model, @RequestParam("id") String id
     ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
-    ,@RequestParam(name = "size", required = false, defaultValue = "6") Integer size
+    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
     ) throws Exception {
         // 데이터 요청
         PageInfo<Theater> pageInfo = null;
@@ -313,9 +314,6 @@ public class AdminController {
     public String theaterInsert(Model model,
                               @RequestBody Theater theater) throws Exception {
         theater.setMap(theater.getId());
-        int rs = theaterService.insert(theater);
-
-        /*****----------------------------------------------- */
         theater.setMapSize(theater.getX() * theater.getY());
 
         log.info("*******맵 : " + theater);
@@ -333,6 +331,24 @@ public class AdminController {
             sb.append(String.join(",", row)); // 내부 리스트를 문자열로 변환
         }
         String result = sb.toString();
+
+        int count = 0;
+        for (List<String> row : mapData) {
+            for (String row1 : row) {
+                if(row1.equals("null") || row1.equals("통로")){
+                    count++;
+                }
+            }
+        }
+        
+        int seat = theater.getMapSize() - count;
+        theater.setSeat(seat);
+
+
+        int rs = theaterService.insert(theater);
+
+        /*****----------------------------------------------- */
+        
 
         String path = "C:\\upload\\test"; // 파일 저장 경로
         String fileName = theater.getId();

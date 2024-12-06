@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="name" column="name" />
         <result property="cinemaId" column="cinema_id" />
         <result property="map" column="map" />
+        <result property="seat" column="seat" />
     </resultMap>
 
 
@@ -31,8 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 생성 -->
     <insert id="insert">
-        INSERT INTO `theater` (`id`,`name`,`cinema_id`,`map`)
-        VALUES ( #{id},#{name}, #{cinemaId}, #{map})
+        INSERT INTO `theater` (`id`,`name`,`cinema_id`,`map`,`seat`)
+        VALUES ( #{id},#{name}, #{cinemaId}, #{map},#{seat})
     </insert>
 
     <!-- 정보 수정 -->
@@ -40,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE `theater`
            SET name = #{name}
               ,map = #{map}
+              ,seat = #{seat}
         WHERE id = #{id}
     </update>
 
