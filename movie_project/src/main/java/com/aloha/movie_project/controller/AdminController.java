@@ -420,7 +420,37 @@ public class AdminController {
     }
 
 
+    /**
+     * 상영 리스트 진입
+     * @return
+     */
+    //해당 아이디 권한 추가 요망
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theaterList/insert")
+    public String theaterListSelect(Model model, @RequestParam("id") String id
+    ,@RequestParam(name = "search", required = false) String search
+    ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+    ) throws Exception {
+        // 데이터 요청
+        PageInfo<TheaterList> pageInfo = null;
 
+        if(search == null || search.equals("")){
+            pageInfo = theaterListService.list(page, size, id);
+        }
+        else
+        {
+            pageInfo = theaterListService.list(page, size, id, search);
+            model.addAttribute("search", search);
+        }
+        
+        
+        // 모델 등록
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("id", id);
+        return "/admin/theaterList/list";
+    }
 
 
 
