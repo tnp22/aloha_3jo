@@ -41,18 +41,14 @@
 .nav-tabs .nav-link {
     color: #000; /* 기본 글자 색 */
     background-color: #C3B2FD; /* 연한 보라색 배경 */
-    border: 1px solid #5a379e; /* 테두리 */
     border-radius: 0; /* 테두리 둥근 모서리 제거 */
+    border: 1px solid #5a379e;
     padding: 10px 20px;
     text-align: center;
     font-weight: bold;
+    margin-right: -1px; 
 }
 
-.nav-tabs .nav-link:nth-child(2),
-.nav-tabs .nav-link:nth-child(3),
-.nav-tabs .nav-link:nth-child(4) {
-    border-left: none;
-}
 
 /* 활성화된 탭 스타일 */
 .nav-tabs .nav-link.active {
@@ -65,6 +61,7 @@
 /* 호버 효과 */
 .nav-tabs .nav-link:hover {
     background-color: white; 
+    border-bottom: none;
     border-color: #5a379e; /* 활성 탭 상단 테두리 유지 */
 }
 
@@ -85,3 +82,148 @@
     height: 180px;
     object-fit: cover;
 }
+/* 모달 크기 고정 */
+.modal-dialog {
+    max-width: 1000px; /* 가로 크기 고정 */
+    width: 100%;
+    margin: auto; /* 중앙 정렬 */
+}
+
+.modal-content {
+    max-width: 1000px; /* 모달 내용 크기 고정 */
+}
+
+/* 이미지 비율 유지 및 크기 고정 */
+.modal-image-container {
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.modal-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 비율 유지 */
+}
+
+/* 캐러셀 버튼 스타일 */
+.custom-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1055; /* 버튼이 모달 위에 보이도록 설정 */
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* 왼쪽 버튼 */
+.carousel-control-prev.custom-carousel-btn {
+    left: 400px; /* 모달 밖으로 배치 */
+}
+
+/* 오른쪽 버튼 */
+.carousel-control-next.custom-carousel-btn {
+    right: 400px; /* 모달 밖으로 배치 */
+}
+
+.carousel-item.no-transition {
+    transition: none !important; /* 전환 효과 제거 */
+}
+
+
+.stilcut{
+    border: 4px solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.stilcut:hover{
+    border: 4px solid #583BBF;
+}
+
+/* 기본적으로 일정 개수 이상은 숨깁니다 */
+#stilcut-container .stilcut-item:nth-child(n+9) {
+    display: none; /* 8개 이상의 이미지는 숨김 */
+}
+
+/* 더보기 버튼 스타일 */
+#showMoreButton {
+    font-size: 20px;
+    display: block;
+    margin: 20px auto;
+    background-color: white;
+    border: none;
+}
+.page {
+    color: gray;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page:hover {
+    color: #5a379e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.page.active {
+    color: #5a379e;
+    font-weight: bold;
+}
+
+.icon{
+    fill: gray;
+    transition: fill 0.3s;
+}
+
+.icon:hover{
+    fill: #5a379e;
+    transition: fill 0.3s;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.star-ratings {
+    color: #aaa9a9; 
+    position: relative;
+    unicode-bidi: bidi-override;
+    width: max-content;
+    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  }
+   
+  .star-ratings-fill {
+    color: #A88EFF;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    -webkit-text-fill-color: #A88EFF;
+  }
+  
+   
+  .star-ratings-base {
+    color: gray;
+    z-index: 0;
+    padding: 0;
+    -webkit-text-fill-color: #C8C8C8;
+  }
+
+

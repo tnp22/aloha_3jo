@@ -1,76 +1,91 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>영화 예매 페이지</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* 스크롤 박스 스타일 */
-    .scroll {
-      max-height: 200px; /* 스크롤 가능한 높이 */
-      overflow-y: auto; /* 수직 스크롤 활성화 */
-      border: 1px solid #ddd; /* 경계선 */
-      border-radius: 5px; /* 둥근 모서리 */
-      padding: 10px; /* 내부 여백 */
-    }
-
-    /* 스크롤 커스터마이징 */
-    .scroll::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    .scroll::-webkit-scrollbar-track {
-      background: #ddd;
-    }
-
-    .scroll::-webkit-scrollbar-thumb {
-      background: #666;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/ticket.css">
 </head>
-<body>
-  <div class="container mt-4">
-    <div class="row g-3">
-      <!-- 지역 -->
-      <div class="col-md-3">
-        <h5>지역</h5>
-        <div class="scroll">
-          <ul class="list-group" id="region-list">
-            <li class="list-group-item" data-region="경기">경기</li>
-            <li class="list-group-item" data-region="서울">서울</li>
-          </ul>
+<body layout:fragment="content">
+  <div class="container-fluid p-0 d-flex">
+    <div class="header flex-fill"></div>
+    <div class="container p-0">
+        <!-- 본문 -->
+        <div class="row  m-0 p-0 w-100 col-3 text-center">
+            <div class="col-2 p-0 b-right">
+                <!-- 지역 -->
+                <div class="header"><h5>지역</h5></div>
+                <!-- 지역 스크롤바 -->
+                <div class="content p-0">
+                  <div class="scroll h-100 w-100 mt-3 mb-3">
+                    <ul class="list-group" id="region-list">
+                      <li class="list-group-item" data-region="서울">서울</li>
+                      <li class="list-group-item" data-region="경기">경기</li>
+                      <li class="list-group-item" data-region="부산">부산</li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="col-2 p-0 b-right">
+                <!-- 극장 -->
+                <div class="header"><h5>극장</h5></div>
+                <!-- 극장 스크롤바 -->
+                <div class="content">
+                  <div class="scroll mt-3 mb-3">
+                    <ul class="list-group" id="theater-list">
+                      <!-- 동적 생성 -->
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="col-2 p-0 b-right">
+                <!-- 날짜 -->
+                <div class="header"><h5>날짜</h5></div>
+                <!-- 날짜 스크롤바 -->
+                <div class="content">
+                  <div class="scroll mt-3 mb-3">
+                    <ul class="list-group" id="date-list">
+                      <!-- 동적 생성 -->
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="col-6 p-0">
+                <!-- 시간 -->
+                <div class="header"><h5>시간</h5></div>
+                <!-- 시간 스크롤바 -->
+                <div class="content">
+                  <div id="time-container" class="scroll mt-3 mb-3">
+                    <!-- 동적 생성 -->
+                  </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- 극장 -->
-      <div class="col-md-3">
-        <h5>극장</h5>
-        <div class="scroll">
-          <ul class="list-group" id="theater-list">
-            <!-- 동적 생성 -->
-          </ul>
+    </div>
+    <div class="header flex-fill"></div>
+  </div>
+  <!-- 하단 바 -->
+  <div class="container-fluid b-top">
+    <div class="container d-flex justify-content-between p-0" style="height:200px;">
+        <div class="align-content-center">
+            <div class="d-flex reserve-img">
+                <img th:src="|/img?id=${movie.files.id}|">
+                <div class="align-content-center ms-5">
+                    <h3 th:text="${movie.title}"></h3>
+                </div>
+                <div class="align-content-center ms-5">
+                    <p class="m-1">극장 &nbsp; &nbsp; &nbsp; <span id="theater-info"></span></p>
+                    <p class="m-1">날짜 &nbsp; &nbsp; &nbsp; <span id="date-info"></span></p>
+                    <p class="m-1">시간 &nbsp; &nbsp; &nbsp; <span id="time-info"></span></p>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- 날짜 -->
-      <div class="col-md-3">
-        <h5>날짜</h5>
-        <div class="scroll">
-          <ul class="list-group" id="date-list">
-            <!-- 동적 생성 -->
-          </ul>
+        <div class="align-content-center">
+            <button class="btn reserve-btn"><i class="fa-solid fa-angle-right fa-3x"></i><p>좌석선택</p></button>
         </div>
-      </div>
-
-      <!-- 시간 -->
-      <div class="col-md-3">
-        <h5>시간</h5>
-        <div id="time-container" class="scroll">
-          <!-- 동적 생성 -->
-        </div>
-      </div>
     </div>
   </div>
 
@@ -84,48 +99,53 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- JSON 형식으로 list 안에 값 저장 -->
-  <script th:inline="javascript">
+  <!-- <script th:inline="javascript">
     var ticketList = /*[[${ticketList}]]*/ [];
 
     // 출력(값불러오기) 예문
     // console.log("리스트 : ", ticketList); // list[] 안에있는 모든값 로그 출력
     // console.log("리스트 : ", ticketList[0].theaterName); // JSON 데이터 출력 ?관 출력
     // console.log("리스트 : ", ticketList[1].theaterName); // JSON 데이터 출력 ?관 출력
-  </script>
+  </script> -->
   <script>
 
-    let Region = [] // 지역 데이터 저장
-    let Theaters = [] // 극장 데이터 저장
-    let Date = [] // 날짜 데이터 저장
-    let Time = [] // 시간 데이터 저장
+    // let Region = [] // 지역 데이터 저장
+    // let Theaters = [] // 극장 데이터 저장
+    // let Date = [] // 날짜 데이터 저장
+    // let Time = [] // 시간 데이터 저장
 
-    // 지역 데이터 저장
-    for(var list of ticketList){
-      Region.push(list.area);
-    }
-    Region = [...new Set(Region)].sort((a, b) => a.localeCompare(b));
-    console.log(Region);
+    // // 지역 데이터 저장
+    // for(var list of ticketList){
+    //   Region.push(list.area);
+    // }
+    // Region = [...new Set(Region)].sort((a, b) => a.localeCompare(b));
+    // console.log(Region);
 
-    // 지역데이터에 비교해서 극장 데이터 저장
-    for(var R of Region){
-      let Theater = []
-      for(var list of ticketList){
-        if(R == list.area){
-          Theater.push(list.areaSub)
-        }
-      }
-      Theaters.push(Theater);
-    }
-    console.log(Theaters)
+    // // 지역데이터에 비교해서 극장 데이터 저장
+    // for(var R of Region){
+    //   let Theater = []
+    //   for(var list of ticketList){
+    //     if(R == list.area){
+    //       Theater.push(list.areaSub)
+    //     }
+    //   }
+    //   Theaters.push(Theater);
+    // }
+    // console.log(Theaters)
 
-    // JSON 저장 로그출력 예시
-    const regionTheaterData = {};
-    regionTheaterData[Region[0]] = Theaters;
-    console.log(regionTheaterData);
+    // // JSON 저장 로그출력 예시
+    // const regionTheaterData = {};
+    // regionTheaterData[Region[0]] = Theaters;
+    // console.log(regionTheaterData);
 
 
     /** 저장 예시  **/
     // 지역별 극장 데이터
+    const regionTheaterData = {
+      "서울": ["강남", "홍대", "종로"],
+      "경기": ["수원", "안양", "부천"],
+      "부산": ["해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동","해운대", "서면", "남포동"],
+    };
     // regionTheaterData = { "지역" : ["극장", "극장", "극장"] }
 
     // 극장별 날짜 데이터
@@ -147,8 +167,43 @@
 
     // 날짜별 시간 데이터
     const dateTimeData = {
-      "2024-12-25": ["09:10", "12:00", "14:30"]
+      "2024-12-25": [
+        { theater: "1관", times: [{ time: "09:10", seats: 156 }, { time: "12:00", seats: 46 }, { time: "14:30", seats: 100 }
+                                  ,{ time: "09:10", seats: 156 }, { time: "12:00", seats: 46 }, { time: "14:30", seats: 100 }
+                                  ,{ time: "09:10", seats: 156 }, { time: "12:00", seats: 46 }, { time: "14:30", seats: 100 } ]},
+        { theater: "2관", times: [{ time: "10:00", seats: 80 }, { time: "13:00", seats: 20 }, { time: "15:45", seats: 0 }] },
+        { theater: "3관", times: [{ time: "09:30", seats: 120 }, { time: "11:15", seats: 50 }, { time: "16:00", seats: 75 }] },
+        { theater: "4관", times: [{ time: "09:10", seats: 156 }, { time: "12:00", seats: 46 }, { time: "14:30", seats: 100 }] },
+        { theater: "5관", times: [{ time: "10:00", seats: 80 }, { time: "13:00", seats: 20 }, { time: "15:45", seats: 0 }] },
+        { theater: "6관", times: [{ time: "09:30", seats: 120 }, { time: "11:15", seats: 50 }, { time: "16:00", seats: 75 }] }
+      ],
+      "2024-12-26": [
+        { theater: "2관", times: [{ time: "09:30", seats: 45 }, { time: "11:15", seats: 30 }, { time: "16:00", seats: 100 }] },
+        { theater: "4관", times: [{ time: "10:00", seats: 150 }, { time: "13:00", seats: 80 }, { time: "15:45", seats: 20 }] },
+        { theater: "5관", times: [{ time: "10:10", seats: 120 }, { time: "14:00", seats: 60 }, { time: "19:45", seats: 0 }] }
+      ],
+      "2024-12-27": [
+        { theater: "1관", times: [{ time: "09:10", seats: 156 }, { time: "12:00", seats: 46 }, { time: "14:30", seats: 100 }] },
+        { theater: "3관", times: [{ time: "09:30", seats: 120 }, { time: "11:15", seats: 50 }, { time: "16:00", seats: 75 }] }
+      ],
+      "2024-12-28": [
+        { theater: "1관", times: [{ time: "09:30", seats: 45 }, { time: "11:15", seats: 30 }, { time: "16:00", seats: 100 }] },
+        { theater: "5관", times: [{ time: "10:00", seats: 150 }, { time: "13:00", seats: 80 }, { time: "15:45", seats: 20 }] },
+        { theater: "6관", times: [{ time: "10:10", seats: 120 }, { time: "14:00", seats: 60 }, { time: "19:45", seats: 0 }] }
+      ],
+      "2024-12-29": [
+        { theater: "1관", times: [{ time: "09:10", seats: 156 }, { time: "12:00", seats: 46 }, { time: "14:30", seats: 100 }] },
+        { theater: "2관", times: [{ time: "10:00", seats: 80 }, { time: "13:00", seats: 20 }, { time: "15:45", seats: 0 }] },
+        { theater: "3관", times: [{ time: "10:00", seats: 80 }, { time: "13:00", seats: 20 }, { time: "15:45", seats: 0 }] },
+        { theater: "4관", times: [{ time: "09:30", seats: 120 }, { time: "11:15", seats: 50 }, { time: "16:00", seats: 75 }] }
+      ],
+      "2024-12-30": [
+        { theater: "2관", times: [{ time: "09:30", seats: 45 }, { time: "11:15", seats: 30 }, { time: "16:00", seats: 100 }] },
+        { theater: "4관", times: [{ time: "10:00", seats: 150 }, { time: "13:00", seats: 80 }, { time: "15:45", seats: 20 }] },
+        { theater: "5관", times: [{ time: "10:10", seats: 120 }, { time: "14:00", seats: 60 }, { time: "19:45", seats: 0 }] }
+      ]
     };
+
 
     // DOM 요소
     const regionList = document.getElementById("region-list");
@@ -156,10 +211,60 @@
     const dateList = document.getElementById("date-list");
     const timeContainer = document.getElementById("time-container");
 
+    // 하단의 예매 정보 띄우는 부분
+    const theaterInfo = document.querySelector("#theater-info");
+    const dateInfo = document.querySelector("#date-info");
+    const timeInfo = document.querySelector("#time-info");
+
+    // 스크롤바의 날짜 포맷함수
+    function formatDate(dateString) {
+      const days = ["일", "월", "화", "수", "목", "금", "토"];
+      const date = new Date(dateString);
+      const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
+      const day = date.getDate(); // 일(day) 얻기
+      const dayOfWeek = days[date.getDay()]; // 요일 얻기
+      
+      // 요일에 따라 색상 결정
+      let color = "black"; // 기본 글자색
+      if (dayOfWeek === "토") {
+        color = "#6781E8"; // 토요일은 파란색
+      } else if (dayOfWeek === "일") {
+        color = "#F47777"; // 일요일은 빨간색
+      }
+
+      return { formattedDate: `${month}/${day} (${dayOfWeek})`, color };
+    }
+
+    // 하단의 정보창의 날짜 포맷 함수
+    function formatDate2(dateString) {
+      const days = ["일", "월", "화", "수", "목", "금", "토"];
+      const date = new Date(dateString);
+      const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
+      const day = date.getDate(); // 일(day) 얻기
+      const dayOfWeek = days[date.getDay()]; // 요일 얻기
+
+      return `${date.getFullYear()}.${month.toString().padStart(2, "0")}.${day.toString().padStart(2, "0")}(${dayOfWeek})`;
+    }
+
     // 지역 클릭 이벤트
     regionList.addEventListener("click", function (e) {
       const region = e.target.getAttribute("data-region");
       if (!region) return;
+
+      // 스크롤바에서 선택한 부분 active 클래스 추가해서 활성화
+      const activeItem = document.querySelector("#region-list .list-group-item.active");
+      if (activeItem) {
+        // active 모두 지우기
+        activeItem.classList.remove("active");
+      }
+      // 클릭된 항목에 'active' 클래스 추가
+      e.target.classList.add("active");
+
+      // 하단의 정보창 비우기
+      theaterInfo.textContent="";
+      dateInfo.textContent="";
+      timeInfo.textContent="";
+            
 
       // 극장 리스트 업데이트
       theaterList.innerHTML = "";
@@ -181,13 +286,31 @@
       const theater = e.target.getAttribute("data-theater");
       if (!theater) return;
 
+      // 스크롤바에서 선택한 부분 active 클래스 추가해서 활성화
+      const activeItem = document.querySelector("#theater-list .list-group-item.active");
+      if (activeItem) {
+        // active 모두 지우기
+        activeItem.classList.remove("active");
+      }
+      // 클릭된 항목에 'active' 클래스 추가
+      e.target.classList.add("active");
+
+      // 하단의 정보창 비우기
+      dateInfo.textContent="";
+      timeInfo.textContent="";
+      // 하단의 극장 정보에 선택한 극장 정보 입력
+      theaterInfo.textContent = theater+' VORA';
+
       // 날짜 리스트 업데이트
       dateList.innerHTML = "";
       theaterDateData[theater].forEach(date => {
         const li = document.createElement("li");
         li.className = "list-group-item";
-        li.textContent = date;
+        const { formattedDate, color } = formatDate(date); // 날짜 포맷과 색상 정보 받기
+        li.textContent = formattedDate; // 날짜 텍스트만 추가
         li.setAttribute("data-date", date);
+        li.style.color = color; // 색상 적용
+        li.style.textAlign = "center"; // 가운데 정렬
         dateList.appendChild(li);
       });
 
@@ -200,15 +323,81 @@
       const date = e.target.getAttribute("data-date");
       if (!date) return;
 
+      // 스크롤바에서 선택한 부분 active 클래스 추가해서 활성화
+      const activeItem = document.querySelector("#date-list .list-group-item.active");
+      if (activeItem) {
+        // active 모두 지우기
+        activeItem.classList.remove("active");
+      }
+      // 클릭된 항목에 'active' 클래스 추가
+      e.target.classList.add("active");
+
+      // 하단의 시간 정보 지우기
+      timeInfo.textContent = "";
+      // 하단의 극장 정보에 선택한 극장 정보 입력
+      dateInfo.textContent = formatDate2(date);
+
       // 시간 리스트 업데이트
-      timeContainer.innerHTML = "";
-      const times = dateTimeData[date] || [];
-      times.forEach(time => {
-        const button = document.createElement("button");
-        button.className = "btn btn-outline-primary m-1";
-        button.textContent = time;
-        timeContainer.appendChild(button);
+      const timeContainer = document.querySelector("#time-container");
+      timeContainer.innerHTML = ""; // 기존 내용 초기화
+
+      const theaterData = dateTimeData[date] || [];
+      // theater와 times로 나눠서 반복문 theater는 상영실, times는 time(시간),seats(좌석수)
+      theaterData.forEach(({ theater, times }) => {
+        // 관 이름 추가
+        const theaterHeader = document.createElement("h5");
+        theaterHeader.className = "theater-header"; // 관 제목
+        theaterHeader.textContent = `${theater} 상영실`;
+        theaterHeader.style.textAlign = "left";
+        timeContainer.appendChild(theaterHeader);
+
+        // Flexbox 컨테이너 생성
+        const flexContainer = document.createElement("div");
+        flexContainer.className = "d-flex flex-wrap"; // Flexbox로 wrap 활성화
+        flexContainer.style.marginBottom = "1rem"; // 관별 간격 설정
+
+        // 시간 및 좌석 정보를 추가
+        times.forEach(({ time, seats }) => {
+          // timeBox = 시간 + 좌석수
+          const timeBox = document.createElement("div");
+          timeBox.className = "d-flex align-items-center me-3 mb-3 time-box"; // Flexbox 항목 스타일링 클래스
+          // 시간 버튼, 남은 좌석 수 추가
+          timeBox.innerHTML = `
+            <button class="${seats !== 0 ? "btn-time" : "btn-mazin"}" data-theater="${theater}" ${seats === 0 ? "disabled" : ""}>
+              ${time}
+            </button>
+            <p class="m-0">${seats === 0 ? "매진" : `${seats}석`}</p>
+          `;
+          flexContainer.appendChild(timeBox);
+        });
+
+        timeContainer.appendChild(flexContainer);
+
+        // 밑줄 추가
+        const theaterHr = document.createElement("hr");
+        timeContainer.appendChild(theaterHr);
       });
+    });
+
+
+    // 시간 버튼 클릭 이벤트
+    timeContainer.addEventListener("click", function (e) {
+      if (e.target && e.target.classList.contains("btn-time")) {
+        const button = e.target;
+        const time = button.textContent;
+        const theater = button.getAttribute("data-theater"); // 상영관 정보 가져오기
+        timeInfo.textContent = theater+' 상영실, '+time
+        // **활성화된 항목 관리**: 기존 활성화된 항목 제거
+        // 모든 .btn-time 버튼들을 선택
+        const timeButtons = document.querySelectorAll('.btn-time');
+
+        // 각 버튼에 대해 배경색을 하얀색으로 설정
+        timeButtons.forEach(button => {
+          button.classList.remove("active");
+        });
+        // 클릭된 항목에 'active' 클래스 추가
+        e.target.classList.add("active");
+      }
     });
   </script>
 </body>

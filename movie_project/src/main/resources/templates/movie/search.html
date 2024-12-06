@@ -29,8 +29,8 @@
                         <a th:href="|/movie/movieInfo?id=${movie.id}|">
                             <h5 class="card-title" th:text="${movie.title}"></h5>
                         </a>
-                        <p class="card-text" th:text="|개봉일 ${ #dates.format( movie.releaseDate, 'yyyy-MM-dd' ) }|"></p>
-                        <button class="btn btn-purple">예매하기</button>
+                        <p class="card-text" th:text="|개봉일 ${ #dates.format( movie.releaseDate, 'yyyy. MM. dd' ) }|"></p>
+                        <a th:href="|/m/t?id=${movie.id}|" class="btn btn-purple">예매하기</a>
                     </div>
                   </div>
                 </div>
@@ -42,7 +42,7 @@
             <div class="pagination flex justify-content-center">
             <ul style="display: flex; list-style-type: none; gap: 10px;">
                 <li th:if="${moviePageInfo.pageNum > 1}">
-                    <a th:href="@{/movie/search(moviePage=1)}, search=${search}">
+                    <a th:href="@{/movie/movieInfo(moviePage=1, search=${search})}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" class="icon" transform="scale(-1, 1)">
                         <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
                         </svg>

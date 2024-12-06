@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Details</title>
+    <title>영화 상세보기</title>
     <link rel="stylesheet" href="/css/movieInfo.css">
 </head>
 <body layout:fragment="content">
@@ -15,7 +15,10 @@
             <img th:src="|/img?id=${movie.files.id}|" alt="Moana 2" class="img-fluid" style="width: 200px;">
             <div style="width: 100%;">
                 <h1 th:text="${movie.title}"></h1>
-                <p th:text="|개봉일 ${ #dates.format( movie.releaseDate, 'yyyy-MM-dd' ) }|"></p>
+                <p>
+                    개봉일 
+                    <span th:text="${#dates.format(movie.releaseDate, 'yyyy.MM.dd')}" style="font-size: small; color: gray;"></span>
+                </p>
                 <hr>
                 <p th:text="|장르 : ${movie.type}|"></p>
                 <p>
@@ -30,14 +33,29 @@
                           th:if="${cast.rule == 'actor'}"
                           th:text="${cast.name} + ${!iter.last ? ', ' : ''}"></span>
                 </p>
-                <button class="btn btn-purple">예매하기</button>
+                <div class="d-flex">
+                    <p>평점 :&nbsp;</p>
+                    <div class="star-ratings">
+                        <div 
+                        class="star-ratings-fill space-x-2 text-lg"
+                        th:style="|width: ${average*20+1}% |"
+                        >
+                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <div class="star-ratings-base space-x-2 text-lg">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                    </div>
+                    <p th:text="|(${average})|"></p>
+                </div>
+                <a th:href="|/m/t?id=${movie.id}|" class="btn btn-purple">예매하기</a>
             </div>
         </div>
 
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#info">주요 정보</a>
+                <a th:class="|nav-link ${tab == 'content' ? 'active' : ''}|" data-bs-toggle="tab" href="#info">주요 정보</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#cast">감독/출연</a>
@@ -46,13 +64,13 @@
                 <a class="nav-link" data-bs-toggle="tab" href="#stills">스틸컷</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#reviews">평점/리뷰</a>
+                <a th:class="|nav-link ${tab == 'review' ? 'active' : ''}|" data-bs-toggle="tab" href="#reviews">평점/리뷰</a>
             </li>
         </ul>
 
         <div class="tab-content py-4">
 
-            <div class="tab-pane fade show active" id="info" style="width: 400px;">
+            <div th:class="|tab-pane fade ${tab == 'content' ? 'show active' : ''}|" id="info" style="width: 400px;">
                 <h3 class="ms-3 mb-4">주요 정보</h3>
                 <p th:text="${movie.content}" style="word-wrap: break-word;"></p>
             </div>
@@ -79,34 +97,166 @@
                 </div>
             </div>
 
+            <!-- 이미지 목록 -->
             <div class="tab-pane fade" id="stills">
                 <h3 class="ms-3 mb-4">스틸컷</h3>
-                <div class="row g-3">
-                    <th:block th:each="stil : ${stilList}">
-                    <div class="col-md-3">
-                        <img th:src="|/img?id=${stil.id}|" class="img-fluid">
-                    </div>
+                <div class="row g-3 mb-5" id="stilcut-container">
+                    <th:block th:each="stil, iterStat : ${stilList}">
+                        <div class="col-md-3 stilcut-item">
+                            <img th:src="|/img?id=${stil.id}|" class="img-fluid stilcut" th:data-index="${iterStat.index}">
+                        </div>
+                    </th:block>
                 </div>
+                <button id="showMoreButton" th:if="${#lists.size(stilList) > 8}"><i class="fa-solid fa-down-long"></i>  더보기</button>
             </div>
 
-            <div class="tab-pane fade" id="reviews">
+            <!-- 모달 -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content custom-modal-content">
+                        <div class="modal-body p-0">
+                            <div id="carouselExample" class="carousel slide">
+                                <div class="carousel-inner">
+                                    <th:block th:each="stil, iterStat : ${stilList}">
+                                        <div class="carousel-item no-transition" th:classappend="${iterStat.index == 0} ? 'active'">
+                                            <div class="modal-image-container">
+                                                <img th:src="|/img?id=${stil.id}|" class="d-block">
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 닫기 버튼 -->
+                <button type="button" class="custom-close-btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+                <!-- 캐러셀 컨트롤 -->
+                <button class="carousel-control-prev custom-carousel-btn" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next custom-carousel-btn" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div th:class="|tab-pane fade ${tab == 'review' ? 'show active' : ''}|" id="reviews">
                 <h3 class="ms-3 mb-4">평점 / 리뷰</h3>
                 <div class="row g-6">
-                    <th:block th:each="review : ${reviewList}">
+                    <th:block th:each="review : ${reviewList.list}">
                         <div class="col-md-6">
                             <div class="review-section">
                                 <div class="review-user">
                                     <img th:src="|/img?id=${review.id}|" alt="User 1">
-                                    <p th:text="${review.username}"></p>
-                                    <p th:text="${review.ratingValue}"></p>
-                                    <p th:text="${review.content}"></p>
+                                    <div>
+                                        <p th:text="${review.username}" style="margin: 0;"></p>
+                                        <div class="star-ratings">
+                                            <div 
+                                            class="star-ratings-fill space-x-2 text-lg"
+                                            th:style="|width: ${review.ratingValue*20+1}% |"
+                                            >
+                                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                            </div>
+                                            <div class="star-ratings-base space-x-2 text-lg">
+                                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                            </div>
+                                        </div>
+                                        <p th:text="${review.content}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </th:block>
                 </div>
+                <!-- 페이지네이션 -->
+                <!-- ⚡ 유동적인 페이지 번호 출력 (pagehelper)  -->
+                <th:block th:if="${reviewList.pages > 0}">
+                    <div class="pagination mt-5 flex justify-content-center">
+                    <ul style="display: flex; list-style-type: none; gap: 10px; justify-content: center;">
+                        <li th:if="${reviewList.pageNum > 1}">
+                            <a th:href="@{/movie/movieInfo(page=1)}, tab=review, id=${movie.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" class="icon" transform="scale(-1, 1)">
+                                <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li th:if="${reviewList.hasPreviousPage}">
+                            <a th:href="@{/movie/movieInfo(page=${reviewList.prePage}, tab=review, id=${movie.id})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" class="icon"><path d="M34.52 239l194.34-194.34c9.37-9.37 24.57-9.37 33.94 0l22.34 22.34c9.37 9.37 9.37 24.57 0 33.94L128.97 256l156.17 156.17c9.37 9.37 9.37 24.57 0 33.94l-22.34 22.34c-9.37 9.37-24.57 9.37-33.94 0L34.52 273c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
+                            </a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(reviewList.navigateFirstPage, reviewList.navigateLastPage)}">
+                            <a  th:href="@{/movie/movieInfo(page=${i}, tab=review, id=${movie.id})}" 
+                                th:text="${i}"
+                                class="page"
+                                th:classappend="${reviewList.pageNum == i} ? 'active' : ''"></a>
+                        </li>
+                        <li th:if="${reviewList.hasNextPage}">
+                            <a th:href="@{/movie/movieInfo(page=${reviewList.nextPage}, tab=review, id=${movie.id})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" class="icon"><path d="M285.48 273l-194.34 194.34c-9.37 9.37-24.57 9.37-33.94 0l-22.34-22.34c-9.37-9.37-9.37-24.57 0-33.94L191.03 256 34.86 99.83c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L285.48 239c9.37 9.37 9.37 24.57 0 33.94z"/></svg>
+                            </a>
+                        </li>
+                        <li th:if="${reviewList.pageNum < reviewList.pages}">
+                            <a th:href="@{/movie/movieInfo(page=${reviewList.pages}, tab=review, id=${movie.id})}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" class="icon">
+                                <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    </div>
+                </th:block>
             </div>
         </div>
     </div>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const showMoreButton = document.querySelector("#showMoreButton");
+            const stilcutItems = document.querySelectorAll(".stilcut-item");
+
+            // "더보기" 버튼 클릭 시 동작
+            showMoreButton.addEventListener("click", function () {
+                stilcutItems.forEach(item => {
+                    item.style.display = "block"; // 숨겨진 이미지를 모두 보여줌
+                });
+
+                showMoreButton.style.display = "none"; // "더보기" 버튼 숨기기
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const modalElement = document.querySelector("#imageModal");
+            const carouselElement = document.querySelector("#carouselExample");
+            const carouselInstance = new bootstrap.Carousel(carouselElement, {
+                interval: false,
+                ride: false,
+                keyboard: true,
+            });
+
+            // 사진 목록에서 stilcut 클릭 시 해당 사진으로 이동
+            const stilcutElements = document.querySelectorAll(".stilcut");
+            if (stilcutElements.length === 0) {
+                console.error("stilcut 요소가 없습니다. HTML 구조를 확인하세요.");
+                return;
+            }
+
+            stilcutElements.forEach((stilcut, index) => {
+                stilcut.addEventListener("click", function () {
+                    console.log(`Clicked on image with index ${index}`); // 디버깅용 로그
+                    // 해당 인덱스로 캐러셀 이동
+                    carouselInstance.to(index);
+
+                    // 모달 창 열기
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                });
+            });
+        });
+    </script>
 </body>
 </html>

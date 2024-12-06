@@ -40,8 +40,8 @@
                             </a>
                             <div class="card-body">
                                 <a th:href="|/movie/movieInfo?id=${movie.id}|"><h5 class="card-title" th:text="${movie.title}"></h5></a>
-                                <p class="card-text" th:text="|개봉일 ${ #dates.format( movie.releaseDate, 'yyyy-MM-dd' ) }|"></p>
-                                <button class="btn btn-purple">예매하기</button>
+                                <p class="card-text" th:text="|개봉일 ${ #dates.format( movie.releaseDate, 'yyyy. MM. dd' ) }|"></p>
+                                <a th:href="|/m/t?id=${movie.id}|" class="btn btn-purple">예매하기</a>
                             </div>
                           </div>
                         </div>
@@ -102,8 +102,8 @@
                                 <a th:href="|/movie/movieInfo?id=${expect.id}|">
                                     <h5 class="card-title" th:text="${expect.title}"></h5>
                                 </a>
-                                <p class="card-text" th:text="|개봉일 ${ #dates.format( expect.releaseDate, 'yyyy-MM-dd' ) }|"></p>
-                                <button class="btn btn-purple">예매하기</button>
+                                <p class="card-text" th:text="|개봉일 ${ #dates.format( expect.releaseDate, 'yyyy. MM. dd' ) }|"></p>
+                                <a th:href="|/m/t?id=${movie.id}|" class="btn btn-purple">예매하기</ㅁ>
                             </div>
                           </div>
                         </div>

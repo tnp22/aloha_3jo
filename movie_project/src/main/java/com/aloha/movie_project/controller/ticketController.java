@@ -16,6 +16,7 @@ import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.Theater;
 import com.aloha.movie_project.domain.TheaterList;
 import com.aloha.movie_project.domain.TicketList;
+import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.cinema.TheaterListService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +28,13 @@ public class ticketController {
 
     @Autowired
     private TheaterListService theaterListService;
-
+    @Autowired
+    private MovieService movieService;
     @GetMapping("/t")
     public String ticketMain(@RequestParam("id") String id, Model model) throws Exception {
-
+        Movie movie_ = movieService.movieInfo(id);
+        model.addAttribute("movie", movie_);
+        
         id = "6e937900-b05b-11ef-b8e4-4ccc6ad7549d"; // 무비 ID
         List<TheaterList> list = theaterListService.timeSearch(id);
 
