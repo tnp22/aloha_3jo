@@ -62,15 +62,27 @@ public class MovieController {
     }
 
     @GetMapping("/movieInfo")
-    public String movieInfo(Model model,@RequestParam("id") String id) throws Exception {
+    public String movieInfo(Model model,@RequestParam("id") String id
+    ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+    ,@RequestParam(name = "size", required = false, defaultValue = "8") Integer size
+    ,@RequestParam(name = "tab", required = false, defaultValue = "content") String tab) throws Exception {
         Movie movie = movieService.movieInfo(id);
         List<Cast> castList = castService.castList(id);
         List<Files> stilList = movieService.stilList(id);
-        List<ReviewInfo> reviewList = movieService.reviewList(id);
+        PageInfo<ReviewInfo> reviewList = movieService.reviewList(id, page, size);
+        List<ReviewInfo> list = reviewList.getList();
+        double result = 0;
+        for (ReviewInfo review : list) {
+            result += review.getRatingValue();
+        }
+        result = result / list.size();
+        double average = (Math.round(result*10)/10.0);
         model.addAttribute("movie", movie);
         model.addAttribute("castList", castList);
         model.addAttribute("stilList", stilList);
         model.addAttribute("reviewList", reviewList);
+        model.addAttribute("tab", tab);
+        model.addAttribute("average", average);
         return "/movie/movieInfo";
     }
     

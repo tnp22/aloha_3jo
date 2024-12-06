@@ -116,7 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 영화 상세보기 스틸컷 리스트 -->
     <select id="stilList" resultType="Files">
-        select * from files where fk_id=#{id} and fk_table='movie' and division = 'stilcut'
+        select * from files where fk_id=#{id} and fk_table='movie' and division = 'stilcut' order by no desc
     </select>
 
     <select id="reviewList" resultType="ReviewInfo">
