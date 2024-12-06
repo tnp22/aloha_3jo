@@ -56,13 +56,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 영화 생성 -->
     <insert id="insert">
-        INSERT INTO `theaterList` (`id`,`movie_id`,`theater_id`,`cinema_id`,`time`)
+        INSERT INTO `theater_list` (`id`,`movie_id`,`theater_id`,`cinema_id`,`time`)
         VALUES ( #{id},#{movieId}, #{theaterId}, #{cinemaId}, #{time})
     </insert>
 
     <!-- 영화 정보 수정 -->
     <update id="update">
-        UPDATE `theater`
+        UPDATE `theater_list`
            SET movie_id = #{movieId}
               ,theater_id = #{theaterId}
               ,cinema_id = #{cinemaId}

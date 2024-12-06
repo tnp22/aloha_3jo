@@ -44,6 +44,13 @@ public class TheaterServiceImpl implements TheaterService {
         return result;
     }
 
+    @Override
+    public List<Theater> list(String search) throws Exception {
+
+        List<Theater> list = theaterMapper.search(search);
+        
+        return list;
+    }
 
     @Override
     public PageInfo<Theater> list(int page, int size, String search) throws Exception {

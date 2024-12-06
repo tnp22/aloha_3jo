@@ -49,9 +49,9 @@ CREATE TABLE `theater` (
 	`name` VARCHAR(200) not null,
 	`cinema_id`	varchar(100)	NOT NULL,
 	`map`	text	NOT NULL,
+	`seat` int not null
     FOREIGN KEY (`cinema_id`) REFERENCES `cinema`(id) ON DELETE RESTRICT
 );
-
 
 
 CREATE TABLE `notice` (

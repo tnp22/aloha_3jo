@@ -45,7 +45,7 @@
                                 <td th:text="${ #dates.format( theaterList.time, 'yyyy-MM-dd (E) HH:mm' ) }">  
                                 </td>
                                 <td> 
-                                <a th:href="|/admin/theaterList/select?id=${theaterList.id}|" class="btn btn-primary">조회</a>
+                                <a th:href="|/admin/theaterList/select?id=${cinema.id}&theaterListId=${theaterList.id}|" class="btn btn-primary">조회</a>
                                 </td>
                               </tr> 
                         </th:block>

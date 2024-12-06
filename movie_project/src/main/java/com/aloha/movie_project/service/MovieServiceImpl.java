@@ -64,6 +64,13 @@ public class MovieServiceImpl implements MovieService {
         return list;
     }
 
+    //페이징 없는 검색
+    @Override
+    public List<Movie> list(String search) throws Exception {
+        List<Movie> list = movieMapper.search(search);
+        return list;
+    }
+
     @Override
     public PageInfo<Movie> list(int page, int size) throws Exception {
         // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);

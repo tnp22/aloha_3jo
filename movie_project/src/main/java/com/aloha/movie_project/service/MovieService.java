@@ -25,6 +25,8 @@ public interface MovieService {
     public PageInfo<Movie> list(int page, int size,String search) throws Exception;
     // 권한 조회
     public List<Movie> list() throws Exception;
+    // 검색
+    public List<Movie> list(String search) throws Exception;
 
     public List<Files> stilList(String id) throws Exception;
 

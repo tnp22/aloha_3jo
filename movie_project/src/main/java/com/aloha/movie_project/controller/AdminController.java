@@ -421,42 +421,93 @@ public class AdminController {
 
 
     /**
-     * 상영 리스트 진입
+     * 상영 리스트 생성 진입
      * @return
      */
     //해당 아이디 권한 추가 요망
     @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
     @GetMapping("/theaterList/insert")
-    public String theaterListSelect(Model model, @RequestParam("id") String id
+    public String theaterListInsert(Model model, @RequestParam("id") String id
     ,@RequestParam(name = "search", required = false) String search
-    ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
-    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
     ) throws Exception {
-        // 데이터 요청
-        PageInfo<TheaterList> pageInfo = null;
 
-        if(search == null || search.equals("")){
-            pageInfo = theaterListService.list(page, size, id);
+        List<Theater> theaterLists = theaterService.list(id);
+        List<Movie> movieList = null;
+        if (search == null || search.isEmpty()) {
+             movieList = movieService.list();
         }
-        else
-        {
-            pageInfo = theaterListService.list(page, size, id, search);
+        else{
+            movieList = movieService.list(search);
             model.addAttribute("search", search);
         }
         
-        
         // 모델 등록
-        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("theaterLists", theaterLists);
+        model.addAttribute("pageInfo", movieList);
         model.addAttribute("cinema", cinemaService.select(id));
         model.addAttribute("id", id);
-        return "/admin/theaterList/list";
+        return "/admin/theaterList/insert";
     }
 
+    /**
+     * 상영 리스트  생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @PostMapping("/theaterList/insert")
+    public String theaterListInsert(Model model, @RequestParam("cinemaId") String id,
+                            TheaterList theaterList) throws Exception {
+        int result = theaterListService.insert(theaterList);
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("id", id);
+        if(result>0){
+            return "redirect:/admin/theaterList/list?id="+id;
+        }
+        return "redirect:/admin/theaterList/list?id=id&error";
+    }
 
+    /**
+     * 상영 리스트 조회
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theaterList/select")
+    public String theaterListSelect(Model model, @RequestParam("id") String id,
+                    @RequestParam("theaterListId") String theaterListId) throws Exception {
+        TheaterList theaterList = theaterListService.select(theaterListId);
 
+        model.addAttribute("theaterList", theaterList);
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("id", id);
+        
+        return "/admin/theaterList/Select";
+    }
 
+    /**
+     * 상영 리스트 업데이트 진입
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theaterList/update")
+    public String theaterListUpdate(Model model, @RequestParam("id") String id,
+                    @RequestParam("theaterListId") String theaterListId) throws Exception {
+        TheaterList theaterList = theaterListService.select(theaterListId);
 
-
+        model.addAttribute("theaterList", theaterList);
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("id", id);
+        
+        return "/admin/theaterList/Update";
+    }
 
 
 
