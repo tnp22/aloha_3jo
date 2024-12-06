@@ -5,15 +5,10 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.aloha.movie_project.domain.Movie;
-import com.aloha.movie_project.service.MovieService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.movie_project.domain.Cinema;
@@ -21,6 +16,7 @@ import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.Theater;
 import com.aloha.movie_project.domain.TheaterList;
 import com.aloha.movie_project.domain.TicketList;
+import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.cinema.TheaterListService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +32,9 @@ public class ticketController {
     private MovieService movieService;
     @GetMapping("/t")
     public String ticketMain(@RequestParam("id") String id, Model model) throws Exception {
-
+        Movie movie_ = movieService.movieInfo(id);
+        model.addAttribute("movie", movie_);
+        
         id = "6e937900-b05b-11ef-b8e4-4ccc6ad7549d"; // 무비 ID
         List<TheaterList> list = theaterListService.timeSearch(id);
 
