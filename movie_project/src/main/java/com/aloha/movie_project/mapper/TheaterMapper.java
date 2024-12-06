@@ -15,7 +15,7 @@ public interface TheaterMapper {
     // 수정
     public int update(Theater cinema) throws Exception;
     // 삭제
-
+    
     // 리스트 검색 조회
     public List<Theater> search(String search) throws Exception;
     

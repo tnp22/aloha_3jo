@@ -17,6 +17,8 @@ public interface TheaterService {
     // 수정
     public int update(Theater theater) throws Exception;
 
+    public List<Theater> list(String search) throws Exception;
+
     // 검색까지
     public PageInfo<Theater> list(int page, int size,String search) throws Exception;
 
