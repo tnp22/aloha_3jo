@@ -69,7 +69,7 @@ public class TheaterListServiceImpl implements TheaterListService {
         // ⭐ PageHelper.startPage(현재 페이지, 페이지당 게시글 수);
 
 
-        List<TheaterList> list = theaterListMapper.list(id);
+        List<TheaterList> list = theaterListMapper.timeSearch(id);
 
         return list;
     }
