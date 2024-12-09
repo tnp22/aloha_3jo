@@ -42,7 +42,7 @@
                                 <td th:text="|${cinema.area} ${cinema.areaSub}점|"></td>
                                 <td th:text="${theater.name}"></td>
                                 <td> 
-                                <a th:href="|/admin/theater/select?id=${theater.id}|" class="btn btn-primary">조회</a>
+                                <a th:href="|/admin/theater/select?id=${cinema.id}&theaterId=${theater.id}|" class="btn btn-primary">조회</a>
                                 </td>
                               </tr> 
                         </th:block>
