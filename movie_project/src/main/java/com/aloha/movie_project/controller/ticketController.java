@@ -30,14 +30,15 @@ public class ticketController {
     private TheaterListService theaterListService;
     @Autowired
     private MovieService movieService;
+
     @GetMapping("/t")
     public String ticketMain(@RequestParam("id") String id, Model model) throws Exception {
+        log.info("id : {}", id); // 올바른 SLF4J 방식
         Movie movie_ = movieService.movieInfo(id);
         model.addAttribute("movie", movie_);
-        
-        id = "6e937900-b05b-11ef-b8e4-4ccc6ad7549d"; // 무비 ID
-        List<TheaterList> list = theaterListService.timeSearch(id);
 
+        // id = "6e937900-b05b-11ef-b8e4-4ccc6ad7549d"; // 무비 ID
+        List<TheaterList> list = theaterListService.timeSearch(id);
         List<TicketList> ticketLists = new ArrayList<>();
 
         // 극장 구분 저장 리스트
@@ -53,12 +54,13 @@ public class ticketController {
             ticket.setAreaSub(cinema.getAreaSub()); // 극장
 
             ticket.setTime(t.getTime()); // 상영날짜 + 시간
-            ticket.setId(t.getId()); // 상영리스트 ID
+            ticket.setId(t.getId()); // 상영리스트 ID (상영시간 ID)
 
             ticket.setTitle(movie.getTitle()); // 영화 제목
 
             ticket.setTheaterName(theater.getName()); // 상영관이름
             ticket.setMapUrl(theater.getMap()); // 상영관맵경로
+            ticket.setSeat(theater.getSeat()); // 좌석 (예메리스트에서 계산해서 넘기기 추가예정)
 
             ticket.setMovieId(t.getMovieId()); // 무비 ID
             ticket.setTheaterId(t.getTheaterId()); // 시에터 ID
