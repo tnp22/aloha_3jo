@@ -17,6 +17,9 @@ public interface FileService {
     // 파일 업로드
     public boolean upload(Files file) throws Exception;
 
+    // 파일 업데이트
+    public boolean update(Files file,String id) throws Exception;
+
     // 부모 테이블 기준 파일 목록
     public List<Files> listByParent(Files file) throws Exception;
 

@@ -59,3 +59,21 @@ a:hover {
   background-color: #0d6efd;
   color: #ffffff;
 }
+
+.delete_butten {
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border: none;
+  background: #dfdfdf;
+  border-radius: 12px;
+  background-color: red; 
+  margin-left: 20px;
+  color: aliceblue;
+}
+
+.delete_butten:hover {
+  background-color: #0d6efd;
+  color: #ffffff;
+}

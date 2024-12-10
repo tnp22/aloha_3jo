@@ -1,9 +1,5 @@
 package com.aloha.movie_project.controller;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.AuthList;
+import com.aloha.movie_project.domain.Banner;
 import com.aloha.movie_project.domain.Cinema;
 import com.aloha.movie_project.domain.FileText;
 import com.aloha.movie_project.domain.Files;
@@ -34,6 +31,7 @@ import com.aloha.movie_project.service.AuthListService;
 import com.aloha.movie_project.service.FileService;
 import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.UserService;
+import com.aloha.movie_project.service.banner.BannerService;
 import com.aloha.movie_project.service.cinema.CinemaService;
 import com.aloha.movie_project.service.cinema.TheaterListService;
 import com.aloha.movie_project.service.cinema.TheaterService;
@@ -68,6 +66,9 @@ public class AdminController {
 
     @Autowired
     private TheaterListService theaterListService;
+
+    @Autowired
+    private BannerService bannerService;
 
 
     /* ------------------------------------- 영화관 관 련------------------------------------- */
@@ -655,7 +656,194 @@ public class AdminController {
 
 
 
+    /* --------------------------------------- 배너 관리 ------------------------------------ */
 
+    @Secured("ROLE_SUPER")
+    @GetMapping("/banner/list")
+    public String bannerList(Model model) throws Exception {
+        List<Banner> bannerList = bannerService.list();
+        List<Banner> subBannerList = bannerService.subBannerList();
+        model.addAttribute("bannerList", bannerList);
+        model.addAttribute("subBannerList", subBannerList);
+        return "/admin/banner/list";
+    }
+    
+
+    /**
+     * 선택
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/banner/select")
+    public String bannerSelect(Model model,@RequestParam("id") String id) throws Exception {
+        Banner banner = bannerService.select(id);
+        model.addAttribute("banner", banner);
+        return "/admin/banner/select";
+    }
+
+    /**
+     * 추가
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/banner/insert")
+    public String bannerInsert(Model model,
+    @RequestParam(name = "search", required = false) String search) throws Exception {
+
+        List<Movie> movieList = null;
+        if (search == null || search.isEmpty()) {
+             movieList = movieService.list();
+        }
+        else{
+            movieList = movieService.list(search);
+            model.addAttribute("search", search);
+        }
+        model.addAttribute("pageInfo", movieList);
+        return "/admin/banner/insert";
+    }
+
+    /**
+     * 배너 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/banner/insert")
+    public String bannerInsert(Model model,
+                              Banner banner) throws Exception {
+        int result = bannerService.insert(banner);
+        if(result>0){
+            for (MultipartFile files : banner.getMainFiles()) {
+                Files file = new Files();
+                file.setFile(files);
+                file.setDivision("main");
+                file.setFkTable("banner");
+                file.setFkId(banner.getId());
+    
+                fileService.upload(file);
+            }
+            return "redirect:/admin/banner/list";
+        }
+        return "redirect:/admin/banner/list&error";
+    }
+
+
+    /**
+     * 추가
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/banner/update")
+    public String bannerUpdate(Model model,@RequestParam("id") String id,
+    @RequestParam(name = "search", required = false) String search) throws Exception {
+
+        Banner banner = bannerService.select(id);
+        model.addAttribute("banner", banner);
+
+        List<Movie> movieList = null;
+        if (search == null || search.isEmpty()) {
+             movieList = movieService.list();
+        }
+        else{
+            movieList = movieService.list(search);
+            model.addAttribute("search", search);
+        }
+        model.addAttribute("pageInfo", movieList);
+        return "/admin/banner/update";
+    }
+
+
+    /**
+     * 배너 수정
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/banner/update")
+    public String bannerUpdate(Model model,
+                              Banner banner) throws Exception {
+        Banner pastBanner = bannerService.select(banner.getId());
+        int result = bannerService.update(banner);
+        log.info(pastBanner.toString());       
+
+        if(result>0){
+            for (MultipartFile files : banner.getMainFiles()) {
+                Files file = new Files();
+                file.setFile(files);
+                file.setDivision("main");
+                file.setFkTable("banner");
+                file.setFkId(banner.getId());
+    
+                fileService.update(file,pastBanner.getFiles().getId());
+            }
+            return "redirect:/admin/banner/select?id="+banner.getId();
+        }
+        return "redirect:/admin/banner/update?id="+banner.getId()+"&error";
+    }
+
+
+
+    /**
+     * 삭제
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/banner/delete")
+    public String bannerDelete(@RequestParam("id") String id) throws Exception {
+
+        Banner banner = bannerService.select(id);
+
+        int rs= fileService.delete(banner.getFiles().getId());
+        int rss=0;
+        if(rs>0){
+            rss = bannerService.delete(id);
+        }
+        else{
+            return "redirect:/admin/banner/update?id="+id+"&error=fileDeleteFail";
+        }
+
+        if(rss>0){
+            return "redirect:/admin/banner/list";
+        }
+        return "redirect:/admin/banner/update?id="+id+"&error=bannerDeleteFail";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* --------------------------------------- 배너 관리 끝 ------------------------------------ */
+
+    
 
 
 
