@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -32,12 +33,14 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class HomeController {
 
+    
     @Autowired
     private UserService userService;
     @Autowired
     private MovieService movieService;
     @Autowired
     private NoticeService noticeService;
+
     /**
      * 메인 화면
      * 🔗 [GET] - / 
@@ -169,5 +172,5 @@ public class HomeController {
         model.addAttribute("rememberId", rememberId);
         return "/login";
     }
-    
+
 }
