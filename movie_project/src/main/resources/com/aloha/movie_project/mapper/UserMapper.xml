@@ -59,10 +59,18 @@
         WHERE username = #{username}
     </update>
 
-    <!-- 회원 정보 수정 -->
+    <!-- 회원 비밀번호 수정 -->
     <update id="updatePw">
         UPDATE users
            SET password = #{password}
+              ,upd_date = now()
+        WHERE username = #{username}
+    </update>
+
+    <!-- 회원 이메일 수정 -->
+    <update id="updateEmail">
+        UPDATE users
+           SET email = #{email}
               ,upd_date = now()
         WHERE username = #{username}
     </update>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 페이지-메인</title>
+    <link rel="stylesheet" th:href="@{/css/mypageMain.css}">
+</head>
+<body layout:fragment="content">
+    <div class="page-wrapper"> <!-- 외부 컨테이너 -->
+        <div class="mypage-container">
+            <div class="mypage-header">
+                <div class="profile-image-container">
+                    <img id="profileImage"
+                         th:src="@{/image(id='C:/upload/profile_default.png')}"
+                         style="width: 124px; height: 124px; border-radius: 50%;"
+                         alt="프로필 이미지">
+                </div>
+                <div class="text-section">
+                    <h2 th:text="${username} + '님, 반갑습니다.'">홍길동님, 반갑습니다.</h2>
+                    <div class="divider"></div> <!-- 두 줄 사이의 선 -->
+                    <p>고객님은 현재 <span th:text="${grade}">일반</span> 등급입니다.</p>
+                </div>
+                <div class="user-stats">
+                    <span>시청한 영화: <strong th:text="${movieCount}">2</strong></span>
+                    <span>리뷰: <strong th:text="${reviewCount}">1</strong></span>
+                </div>
+            </div>
+            <div class="mypage-main">
+                <!-- 사이드바 -->
+                <div class="mypage-sidebar">
+                    <ul>
+                        <li><a th:href="@{/user/info}">나의 정보</a></li>
+                        <li><a th:href="@{/user/tickets}">예매 내역</a></li>
+                        <li><a th:href="@{/user/inquiries}">문의 내역</a></li>
+                    </ul>
+                </div>
+                <!-- 콘텐츠 -->
+                <div class="mypage-content">
+                    <div class="profile-section">
+                        <div class="logo-and-upload" style="text-align: center;">
+                            <div class="logo-container">
+                                <img id="profileImage"
+                                     th:src="@{/image(id='C:/upload/profile_default.png')}"
+                                     style="width: 124px; height: 124px; border-radius: 50%;"
+                                     alt="프로필 이미지">
+                            </div>
+                        </div>
+                        <p>회원 정보를 수정하려면 비밀번호를 다시 입력해주세요.</p>
+                        <form id="passwordForm" action="/update-info" method="POST">
+                            <div th:fragment="csrf">
+                                <!-- CSRF 토큰을 추가 -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="password" name="password" placeholder="비밀번호 입력" required>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="button" class="btn-cancel" onclick="cancelForm()">취소</button>
+                                <button type="submit" class="btn-confirm">확인</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 취소 버튼 클릭 시 입력폼 리셋
+        function cancelForm() {
+            document.getElementById("password").value = ""; // 비밀번호 필드 리셋
+        }
+
+        // 폼 제출 시 비밀번호 검증
+        document.getElementById("passwordForm").onsubmit = function(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
+
+            var password = document.getElementById("password").value;
+
+            // 서버에서 비밀번호 검증 (예시로 비밀번호가 "1234"라고 가정)
+            if (password === "1234") {
+                // 비밀번호가 맞으면 서버로 폼 전송
+                this.submit();
+            } else {
+                alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
+            }
+        };
+    </script>
+</body>
+</html>
