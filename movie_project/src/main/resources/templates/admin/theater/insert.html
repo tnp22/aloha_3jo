@@ -624,7 +624,7 @@ function readMapAdd(x,y,mapData){
             // 맵불러올때 통로값 marginRigth 주기
             var value1 = "1";
             for (let value of mapvalue) {
-                if(value == '통로'){
+                if((value == '통로') || (value == '통로1')){
                     map.style.marginRight = '85px';
                     value1 = '통로'
                     console.log(name+" : 통로라서 콘솔찍힘 : " + value)

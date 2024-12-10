@@ -1,5 +1,9 @@
 package com.aloha.movie_project.controller;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -267,7 +271,7 @@ public class AdminController {
     @GetMapping("/cinema/enter")
     public String cinemaEnter(Model model, @RequestParam("id") String id
     ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
-    ,@RequestParam(name = "size", required = false, defaultValue = "6") Integer size
+    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
     ) throws Exception {
         // 데이터 요청
         PageInfo<Theater> pageInfo = null;
@@ -313,9 +317,6 @@ public class AdminController {
     public String theaterInsert(Model model,
                               @RequestBody Theater theater) throws Exception {
         theater.setMap(theater.getId());
-        int rs = theaterService.insert(theater);
-
-        /*****----------------------------------------------- */
         theater.setMapSize(theater.getX() * theater.getY());
 
         log.info("*******맵 : " + theater);
@@ -333,6 +334,24 @@ public class AdminController {
             sb.append(String.join(",", row)); // 내부 리스트를 문자열로 변환
         }
         String result = sb.toString();
+
+        int count = 0;
+        for (List<String> row : mapData) {
+            for (String row1 : row) {
+                if(row1.equals("null") || row1.equals("통로")){
+                    count++;
+                }
+            }
+        }
+        
+        int seat = theater.getMapSize() - count;
+        theater.setSeat(seat);
+
+
+        int rs = theaterService.insert(theater);
+
+        /*****----------------------------------------------- */
+        
 
         String path = "C:\\upload\\test"; // 파일 저장 경로
         String fileName = theater.getId();
@@ -352,30 +371,103 @@ public class AdminController {
 
 
 
+    /**
+     * 상영관 선택
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theater/select")
+    public String theaterSelect(Model model,@RequestParam("id") String id
+                        ,@RequestParam("theaterId") String theaterId) throws Exception {
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("theater", theaterService.select(theaterId));
+        return "/admin/theater/select";
+    }
+
+    /**
+     * 상영관 수정
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @GetMapping("/theater/update")
+    public String theaterUpdate(Model model,@RequestParam("id") String id
+                        ,@RequestParam("theaterId") String theaterId) throws Exception {
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("theater", theaterService.select(theaterId));
+        return "/admin/theater/update";
+    }
 
 
+/**
+     * 시네마 업데이트
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @ResponseBody
+    @PostMapping("/theater/update")
+    public String theaterUpate(Model model,
+                              @RequestBody Theater theater) throws Exception {
+        theater.setMap(theater.getId());
+        theater.setMapSize(theater.getX() * theater.getY());
+
+        log.info("*******맵 : " + theater);
+
+        // 맵 위치 확인 로직 예시
+        List<List<String>> mapData = theater.getMapData();
+        // log.info("맵 위치 3.0 : " + mapData.get(3).get(0)); //출력결과 기본값 D_1 (4번째줄 첫번째값)
+
+        // 2차원 리스트를 문자열로 변환
+        StringBuilder sb = new StringBuilder();
+        for (List<String> row : mapData) {
+            if (sb.length() > 0) {
+                sb.append("\n"); // 행 구분자 추가
+            }
+            sb.append(String.join(",", row)); // 내부 리스트를 문자열로 변환
+        }
+        String result = sb.toString();
+
+        int count = 0;
+        for (List<String> row : mapData) {
+            for (String row1 : row) {
+                if(row1.equals("null") || row1.equals("통로")){
+                    count++;
+                }
+            }
+        }
+        
+        int seat = theater.getMapSize() - count;
+        theater.setSeat(seat);
 
 
+        int rs = theaterService.update(theater);
+
+        /*****----------------------------------------------- */
+        
+
+        String path = "C:\\upload\\test"; // 파일 저장 경로
+        String fileName = theater.getId();
+        String fileName_1 = fileName+".txt"; // 파일 이름
+
+        // text 파일로 저장
+        ft.write(path, fileName_1, result);
 
 
+    /*****----------------------------------------------- */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if(rs>0){
+            return "SUCCESS";
+        }
+        return "FAIL";
+    }
 
 
 
@@ -486,8 +578,9 @@ public class AdminController {
         model.addAttribute("cinema", cinemaService.select(id));
         model.addAttribute("id", id);
         
-        return "/admin/theaterList/Select";
+        return "/admin/theaterList/select";
     }
+
 
     /**
      * 상영 리스트 업데이트 진입
@@ -499,10 +592,29 @@ public class AdminController {
     @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
     @GetMapping("/theaterList/update")
     public String theaterListUpdate(Model model, @RequestParam("id") String id,
-                    @RequestParam("theaterListId") String theaterListId) throws Exception {
+                    @RequestParam("theaterListId") String theaterListId,
+                    @RequestParam(name = "search", required = false) String search) throws Exception {
+        //해당 검색을 위한거
         TheaterList theaterList = theaterListService.select(theaterListId);
 
+        // 1관,2관,3관...
+        List<Theater> theaterLists = theaterService.list(id);
+
+        List<Movie> movieList = null;
+        if (search == null || search.isEmpty()) {
+             movieList = movieService.list();
+        }
+        else{
+            movieList = movieService.list(search);
+            model.addAttribute("search", search);
+        }
+        
+        // 모델 등록
+        model.addAttribute("theaterLists", theaterLists);
+        model.addAttribute("pageInfo", movieList);
+
         model.addAttribute("theaterList", theaterList);
+        log.info(theaterList.toString());
         model.addAttribute("cinema", cinemaService.select(id));
         model.addAttribute("id", id);
         
@@ -510,7 +622,28 @@ public class AdminController {
     }
 
 
-
+    /**
+     * 업데이트 post
+     * @param model
+     * @param movie
+     * @return
+     * @throws Exception
+     */
+    @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
+    @PostMapping("/theaterList/update")
+    public String theaterListUpdate(Model model, @RequestParam("cinemaId") String id,
+                            TheaterList theaterList) throws Exception {
+        int result = theaterListService.update(theaterList);
+        log.info(theaterList.toString());
+        model.addAttribute("cinema", cinemaService.select(id));
+        model.addAttribute("id", id);
+        if(result>0){
+            log.info("성공!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            return "redirect:/admin/theaterList/select?id="+id+"&theaterListId="+theaterList.getId();
+        }
+        log.info("실패!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        return "redirect:/admin/theaterList/select?id="+id+"&theaterListId="+theaterList.getId()+"&error";
+    }
 
 
 
