@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
-@Data 
+@Data
 public class TheaterList {
     private int no;
     private String id;
@@ -20,11 +20,10 @@ public class TheaterList {
     private Cinema cinema;
 
     private Movie movie;
-    
+
     private Theater theater;
 
-
-    public TheaterList(){
-        this.id=UUID.randomUUID().toString();
+    public TheaterList() {
+        this.id = UUID.randomUUID().toString();
     }
 }

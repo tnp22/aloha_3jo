@@ -13,6 +13,7 @@ public class TicketList {
     // 예약할떄 넘겨주기
     private Date time; // 날짜 + 시간 .getTime()
     private String id; // 상영리스트 ID .getId()
+    private int seat; // 좌석수
 
     // 일단 넣어
     private String title; // 영화제목 movie.getTitle()
