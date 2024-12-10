@@ -63,7 +63,7 @@ public class HomeController {
         PageInfo<Movie> expectPageInfo = movieService.expectList(page, size);
         model.addAttribute("moviePageInfo", moviePageInfo);
         model.addAttribute("expectPageInfo", expectPageInfo);
-        List<Notice> noticeList = noticeService.list();
+        List<Notice> noticeList = noticeService.mainNotice();
 
         model.addAttribute("noticeList", noticeList);
 

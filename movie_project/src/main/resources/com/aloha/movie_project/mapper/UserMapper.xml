@@ -8,6 +8,7 @@
     <resultMap type="Users" id="userMap">
         <id property="username" column="username" />
         
+        <result property="id" column="id" />
         <result property="username" column="username" />
         <result property="password" column="password" />
         <result property="name" column="name" />
@@ -28,7 +29,8 @@
   
     <!-- 회원 조회 - id -->
     <select id="select" resultMap="userMap">
-        SELECT u.username
+        SELECT u.id 
+              ,u.username
               ,password
               ,name
               ,email

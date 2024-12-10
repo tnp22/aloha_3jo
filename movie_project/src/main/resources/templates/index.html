@@ -146,11 +146,14 @@
         <div class="row g-6">
           <div class="col-md-7">
             <div class="box">
-              <h5 class="mb-3">공지사항</h5>
+              <div class="d-flex justify-content-between">
+                  <h5 class="mb-3">공지사항</h5>
+                  <a href="/notice/list">더보기</a>
+              </div>
               <ul class="list-unstyled">
                 <th:block th:each="notice : ${noticeList}">
                     <li>
-                    <a href="|/notice?id=${notice.id}|" th:text="${notice.title}"></a>
+                    <a th:href="|/notice/select?id=${notice.id}|" th:text="${notice.title}"></a>
                     <span class="date" th:text="${ #dates.format( notice.regDate, 'yyyy-MM-dd' ) }"></span>
                     </li>
                 </th:block>
@@ -166,7 +169,9 @@
           </div>
         </div>
     </section>
-
+    <button id="scrollToTopBtn" class="btn-float rounded-circle position-fixed" style="bottom: 50px; right: 110px; display: none;">
+        <i class="fa-solid fa-arrow-up fa-2x"></i>
+    </button>
     <script>
         $(document).ready(function () {
             // 슬라이드 상태 추적 객체
@@ -240,6 +245,28 @@
 
             initSlider("movie-slider", "#movie-chart .prev-btn", "#movie-chart .next-btn");
         });
+        // 플로팅 버튼 참조
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        // 스크롤 이벤트 리스너
+        window.addEventListener("scroll", () => {
+        // 현재 스크롤 위치가 300px 이상일 때 버튼 표시
+        if (window.scrollY > 300) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+        });
+
+        // 버튼 클릭 이벤트
+        scrollToTopBtn.addEventListener("click", () => {
+        // 부드럽게 페이지 상단으로 이동
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+        });
+
     </script>
 </body>
 </html>

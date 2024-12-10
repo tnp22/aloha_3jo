@@ -31,8 +31,7 @@ public interface MovieMapper {
     // 영화 상세정보 스틸컷
     public List<Files> stilList(String id) throws Exception;
 
-    // 영화 상세정보 리뷰
-    public List<ReviewInfo> reviewList(String id) throws Exception;
+
 
     // 영화 상세정보 조회
     public Movie movieInfo(String id) throws Exception;

@@ -216,3 +216,19 @@
 .list-unstyled a:hover{
     text-decoration: underline;
 }
+
+/* 버튼 스타일 커스터마이징 */
+#scrollToTopBtn {
+    width: 70px;
+    height: 70px;
+    color: #583BBF;
+    background: white;
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    z-index: 1030; /* 부트스트랩의 모달 등과 겹치지 않게 높은 z-index 설정 */
+}
+
+#scrollToTopBtn:hover {
+  opacity: 0.9; /* 호버 시 약간 투명해지도록 설정 */
+}
+  

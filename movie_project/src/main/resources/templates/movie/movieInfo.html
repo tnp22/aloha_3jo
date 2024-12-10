@@ -9,7 +9,7 @@
     <title>영화 상세보기</title>
     <link rel="stylesheet" href="/css/movieInfo.css">
 </head>
-<body layout:fragment="content">
+<body layout:fragment="content" style="margin-top: 150px;">
     <div class="container py-4">
         <div class="movie-header d-flex align-items-start gap-4">
             <img th:src="|/img?id=${movie.files.id}|" alt="Moana 2" class="img-fluid" style="width: 200px;">
@@ -145,76 +145,86 @@
             </div>
 
             <div th:class="|tab-pane fade ${tab == 'review' ? 'show active' : ''}|" id="reviews">
-                <h3 class="ms-3 mb-4">평점 / 리뷰</h3>
-                <div class="row g-6">
-                    <th:block th:each="review : ${reviewList.list}">
-                        <div class="col-md-6">
-                            <div class="review-section">
-                                <div class="review-user">
-                                    <img th:src="|/img?id=${review.id}|" alt="User 1">
-                                    <div>
-                                        <p th:text="${review.username}" style="margin: 0;"></p>
-                                        <div class="star-ratings">
-                                            <div 
-                                            class="star-ratings-fill space-x-2 text-lg"
-                                            th:style="|width: ${review.ratingValue*20+1}% |"
-                                            >
-                                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                                            </div>
-                                            <div class="star-ratings-base space-x-2 text-lg">
-                                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                                            </div>
-                                        </div>
-                                        <p th:text="${review.content}"></p>
-                                    </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="ms-3 mb-4">평점 / 리뷰</h3>
+                    <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#ratingModal">평점작성</button>
+                </div>
+                <div id="review-section"></div>
+                <div class="modal" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ratingModalLabel">평점 작성</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="rating" class="form-label">별점</label>
+                                    <select class="form-select" id="rating" name="ratingValue" required>
+                                        <option value="1">★</option>
+                                        <option value="2">★★</option>
+                                        <option value="3">★★★</option>
+                                        <option value="4">★★★★</option>
+                                        <option value="5">★★★★★</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="content" class="form-label">리뷰 내용</label>
+                                    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                                </div>
+                                <!-- CSRF TOKEN -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <input type="hidden" name="username" th:value="${#authentication.name}">
+                                <input type="hidden" name="movieId" th:value="${movie.id}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button type="button" class="btn btn-primary" onclick="insertReview()" data-bs-dismiss="modal">작성</button>
                                 </div>
                             </div>
                         </div>
-                    </th:block>
-                </div>
-                <!-- 페이지네이션 -->
-                <!-- ⚡ 유동적인 페이지 번호 출력 (pagehelper)  -->
-                <th:block th:if="${reviewList.pages > 0}">
-                    <div class="pagination mt-5 flex justify-content-center">
-                    <ul style="display: flex; list-style-type: none; gap: 10px; justify-content: center;">
-                        <li th:if="${reviewList.pageNum > 1}">
-                            <a th:href="@{/movie/movieInfo(page=1)}, tab=review, id=${movie.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" class="icon" transform="scale(-1, 1)">
-                                <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li th:if="${reviewList.hasPreviousPage}">
-                            <a th:href="@{/movie/movieInfo(page=${reviewList.prePage}, tab=review, id=${movie.id})}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" class="icon"><path d="M34.52 239l194.34-194.34c9.37-9.37 24.57-9.37 33.94 0l22.34 22.34c9.37 9.37 9.37 24.57 0 33.94L128.97 256l156.17 156.17c9.37 9.37 9.37 24.57 0 33.94l-22.34 22.34c-9.37 9.37-24.57 9.37-33.94 0L34.52 273c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>
-                            </a>
-                        </li>
-                        <li th:each="i : ${#numbers.sequence(reviewList.navigateFirstPage, reviewList.navigateLastPage)}">
-                            <a  th:href="@{/movie/movieInfo(page=${i}, tab=review, id=${movie.id})}" 
-                                th:text="${i}"
-                                class="page"
-                                th:classappend="${reviewList.pageNum == i} ? 'active' : ''"></a>
-                        </li>
-                        <li th:if="${reviewList.hasNextPage}">
-                            <a th:href="@{/movie/movieInfo(page=${reviewList.nextPage}, tab=review, id=${movie.id})}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" class="icon"><path d="M285.48 273l-194.34 194.34c-9.37 9.37-24.57 9.37-33.94 0l-22.34-22.34c-9.37-9.37-9.37-24.57 0-33.94L191.03 256 34.86 99.83c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L285.48 239c9.37 9.37 9.37 24.57 0 33.94z"/></svg>
-                            </a>
-                        </li>
-                        <li th:if="${reviewList.pageNum < reviewList.pages}">
-                            <a th:href="@{/movie/movieInfo(page=${reviewList.pages}, tab=review, id=${movie.id})}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" class="icon">
-                                <path d="M224 239L29.66 44.66c-9.37-9.37-24.57-9.37-33.94 0L-26.34 67c-9.37 9.37-9.37 24.57 0 33.94L128.97 256-26.34 410.05c-9.37 9.37-9.37 24.57 0 33.94l22.34 22.34c9.37 9.37 24.57 9.37 33.94 0L224 273c9.37-9.37 9.37-24.57 0-33.94zM448 273L253.66 467.34c-9.37 9.37-24.57 9.37-33.94 0L197.34 445c-9.37-9.37-9.37-24.57 0-33.94L352.97 256 197.34 100.95c-9.37-9.37-9.37-24.57 0-33.94l22.34-22.34c9.37-9.37 24.57-9.37 33.94 0L448 239c9.37 9.37 9.37 24.57 0 33.94z"/>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
                     </div>
-                </th:block>
+                </div>
+                <div class="modal" id="updateModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ratingModalLabel">평점 수정</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="rating" class="form-label">별점</label>
+                                    <select class="form-select" id="updateRating" name="ratingValue" required>
+                                        <option value="1">★</option>
+                                        <option value="2">★★</option>
+                                        <option value="3">★★★</option>
+                                        <option value="4">★★★★</option>
+                                        <option value="5">★★★★★</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="content" class="form-label">리뷰 내용</label>
+                                    <textarea class="form-control" id="updateContent" name="content" rows="3" required></textarea>
+                                </div>
+                                <!-- 숨겨진 필드 -->
+                                <!-- CSRF TOKEN -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <input type="hidden" id="updateReviewId" name="id">
+                                <input type="hidden" name="movieId" th:value="${movie.id}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button type="submit" class="btn btn-primary" onclick="updateReview()" data-bs-dismiss="modal">수정</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
     <script>
-
+        let csrfToken = "[[${_csrf.token}]]"
         document.addEventListener("DOMContentLoaded", function () {
             const showMoreButton = document.querySelector("#showMoreButton");
             const stilcutItems = document.querySelectorAll(".stilcut-item");
@@ -257,6 +267,140 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const editButtons = document.querySelectorAll('.edit-review');
+            const modal = document.getElementById('updateModal');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 버튼에 저장된 데이터 가져오기
+                    const reviewId = button.getAttribute('data-id');
+                    const ratingValue = button.getAttribute('data-rating');
+                    const content = button.getAttribute('data-content');
+
+                    // 모달 필드에 데이터 설정
+                    document.getElementById('updateReviewId').value = reviewId;
+                    document.getElementById('updateRating').value = ratingValue;
+                    document.getElementById('updateContent').value = content;
+                });
+            });
+        });
+        reviewList();
+        function reviewList(){
+            let request = new XMLHttpRequest()
+            let movieId = "[[${movie.id}]]"
+            let page = "[[${page}]]"
+            console.log(movieId);
+            console.log('페이지는 : ' + page);
+            let url=`/review/list?id=${movieId}&page=${page}`
+            request.open('GET',url,true)
+            request.send()
+
+            request.onreadystatechange = function(){
+                let reviewList = request.responseText
+                let $reviewList = document.getElementById('review-section')
+                $reviewList.innerHTML = reviewList
+            }
+        }
+        function deleteReview(reviewId, movieId) {
+            // 확인 알림창
+            const confirmDelete = confirm("이 리뷰를 삭제하시겠습니까?");
+            console.log(reviewId);
+            if (confirmDelete) {
+                let request = new XMLHttpRequest()
+                request.onreadystatechange = function(){
+                    if(request.readyState == request.DONE && request.status == 200){
+                        let response = request.responseText
+                        if(response == 'SUCCESS'){
+                            reviewList()
+                        }else{
+                            alert('리뷰 삭제 실패')
+                        }
+                    }
+                }
+                const url=`/review/delete/${reviewId}/${movieId}`
+                request.open('DELETE',url,true)
+                request.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                request.send()
+            }
+        }
+
+        function insertReview(){
+            const movieId = "[[${movie.id}]]"
+            let username = "[[${#authentication.name}]]"
+            let content = document.getElementById('updateContent').value
+            let ratingValue = document.getElementById('updateRating').value
+            console.log('ratingValue : ' + ratingValue)
+            console.log('movieId : ' + movieId)
+            console.log('username : ' + username)
+            console.log('content : ' + content)
+            let data = {
+                'movieId': movieId,
+                'ratingValue': ratingValue,
+                'content': content,
+                'username': username
+            }
+
+            let request = new XMLHttpRequest()
+            request.onreadystatechange = function(){
+                if(request.readyState == request.DONE && request.status == 200){
+                    let response = request.responseText
+                    if(response == 'SUCCESS'){
+                        console.log('리뷰 등록 성공')
+                        reviewList();
+                        document.getElementById('content').value=""
+                        document.getElementById('rating').value=""
+                        var modal = new bootstrap.Modal(document.getElementById('ratingModal'));
+                        modal.hide();
+                    }
+                }
+            }
+
+            const url=`/review/insert`
+            request.open('POST',url,true)
+            request.setRequestHeader('Content-Type', 'application/json')
+            request.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+            request.send(JSON.stringify(data))
+        }
+
+        function updateReview(){
+            console.log('리뷰 업데이트 시도')
+            const movieId = "[[${movie.id}]]"  
+            let content = document.getElementById('updateContent').value
+            let ratingValue = document.getElementById('updateRating').value
+            let reviewId = document.getElementById('updateReviewId').value
+            console.log('ratingValue : ' + ratingValue)
+            console.log('movieId : ' + movieId)
+            console.log('content : ' + content)
+            let data = {
+                'movieId': movieId,
+                'ratingValue': ratingValue,
+                'content': content,
+                'id': reviewId
+            }
+
+            let request = new XMLHttpRequest()
+            request.onreadystatechange = function(){
+                if(request.readyState == request.DONE && request.status == 200){
+                    let response = request.responseText
+                    if(response == 'SUCCESS'){
+                        console.log('리뷰 수정 성공')
+                        reviewList();
+                        document.getElementById('updateContent').value=""
+                        document.getElementById('updateRating').value=""
+                        var modal = new bootstrap.Modal(document.getElementById('ratingModal'));
+                        modal.hide();
+                    }
+                }
+            }
+
+            const url=`/review/update`
+            request.open('PUT',url,true)
+            request.setRequestHeader('Content-Type', 'application/json')
+            request.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+            request.send(JSON.stringify(data))
+        }
     </script>
 </body>
 </html>
