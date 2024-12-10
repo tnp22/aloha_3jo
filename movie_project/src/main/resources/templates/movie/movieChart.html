@@ -9,7 +9,7 @@
     <title>영화 차트 및 상영 예정작</title>
     <link rel="stylesheet" href="/css/movieChart.css">
 </head>
-<body layout:fragment="content">
+<body layout:fragment="content" style="margin-top: 200px;">
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center">
           <h2>영화차트</h2>
@@ -103,7 +103,7 @@
                                     <h5 class="card-title" th:text="${expect.title}"></h5>
                                 </a>
                                 <p class="card-text" th:text="|개봉일 ${ #dates.format( expect.releaseDate, 'yyyy. MM. dd' ) }|"></p>
-                                <a th:href="|/m/t?id=${movie.id}|" class="btn btn-purple">예매하기</ㅁ>
+                                <a th:href="|/m/t?id=${expect.id}|" class="btn btn-purple">예매하기</a>
                             </div>
                           </div>
                         </div>

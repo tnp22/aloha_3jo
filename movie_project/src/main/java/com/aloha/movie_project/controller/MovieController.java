@@ -14,11 +14,15 @@ import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.ReviewInfo;
 import com.aloha.movie_project.service.CastService;
 import com.aloha.movie_project.service.MovieService;
+import com.aloha.movie_project.service.ReviewService;
 import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -30,6 +34,9 @@ public class MovieController {
     
     @Autowired
     private CastService castService;
+
+    @Autowired
+    private ReviewService reviewService; 
 
     @GetMapping("/movieChart")
     public String movieChart(Model model
@@ -69,7 +76,7 @@ public class MovieController {
         Movie movie = movieService.movieInfo(id);
         List<Cast> castList = castService.castList(id);
         List<Files> stilList = movieService.stilList(id);
-        PageInfo<ReviewInfo> reviewList = movieService.reviewList(id, page, size);
+        PageInfo<ReviewInfo> reviewList = reviewService.reviewList(id, page, size);
         List<ReviewInfo> list = reviewList.getList();
         double result = 0;
         for (ReviewInfo review : list) {
@@ -80,11 +87,10 @@ public class MovieController {
         model.addAttribute("movie", movie);
         model.addAttribute("castList", castList);
         model.addAttribute("stilList", stilList);
-        model.addAttribute("reviewList", reviewList);
         model.addAttribute("tab", tab);
         model.addAttribute("average", average);
+        model.addAttribute("page", page);
         return "/movie/movieInfo";
     }
-    
     
 }

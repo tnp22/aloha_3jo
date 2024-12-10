@@ -1,6 +1,20 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 a { text-decoration: none; color: black;}
 *{font-family: 'Noto Sans KR', sans-serif;}
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+header{
+    width: 100%;
+    top: 0;
+    position: fixed;
+    z-index: 1000;
+}
+.body-content{
+    margin-top: 138px;
+}
 .navbar {
     border-bottom: 2px solid #583BBF; 
 }
@@ -56,6 +70,8 @@ a { text-decoration: none; color: black;}
     max-width: 300px;
 }
 footer {
+    position: relative;
+    bottom: 0;
     background-color: #583BBF; 
     color: white; 
     height: 240px; 
@@ -64,6 +80,7 @@ footer {
     flex-direction: column;
     justify-content: space-between; 
     padding: 20px 0;
+    margin-top: auto;
 }
 .footer-links{
     display: flex;

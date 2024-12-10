@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.aloha.movie_project.mapper.ReviewMapper">
+
+     <insert id="insertReview">
+         insert into review
+         (id,movie_id,user_id,content)
+         VALUES
+         (#{id},#{movieId},#{userId},#{content})
+     </insert>
+
+     <insert id="insertRating">
+         insert into rating
+         (id,review_id,user_id,rating_value)
+         VALUES
+         (#{id},#{reviewId},#{userId},#{ratingValue})
+     </insert>
+
+     <update id="updateReview">
+        update review
+        set rating_value = #{ratingValue}
+            ,content = #{content}
+        where id = #{id} 
+     </update>
+     <update id="updateRating">
+        update rating
+        set rating_value = #{ratingValue}
+        where review_id = #{id}
+     </update>
+     <delete id="deleteReview">
+        delete from review
+        where id = #{id}
+     </delete>
+     <delete id="deleteRating">
+        delete from rating
+        where review_id = #{id}
+     </delete>
+    <select id="reviewList" resultType="ReviewInfo">
+        select e.id, u.username, f.id fileId, e.content, a.rating_value 
+        from rating a, review e, users u, files f 
+        where a.review_id = e.id and e.user_id = u.id and u.id = f.fk_id and f.division = 'profile' and e.movie_id = #{id}
+    </select>
+</mapper>

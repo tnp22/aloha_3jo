@@ -114,14 +114,6 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public PageInfo<ReviewInfo> reviewList(String id, int page, int size) throws Exception {
-        PageHelper.startPage(page, size);
-        List<ReviewInfo> reviewList = movieMapper.reviewList(id);
-        PageInfo<ReviewInfo> pageInfo = new PageInfo<ReviewInfo>(reviewList, 5);
-        return pageInfo;
-    }
-
-    @Override
     public Movie movieInfo(String id) throws Exception {
         Movie movie = movieMapper.movieInfo(id);
         return movie;

@@ -119,11 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from files where fk_id=#{id} and fk_table='movie' and division = 'stilcut' order by no desc
     </select>
 
-    <select id="reviewList" resultType="ReviewInfo">
-        select u.username, f.id, e.content, a.rating_value 
-        from rating a, review e, users u, files f 
-        where a.review_id = e.id and e.user_id = u.id and u.id = f.fk_id and f.division = 'profile' and e.movie_id = #{id}
-    </select>
+
     <select id="movieInfo" resultMap="MovieMap">
         SELECT m.*, f.no file_no, f.id file_id, f.fk_id, f.fk_table, f.division, f.url
         FROM movie m join files f on m.id = f.fk_id
