@@ -401,6 +401,7 @@ public class AdminController {
                         ,@RequestParam("theaterId") String theaterId) throws Exception {
         model.addAttribute("cinema", cinemaService.select(id));
         model.addAttribute("theater", theaterService.select(theaterId));
+
         return "/admin/theater/update";
     }
 
