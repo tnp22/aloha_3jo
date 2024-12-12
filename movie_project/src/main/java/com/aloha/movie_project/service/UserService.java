@@ -28,6 +28,9 @@ public interface UserService {
 
     // 회원 수정
     public int updatePw(Users user) throws Exception;
+
+    // 이메일 수정
+    public int updateEmail(Users user) throws Exception;
     
     // 페이징 목록
     public PageInfo<Users> list(int page, int size) throws Exception;
