@@ -81,7 +81,11 @@
                 </div>
             </div>
         </div>
-        <div class="align-content-center">
+        <div class="align-content-center d-flex">
+          <div class="m-5">
+            <p>어른<span style="margin-left: 10px; margin-right: 5px;" id="adult" person="1">1</span><button style="margin-left: 5px;" onclick="aup()">↑</button><button style="margin-left: 5px;" onclick="adown()">↓</button></p>
+            <p>학생<span style="margin-left: 10px; margin-right: 5px;" id="student" person="0">0</span><button style="margin-left: 5px;" onclick="sup()">↑</button><button style="margin-left: 5px;" onclick="sdown()">↓</button></p>
+          </div>
             <button class="btn reserve-btn" id="ticketSeat"><i class="fa-solid fa-angle-right fa-3x"></i><p>좌석선택</p></button>
         </div>
     </div>
@@ -247,7 +251,7 @@
         dateEntry.theaters.push(theater);
       }
        
-      console.log(list.id)
+      // console.log(list.id)
 
       // 시간 및 좌석 정보를 추가
       theater.times.push({
@@ -344,6 +348,7 @@
       const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
       const day = date.getDate(); // 일(day) 얻기
       const dayOfWeek = days[date.getDay()]; // 요일 얻기
+
       
       // 요일에 따라 색상 결정
       let color = "black"; // 기본 글자색
@@ -441,8 +446,8 @@
           const selectedDate = e.target.getAttribute("data-date");
           const selectedCinema = e.target.getAttribute("cinema");
 
-          console.log("클릭된 날짜:", selectedDate);
-          console.log("클릭된 영화관:", selectedCinema);
+          // console.log("클릭된 날짜:", selectedDate);
+          // console.log("클릭된 영화관:", selectedCinema);
 
           // 선택 후 원하는 작업 수행
           handleDateClick(selectedCinema, selectedDate);
@@ -456,7 +461,7 @@
 
     // 클릭 이벤트 처리 함수
     function handleDateClick(cinema, date) {
-      console.log(`선택된 영화관: ${cinema}, 선택된 날짜: ${date}`);
+      // console.log(`선택된 영화관: ${cinema}, 선택된 날짜: ${date}`);
 
       // 선택 후 DOM 요소 활성화
       const activeItem = document.querySelector("#date-list .list-group-item.active");
@@ -519,28 +524,79 @@
         var movieId = e.target.getAttribute("data-movieId"); // 상영시간 무비ID 가져오기
         // console.log("아이디 : ",movieId)
         timeInfo.textContent = theater+' 상영실, '+time
+
         // **활성화된 항목 관리**: 기존 활성화된 항목 제거
         // 모든 .btn-time 버튼들을 선택
         const timeButtons = document.querySelectorAll('.btn-time');
-
         // 각 버튼에 대해 배경색을 하얀색으로 설정
         timeButtons.forEach(button => {
           button.classList.remove("active");
         });
         // 클릭된 항목에 'active' 클래스 추가
         e.target.classList.add("active");
-      }
+        
+        // 좌석선택 버튼 클릭 이벤트 초기화 및 재등록
+        const ticketSeatButton = document.getElementById("ticketSeat");
 
-      document.getElementById("ticketSeat").addEventListener("click", function() {
+        // 기존 이벤트 리스너 제거
+        ticketSeatButton.replaceWith(ticketSeatButton.cloneNode(true));
+        
+        document.getElementById("ticketSeat").addEventListener("click", function() {
           ticketSeat(movieId)
         });
-      });
+      }
+    });
       
-      // 좌석선택 이동
-      function ticketSeat(movieId){
-        let theaterListId = movieId; //햇갈릴까봐 변경 상영시간기준 영화ID
-        console.log("ticketSeat 클릭됨!", movieId);
-        location.href = "#?theaterListId="+theaterListId;
+    // 좌석선택 이동
+    function ticketSeat(movieId){
+      let theaterListId = movieId; //햇갈릴까봐 변경 상영시간기준 영화ID
+      var adult = document.getElementById("adult")
+      var student = document.getElementById("student")
+      var person1 = parseInt(adult.getAttribute("person"))
+      var person2 = parseInt(student.getAttribute("person"))
+
+      var person = person1 + person2;
+      var money = (person1 * 10000) + (person2 * 5000);
+
+
+      location.href = "/m/s?theaterListId="+theaterListId+"&person=" + person +"_"+money;
+    }
+
+    function aup(){
+      var adult = document.getElementById("adult")
+      var person = parseInt(adult.getAttribute("person"))
+      person = person + 1;
+      adult.setAttribute("person", person);
+      adult.textContent = person;
+      // console.log(person);
+    }
+    function adown(){
+      var adult = document.getElementById("adult")
+      var person = parseInt(adult.getAttribute("person"))
+      if(person > 0){
+        person = person - 1;
+      }
+      adult.setAttribute("person", person);
+      adult.textContent = person;
+      
+    }
+    function sup(){
+      var student = document.getElementById("student")
+      var person = parseInt(student.getAttribute("person"))
+      person = person + 1;
+      student.setAttribute("person", person);
+      student.textContent = person;
+      
+    }
+    function sdown(){
+      var student = document.getElementById("student")
+      var person = parseInt(student.getAttribute("person"))
+      if(person > 0){
+        person = person - 1;
+      }
+      student.setAttribute("person", person);
+      student.textContent = person;
+
     }
 
     // 페이지 로딩이 끝난 후 area() 실행
