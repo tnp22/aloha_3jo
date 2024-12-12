@@ -20,8 +20,8 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
-    public List<Reserve> selectSeat() {
-        return reserveMapper.selectSeat();
+    public List<Reserve> selectSeat(String theaterListId) {
+        return reserveMapper.selectSeat(theaterListId);
     }
 
     @Override
