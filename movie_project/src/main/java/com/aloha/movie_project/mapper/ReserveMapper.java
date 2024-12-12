@@ -13,7 +13,7 @@ public interface ReserveMapper {
     public int insertReserve(Reserve reserve);
 
     // 좌석검색
-    public List<Reserve> selectSeat();
+    public List<Reserve> selectSeat(String theaterListId);
 
     // 예매 리스트
     public List<Reserve> selectUsername(String userName);
