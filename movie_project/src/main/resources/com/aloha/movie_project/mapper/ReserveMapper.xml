@@ -21,7 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 예매 리스트 조회 (username)  -->
     <select id="selectUsername" resultType="Reserve">
-        SELECT * FROM reserve WHERE user_name = #{userName};
+        SELECT * FROM reserve WHERE user_name = #{userName}
+    </select>
+
+    <!-- 예매 조회 id -->
+    <select id="searchReserve" resultType="Reserve">
+        SELECT * FROM reserve WHERE id = #{id}
     </select>
 
 </mapper>

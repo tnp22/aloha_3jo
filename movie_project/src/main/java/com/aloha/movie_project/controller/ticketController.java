@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aloha.movie_project.domain.Cinema;
 import com.aloha.movie_project.domain.CustomUser;
@@ -32,6 +30,7 @@ import com.aloha.movie_project.service.MovieService;
 import com.aloha.movie_project.service.ReserveService;
 import com.aloha.movie_project.service.cinema.TheaterListService;
 import com.aloha.movie_project.service.cinema.TheaterService;
+import com.github.pagehelper.PageInfo;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +53,7 @@ public class ticketController {
 
     @GetMapping("/t")
     public String ticketMain(@RequestParam("id") String id, Model model) throws Exception {
-        log.info("id : {}", id); // 올바른 SLF4J 방식
+        // log.info("id : {}", id); // 올바른 SLF4J 방식
         Movie movie_ = movieService.movieInfo(id);
         model.addAttribute("movie", movie_);
 
@@ -63,10 +62,21 @@ public class ticketController {
         List<TicketList> ticketLists = new ArrayList<>();
 
         for (TheaterList t : list) {
+            // 전체 좌석 - 예약된 좌석
+            List<Reserve> reserve = reserveService.selectSeat(t.getId());
+            int MaxPerson = 0;
+            for (Reserve r : reserve) {
+                // System.out.println(r.getSeat());
+                String[] re = r.getSeat().split(",");
+                MaxPerson += re.length;
+            }
+            System.out.println(MaxPerson);
             TicketList ticket = new TicketList();
             Cinema cinema = t.getCinema();
             Movie movie = t.getMovie();
             Theater theater = t.getTheater();
+
+            int SeatNum = theater.getSeat() - MaxPerson;
 
             ticket.setArea(cinema.getArea()); // 지역
             ticket.setAreaSub(cinema.getAreaSub()); // 극장
@@ -78,7 +88,7 @@ public class ticketController {
 
             ticket.setTheaterName(theater.getName()); // 상영관이름
             ticket.setMapUrl(theater.getMap()); // 상영관맵경로
-            ticket.setSeat(theater.getSeat()); // 좌석 (예메리스트에서 계산해서 넘기기 추가예정)
+            ticket.setSeat(SeatNum); // 좌석 (예메리스트에서 계산해서 넘기기 추가예정)
 
             ticket.setMovieId(t.getMovieId()); // 무비 ID
             ticket.setTheaterId(t.getTheaterId()); // 시에터 ID
@@ -88,7 +98,7 @@ public class ticketController {
 
         }
 
-        log.info("리스트 : " + ticketLists);
+        // log.info("리스트 : " + ticketLists);
         model.addAttribute("ticketList", ticketLists);
         return "/movie/ticket";
     }
@@ -147,22 +157,45 @@ public class ticketController {
     }
 
     @GetMapping("/payment")
-    public String showPaymentPage(HttpSession session, Model model) throws Exception {
+    public String showPaymentPage(HttpSession session, Model model,
+            @RequestParam(name = "id", required = false) String id) throws Exception {
+        Reserve reserve = new Reserve();
+        TheaterList num = new TheaterList();
+        if (id == null) {
+            reserve = (Reserve) session.getAttribute("reserve");
+            num = theaterListService.select(reserve.getTheaterListId());
+        } else {
+            reserve = reserveService.searchReserve(id);
+            num = theaterListService.select(reserve.getTheaterListId());
 
-        // 세션에서 데이터 읽기
-        // String seat = (String) session.getAttribute("seat");
-        // String person = (String) session.getAttribute("person");
-        // String theaterListId = (String) session.getAttribute("theaterId");
-        // String userName = (String) session.getAttribute("userName");
-        Reserve reserve = (Reserve) session.getAttribute("reserve");
+            // 시간 형식 변경
+            Date date = num.getTime();
 
-        TheaterList num = theaterListService.select(reserve.getTheaterListId());
-        System.out.println("넘 있나?" + num);
+            // 원하는 패턴 설정
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            String formatDate = dateFormat.format(date);
+            String formatTime = timeFormat.format(date);
+
+            reserve.setTitle(num.getMovie().getTitle());
+            reserve.setTheater(num.getTheater().getName());
+            reserve.setTheaterId(num.getTheaterId());
+            reserve.setAreaSub(num.getCinema().getAreaSub());
+            reserve.setDate(formatDate);
+            reserve.setTime(formatTime);
+        }
+        System.out.println("Reserve : " + reserve);
+        // System.out.println("넘 있나?" + num);
         // 영화사진
         Movie movie_ = movieService.movieInfo(num.getMovieId());
 
         model.addAttribute("movie", movie_);
         model.addAttribute("reserve", reserve);
+        // 세션에서 데이터 읽기
+        // String seat = (String) session.getAttribute("seat");
+        // String person = (String) session.getAttribute("person");
+        // String theaterListId = (String) session.getAttribute("theaterId");
+        // String userName = (String) session.getAttribute("userName");
 
         // 뷰 반환
         return "/movie/payment";
@@ -219,21 +252,29 @@ public class ticketController {
 
         session.setAttribute("reserve", reserve);
 
-        // DB 저장
-        reserveService.insertReserve(reserve);
+        System.out.println("시트 : " + seat);
+        System.out.println(seat == null);
+        if (seat == null) {
+            return "/m/s?theaterListId=0c701709-0c0d-49dd-b96f-8c30961eee2d&person=1_10000&error";
+        }
 
-        // GET 요청 페이지로 이동
+        // DB 저장
+        int result = reserveService.insertReserve(reserve);
+        System.out.println("리졸트 : " + result);
         return "redirect:/m/payment";
     }
 
     @GetMapping("/rsList")
-    public String reservationList(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
+    public String reservationList(@AuthenticationPrincipal CustomUser authUser, Model model,
+            @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = "8") Integer size) throws Exception {
         String username = authUser.getUsername();
         // log.info("테스트, " + username);
-        List<Reserve> reservationList = reserveService.selectUsername(username);
+        // List<Reserve> reservationList = reserveService.selectUsername(username);
+        PageInfo<Reserve> reservationList = reserveService.selectUsername(page, size, username);
         // System.out.println(reservationList);
 
-        for (Reserve reserve : reservationList) {
+        for (Reserve reserve : reservationList.getList()) {
             TheaterList detail = theaterListService.select(reserve.getTheaterListId());
 
             // 시간 형식 변경
