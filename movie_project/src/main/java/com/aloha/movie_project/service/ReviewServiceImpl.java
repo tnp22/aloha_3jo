@@ -10,6 +10,9 @@ import com.aloha.movie_project.mapper.ReviewMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
@@ -47,10 +50,21 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public PageInfo<ReviewInfo> reviewList(String id, int page, int size) throws Exception {
-        PageHelper.startPage(page, size);
+    public PageInfo<ReviewInfo> reviewList(String id, int page, int size, int count) throws Exception {
+        if(count>0){
+            int offset = (page == 1) ? 0 : 5 + (page - 2) * 6; // 오프셋 계산
+            PageHelper.offsetPage(offset, size);
+        }else{
+            PageHelper.startPage(page, size);
+        }
         List<ReviewInfo> reviewList = reviewMapper.reviewList(id);
         PageInfo<ReviewInfo> pageInfo = new PageInfo<ReviewInfo>(reviewList, 5);
         return pageInfo;
+    }
+
+    @Override
+    public ReviewInfo select(String id, String username) {
+        ReviewInfo reviewInfo = reviewMapper.select(id, username);
+        return reviewInfo;
     }
 }

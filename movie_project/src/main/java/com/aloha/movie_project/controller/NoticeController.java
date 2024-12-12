@@ -32,6 +32,7 @@ public class NoticeController {
     ,@RequestParam(name = "keyword", defaultValue = "") String keyword) {
         PageInfo<Notice> noticeList = noticeService.list(page,size,option,keyword);
         model.addAttribute("noticeList", noticeList);
+        model.addAttribute("option", option);
         return "/notice/list";
     }
     @GetMapping("/select")
