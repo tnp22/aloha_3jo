@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   overflow-y: scroll; /* 수직 스크롤 활성화 */
+  overflow-x: hidden; /* 수직 스크롤 활성화 */
   border: none;
   padding-left: 20px;
   padding-right: 15px;

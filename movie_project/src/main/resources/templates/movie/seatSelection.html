@@ -19,7 +19,7 @@
         flex-direction: column;
         justify-content: start;
         align-items: center;
-        overflow: scroll;
+        /* overflow-y: scroll; */
       }
   </style>
 </head>
@@ -36,8 +36,13 @@
                 <!-- 좌석 -->
                 <div class="header"><h5>좌석 선택</h5></div>
                 <div class="content p-0">
+                  
                   <div style="width: 100%; height:100%; display: flex; justify-content: center; align-items: center;">
-                    <div class="mapBACHI2" id="map">
+                    
+                    <div class="mapBACHI2 scroll" id="map">
+                      <div style="width: 100%; height: 30px; margin: 0 auto; background-color: gray; text-align: center; margin-bottom: 20px;">
+                        <h1 style="margin-top: -5px; font-size: 30px;">SCREEN</h1>
+                      </div>
                       <!-- 비동기 동적 생성?? -->
                     </div>
                   </div>
