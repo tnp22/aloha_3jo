@@ -150,6 +150,12 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Override
+    public int updateEmail(Users user) throws Exception {
+        int result = userMapper.updateEmail(user);
+        return result;
+    }
+
     
 }
 
