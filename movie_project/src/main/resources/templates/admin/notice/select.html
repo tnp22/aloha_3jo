@@ -15,44 +15,10 @@
         .subLi{
             display: none;
         }
-        
-        .movieLi {
-          display: none;
+        .movieLi{
+            display: none;
         }
     </style>
-        <style>
-            /* 테이블을 감싸는 div에 스크롤 적용 */
-            .table-container {
-                max-height: 200px; /* 원하는 높이를 설정 */
-                overflow-y: auto; /* 세로 스크롤 적용 */
-            }
-    
-            table {
-                width: 100%; /* 테이블 폭을 100%로 설정 */
-                table-layout: fixed; /* 열 너비 고정 */
-            }
-                /* 스크롤 박스 스타일 */
-            .scroll {
-            max-height: 200px; /* 스크롤 가능한 높이 */
-            overflow-y: auto; /* 수직 스크롤 활성화 */
-            border: 1px solid #ddd; /* 경계선 */
-            border-radius: 5px; /* 둥근 모서리 */
-            padding: 10px; /* 내부 여백 */
-            }
-    
-            /* 스크롤 커스터마이징 */
-            .scroll::-webkit-scrollbar {
-            width: 5px;
-            }
-    
-            .scroll::-webkit-scrollbar-track {
-            background: #ddd;
-            }
-    
-            .scroll::-webkit-scrollbar-thumb {
-            background: #666;
-            }
-        </style>
 </head>
 <body>
     <div class="container-fluid " style="height: 720px;">
@@ -70,7 +36,7 @@
                     <ul>
                         <li><a href="/admin/cinema/list" >영화관</a></li>
                         <li class="mainLi">
-                            <a href="/admin/movie/list" >영화관리</a>
+                            <a href="/admin/movie/list">영화관리</a>
                             <nav class="movieLi">
                                 <li><a href="/admin/movie/list" >영화 관리</a></li>
                                 <li><a href="/admin/cast/list">출연진 관리</a></li>
@@ -83,52 +49,49 @@
                                 <li><a href="/admin/userManager/auth/list" >권한 관리</a></li>
                             </nav>
                         </li>
-                        <li><a href="/admin/banner/list" style="color: blue;">배너관리</a></li>
+                        <li><a href="/admin/banner/list" >배너관리</a></li>
                         <li><a href="/admin/reviewManager/list">리뷰관리</a></li>
-                        <li><a href="/admin/notice/list">공지관리</a></li>
+                        <li><a href="/admin/notice/list" style="color: blue;">공지관리</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-8">
                 <br>
-                <h1>배너 조회</h1>
+                <h1>공지 조회</h1>
                 <br>
                 <table style="width: 100%;">
                     <tr>
                         <th style="padding: 12px 0; width: 20%; text-align: center;">
-                            영화
+                            제목
                         </th>
                         <td>
-                            <li th:text="${banner.movie.title}"></li>
+                            <li th:text="${notice.title}"></li>
                         </td>
                     </tr>
                     <tr>
-                        <th style="padding: 12px 0; width: 20%; text-align: center;">이름</th>
+                        <th style="padding: 12px 0; width: 20%; text-align: center;">내용</th>
                         <td>
-                            <li th:text="${banner.name}">
-                            </li>
+                            <li style="white-space: pre-line;" th:text="${notice.content}"></li>
                         </td>
                     </tr>
                     <tr>
-                        <th style="padding: 12px 0; width: 20%; text-align: center;">배너종류</th>
+                        <th style="padding: 12px 0; width: 20%; text-align: center;">생성일자</th>
                         <td>
-                            <li th:text="${banner.bannerDivi}"></li>
+                            <li th:text="${ #dates.format( notice.regDate, 'yyyy-MM-dd (E) HH:mm' ) }"></li>
                         </td>
                     </tr>
                 <tr>
-                    <th style="padding: 12px 0; width: 20%; text-align: center;">타이틀 파일</th>
+                    <th style="padding: 12px 0; width: 20%; text-align: center;">수정일자</th>
                     <td>
-                        <li>
-                            <a th:href="|/img?id=${banner.files.id}|"><img class="w-50 mx-auto" style="overflow: hidden;" th:src="|/img?id=${banner.files.id}|" th:alt="${banner.files}"></a>
-                        </li>
+                        <li th:text="${ #dates.format( notice.updDate, 'yyyy-MM-dd (E) HH:mm' ) }"></li>
                     </td>
                 </tr>
 
                 </table>
                 <br>
                 <div style="display: flex; justify-content: center;">
-                    <a href="/admin/banner/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
-                    <a th:href="|/admin/banner/update?id=${banner.id}|" class="a_butten">수정</a>
+                    <a href="/admin/notice/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                    <a th:href="|/admin/notice/update?id=${notice.id}|" class="a_butten">수정</a>
                 </div>
             </form>
             </div>

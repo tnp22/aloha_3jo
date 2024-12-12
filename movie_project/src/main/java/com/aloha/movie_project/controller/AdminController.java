@@ -18,18 +18,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.AuthList;
 import com.aloha.movie_project.domain.Banner;
+import com.aloha.movie_project.domain.Cast;
 import com.aloha.movie_project.domain.Cinema;
 import com.aloha.movie_project.domain.FileText;
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Movie;
+import com.aloha.movie_project.domain.Notice;
 import com.aloha.movie_project.domain.Pagination;
+import com.aloha.movie_project.domain.ReviewInfo;
 import com.aloha.movie_project.domain.Theater;
 import com.aloha.movie_project.domain.TheaterList;
 import com.aloha.movie_project.domain.UserAuth;
 import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.service.AuthListService;
+import com.aloha.movie_project.service.CastService;
 import com.aloha.movie_project.service.FileService;
 import com.aloha.movie_project.service.MovieService;
+import com.aloha.movie_project.service.NoticeService;
+import com.aloha.movie_project.service.ReviewService;
 import com.aloha.movie_project.service.UserService;
 import com.aloha.movie_project.service.banner.BannerService;
 import com.aloha.movie_project.service.cinema.CinemaService;
@@ -69,6 +75,15 @@ public class AdminController {
 
     @Autowired
     private BannerService bannerService;
+
+    @Autowired
+    private CastService castService;
+
+    @Autowired
+    private NoticeService noticeService;
+
+    @Autowired
+    private ReviewService reviewService;
 
 
     /* ------------------------------------- 영화관 관 련------------------------------------- */
@@ -1060,6 +1075,368 @@ public class AdminController {
     /* ------------------------------------- 영화 끝------------------------------------- */
 
 
+    /*-------------------------------------- 출연진 --------------------------------------------- */
+
+    /**
+     * 출연진 리스트
+     * @param model
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/cast/list")
+    public String castList(Model model
+                      ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+                      ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+                      ,@RequestParam(name = "search", required = false) String search) throws Exception {
+        // 데이터 요청
+        PageInfo<Cast> pageInfo = null;
+        if(search == null || search.equals("")){
+            pageInfo = castService.list(page, size);
+        }
+        else{
+            pageInfo = castService.list(page, size, search);
+        }
+        Pagination pagination = new Pagination();
+        pagination.setPage(page);
+        pagination.setSize(size);
+        pagination.setTotal( pageInfo.getTotal());
+
+        // 모델 등록
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("search", search);
+        // 뷰 페이지 지정
+        return "/admin/cast/list";
+    }
+
+    /**
+     * 선택
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/cast/select")
+    public String castSelect(Model model,@RequestParam("id") String id) throws Exception {
+        Cast cast = castService.select(id);
+        model.addAttribute("cast", cast);
+        return "/admin/cast/select";
+    }
+
+    /**
+     * 추가
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/cast/insert")
+    public String castInsert(Model model,
+    @RequestParam(name = "search", required = false) String search) throws Exception {
+
+        List<Movie> movieList = null;
+        if (search == null || search.isEmpty()) {
+             movieList = movieService.list();
+        }
+        else{
+            movieList = movieService.list(search);
+            model.addAttribute("search", search);
+        }
+        model.addAttribute("pageInfo", movieList);
+        return "/admin/cast/insert";
+    }
+
+    /**
+     * 배너 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/cast/insert")
+    public String castInsert(Model model,
+                              Cast cast) throws Exception {
+        int result = castService.insert(cast);
+        if(result>0){
+            for (MultipartFile files : cast.getMainFiles()) {
+                Files file = new Files();
+                file.setFile(files);
+                file.setDivision("main");
+                file.setFkTable("cast");
+                file.setFkId(cast.getId());
+    
+                fileService.upload(file);
+            }
+            return "redirect:/admin/cast/list";
+        }
+        return "redirect:/admin/cast/list&error";
+    }
+
+
+    /**
+     * 추가
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/cast/update")
+    public String castUpdate(Model model,@RequestParam("id") String id,
+    @RequestParam(name = "search", required = false) String search) throws Exception {
+
+        Cast cast = castService.select(id);
+        model.addAttribute("cast", cast);
+
+        List<Movie> movieList = null;
+        if (search == null || search.isEmpty()) {
+             movieList = movieService.list();
+        }
+        else{
+            movieList = movieService.list(search);
+            model.addAttribute("search", search);
+        }
+        model.addAttribute("pageInfo", movieList);
+        return "/admin/cast/update";
+    }
+
+
+    /**
+     * 배너 수정
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/cast/update")
+    public String bannerUpdate(Model model,
+                              Cast cast) throws Exception {
+        Cast pastCast = castService.select(cast.getId());
+        int result = castService.update(cast);
+        //log.info(pastCast.toString());       
+
+        if(result>0){
+            for (MultipartFile files : cast.getMainFiles()) {
+                Files file = new Files();
+                file.setFile(files);
+                file.setDivision("main");
+                file.setFkTable("cast");
+                file.setFkId(cast.getId());
+    
+                fileService.update(file,pastCast.getFiles().getId());
+            }
+            return "redirect:/admin/cast/select?id="+cast.getId();
+        }
+        return "redirect:/admin/cast/update?id="+cast.getId()+"&error";
+    }
+
+
+
+    /**
+     * 삭제
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/cast/delete")
+    public String castDelete(@RequestParam("id") String id) throws Exception {
+
+        Cast cast = castService.select(id);
+
+        int rs= fileService.delete(cast.getFiles().getId());
+        int rss=0;
+        if(rs>0){
+            rss = castService.delete(id);
+        }
+        else{
+            return "redirect:/admin/cast/update?id="+id+"&error=castDeleteFail";
+        }
+
+        if(rss>0){
+            return "redirect:/admin/cast/list";
+        }
+        return "redirect:/admin/cast/update?id="+id+"&error=castDeleteFail";
+    }
+
+
+    /*-------------------------------------- 출연진 끝 --------------------------------------------- */
+
+    /*-------------------------------------- 공지사항 --------------------------------------------- */
+    
+    
+        /**
+     * 출연진 리스트
+     * @param model
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/notice/list")
+    public String noticeList(Model model
+                      ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+                      ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+                      ,@RequestParam(name = "option", defaultValue = "0") int option
+                      ,@RequestParam(name = "search", defaultValue = "") String search) throws Exception {
+        // 데이터 요청
+
+        PageInfo<Notice> pageInfo = noticeService.list(page,size,option,search);
+        // 모델 등록
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("search", search);
+        // 뷰 페이지 지정
+        return "/admin/notice/list";
+    }
+    
+    
+    /**
+     * 선택
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/notice/select")
+    public String noticeSelect(Model model,@RequestParam("id") String id) throws Exception {
+        Notice notice = noticeService.select(id);
+        model.addAttribute("notice", notice);
+        return "/admin/notice/select";
+    }
+    
+    
+    /**
+     * 추가
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/notice/insert")
+    public String noticeInsert(Model model) throws Exception {
+
+        return "/admin/notice/insert";
+    }
+
+    /**
+     * 배너 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/notice/insert")
+    public String noticeInsert(Model model,
+                              Notice notice) throws Exception {
+        int result = noticeService.insert(notice);
+        if(result>0){
+            return "redirect:/admin/notice/list";
+        }
+        return "redirect:/admin/notice/list&error";
+    }
+
+
+    /**
+     * 추가
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/notice/update")
+    public String castUpdate(Model model,@RequestParam("id") String id) throws Exception {
+
+        Notice notice = noticeService.select(id);
+        model.addAttribute("notice", notice);
+
+        return "/admin/notice/update";
+    }
+
+
+    /**
+     * 배너 수정
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @PostMapping("/notice/update")
+    public String noticeUpdate(Model model,
+                              Notice notice) throws Exception {
+        int result = noticeService.update(notice);  
+
+        if(result>0){
+            return "redirect:/admin/notice/select?id="+notice.getId();
+        }
+        return "redirect:/admin/notice/update?id="+notice.getId()+"&error";
+    }
+
+
+
+    /**
+     * 삭제
+     * @param model
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_SUPER")
+    @GetMapping("/notice/delete")
+    public String noticeDelete(@RequestParam("id") String id) throws Exception {
+
+        int rs=noticeService.delete(id);
+
+        if(rs>0){
+            return "redirect:/admin/notice/list";
+        }
+        return "redirect:/admin/notice/update?id="+id+"&error=noticeDeleteFail";
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*-------------------------------------- 공지사항 끝 --------------------------------------------- */
+
     /* ------------------------------------- 유저 리스트 관 련------------------------------------- */
 
     /**
@@ -1075,7 +1452,7 @@ public class AdminController {
     @GetMapping("/userManager/user/list")
     public String userList(Model model
                       ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
-                      ,@RequestParam(name = "size", required = false, defaultValue = "30") Integer size
+                      ,@RequestParam(name = "size", required = false, defaultValue = "16") Integer size
                       ,@RequestParam(name = "search", required = false) String search) throws Exception {
         // 데이터 요청
         PageInfo<Users> pageInfo = null;
@@ -1304,16 +1681,47 @@ public class AdminController {
 
     /* ------------------------------------- 권 한 리스트 끝------------------------------------- */
     
+
+    /* ----------------------------- 리뷰 관련 ----------------------------------------------------- */
+    
+    /**
+     * 리뷰 목록 조회 화면
+     * @return
+     * @throws Exception 
+     */
     @Secured("ROLE_SUPER")
     @GetMapping("/reviewManager/list")
-    public String reviewList() {
+    public String reviewList(Model model
+                      ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+                      ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+                      ,@RequestParam(name = "search", required = false, defaultValue = "") String search) throws Exception {
+        // 데이터 요청
+        PageInfo<ReviewInfo> pageInfo = reviewService.adminReviewList(search, page, size);
+
+        // 모델 등록
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("search", search);
+        // 뷰 페이지 지정
         return "/admin/reviewManager/list";
     }
+
+    /**
+     * 권한 삭제
+     * @param no
+     * @return
+     * @throws Exception
+     */
     @Secured("ROLE_SUPER")
-    @GetMapping("/reviewManager/auth/insert")
-    public String reviewInsert() {
-        return "/admin/reviewManager/insert";
+    @GetMapping("/reviewManager/delete")
+    public String reviewManagerDelete(@RequestParam("id") String id) throws Exception {
+        int result = reviewService.deleteReview(id);
+        reviewService.deleteRating(id);
+        if( result > 0 ) {
+            return "redirect:/admin/reviewManager/list";
+        }
+        return "redirect:/admin/reviewManager/list?error";
     }
     
+    /* ----------------------------- 리뷰 관련 끝 ----------------------------------------------------- */
     
 }

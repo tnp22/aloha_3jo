@@ -10,13 +10,9 @@
     <link rel="stylesheet" href="/css/admin.css">
     <script src="/script/jquery.js"></script>
     <script src="/script/adminScript.js"></script>
-    <script src="/script/movieLi.js"></script>
     <style>
         .subLi{
             display: none;
-        }
-        .movieLi {
-          display: none;
         }
     </style>
         <style>
@@ -69,10 +65,10 @@
                     <ul>
                         <li><a href="/admin/cinema/list" >영화관</a></li>
                         <li class="mainLi">
-                            <a href="/admin/movie/list" >영화관리</a>
+                            <a href="/admin/movie/list" style="color: blue;" >영화관리</a>
                             <nav class="movieLi">
                                 <li><a href="/admin/movie/list" >영화 관리</a></li>
-                                <li><a href="/admin/cast/list">출연진 관리</a></li>
+                                <li><a href="/admin/cast/list" style="color: blue;">출연진 관리</a></li>
                             </nav>
                           </li>
                         <li class="mainLi">
@@ -82,22 +78,22 @@
                                 <li><a href="/admin/userManager/auth/list" >권한 관리</a></li>
                             </nav>
                         </li>
-                        <li><a href="/admin/banner/list" style="color: blue;">배너관리</a></li>
+                        <li><a href="/admin/banner/list">배너관리</a></li>
                         <li><a href="/admin/reviewManager/list">리뷰관리</a></li>
                         <li><a href="/admin/notice/list">공지관리</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-8">
-                <form action="/admin/banner/update" method="post" enctype="multipart/form-data">
+                <form action="/admin/cast/update" method="post" enctype="multipart/form-data">
                 <!-- CSRF TOKEN -->
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <input type="hidden" name="id" th:value="${banner.id}">
+                <input type="hidden" name="id" th:value="${cast.id}">
                 <br>
                 <div style="display: flex; align-items: center;">
                     <h1>배너 수정</h1>
                     <button class="delete_butten" 
-                                type="button" th:onclick="remove( [[${banner.id}]] )">삭제</button>
+                                type="button" th:onclick="remove( [[${cast.id}]] )">삭제</button>
                 </div>
                 <br>
                 <table style="width: 100%;">
@@ -118,10 +114,10 @@
                                         <th:block th:each="movie : ${pageInfo}">
                                             <tr>
                                                 <td>
-                                                    <th:block th:if="${banner.movie.id.equals(movie.id)}">
+                                                    <th:block th:if="${cast.movie.id.equals(movie.id)}">
                                                         <input type="radio" class="movieRadio" name="movieId" th:value="${movie.id}" th:onclick="updateSelectedValue([[${movie.title}]])" checked required>
                                                     </th:block>
-                                                    <th:block th:unless="${banner.movie.id.equals(movie.id)}">
+                                                    <th:block th:unless="${cast.movie.id.equals(movie.id)}">
                                                         <input type="radio" class="movieRadio" name="movieId" th:value="${movie.id}" th:onclick="updateSelectedValue([[${movie.title}]])" required>
                                                     </th:block>
                                                 </td>
@@ -135,7 +131,7 @@
                                 <!-- 선택된 체크박스 표시 -->
                             <br>
                             <div id="selectedItem" style="text-align: center;">
-                                    <p>선택된 항목: <span id="selectedValue" th:text="${banner.movie.title}"></span></p>
+                                    <p>선택된 항목: <span id="selectedValue" th:text="${cast.movie.title}"></span></p>
                             </div>
                               <div class="container mt-4" style="display: flex">
                                 <!-- <input type="hidden" id="id" name="cinemaId" th:value="${id}"> -->
@@ -150,7 +146,7 @@
                         <td>
                             <li>
                                 <input class="form-control me-3" style="width: 85%;" 
-                                type="text" name="name" id="name" th:value="${banner.name}">
+                                type="text" name="name" id="name" th:value="${cast.name}">
                             </li>
                         </td>
                     </tr>
@@ -158,9 +154,9 @@
                         <th style="padding: 12px 0; width: 20%; text-align: center;">배너종류</th>
                         <td>
                             <li>
-                                <select name="bannerDivi" id="bannerDivi">
-                                    <option value="main" th:selected="${banner.bannerDivi == 'main'}">main</option>
-                                    <option value="sub" th:selected="${banner.bannerDivi == 'sub'}">sub</option>
+                                <select name="rule" id="rule">
+                                    <option value="actor" th:selected="${cast.rule == 'actor'}">배우</option>
+                                    <option value="director" th:selected="${cast.rule == 'director'}">감독</option>
                                 </select>
                             </li>
                         </td>
@@ -192,7 +188,7 @@
     <script>
         function remove( id ){
             if (confirm("정말 삭제하시겠습니까?")) {
-                window.location.href = '/admin/banner/delete?id='+ id   // action 속성 변경                  // 요청 전송
+                window.location.href = '/admin/cast/delete?id='+ id   // action 속성 변경                  // 요청 전송
             }
         }
         function updateSelectedValue(movieTitle) {
@@ -201,12 +197,12 @@
         function submitSearchForm() {
         // 폼 요소 가져오기
         var search = document.getElementById("search").value;
-        var id = "[[${banner.id}]]"
+        var id = "[[${cast.id}]]"
         if(search != null && (search != '')){
-            window.location.href = "/admin/banner/update?id="+id+"&search="+search;
+            window.location.href = "/admin/cast/update?id="+id+"&search="+search;
         }
         else{
-            window.location.href = "/admin/banner/update?id="+id;
+            window.location.href = "/admin/cast/update?id="+id;
         }
     }
     </script>

@@ -8,6 +8,7 @@ import lombok.Data;
 public class ReviewInfo {
     private String username;
     private String id;
+    private String title;
     private String movieId;
     private String content;
     private int ratingValue;

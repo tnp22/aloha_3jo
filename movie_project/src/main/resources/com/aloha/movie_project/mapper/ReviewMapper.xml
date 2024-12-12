@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace="매퍼 인터페이스 경로" -->
 <mapper namespace="com.aloha.movie_project.mapper.ReviewMapper">
 
+
      <insert id="insertReview">
          insert into review
          (id,movie_id,user_id,content)
@@ -43,5 +44,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select e.id, u.username, f.id fileId, e.content, a.rating_value 
         from rating a, review e, users u, files f 
         where a.review_id = e.id and e.user_id = u.id and u.id = f.fk_id and f.division = 'profile' and e.movie_id = #{id}
+    </select>
+
+    <select id="adminReviewList" parameterType="String" resultType="ReviewInfo">
+        select e.id, u.username, e.content, a.rating_value, m.title
+        from rating a, review e, users u, movie m
+        where e.movie_id = m.id and a.review_id = e.id and e.user_id = u.id and e.movie_id = (SELECT m.id FROM movie m WHERE m.title LIKE CONCAT('%', #{keyword}, '%') LIMIT 1 ) 
     </select>
 </mapper>

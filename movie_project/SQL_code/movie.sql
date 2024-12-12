@@ -91,7 +91,7 @@ CREATE TABLE `review` (
 CREATE TABLE `reserve` (
 	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`id`	varchar(200)	NOT NULL,
-	`user_id`	varchar(200)	NOT NULL,
+	`username`	varchar(200)	NOT NULL,
 	`theater_list_id`	varchar(200)	NOT NULL,
 	`pos_x`	int	NOT NULL,
 	`pos_y`	int	NOT NULL

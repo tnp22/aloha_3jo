@@ -1,7 +1,5 @@
 package com.aloha.movie_project.service;
 
-import java.util.List;
-
 import com.aloha.movie_project.domain.ReviewInfo;
 import com.github.pagehelper.PageInfo;
 
@@ -13,4 +11,6 @@ public interface ReviewService {
     public int deleteReview( String id);
     public int deleteRating( String id);
     public PageInfo<ReviewInfo> reviewList(String id, int page, int size) throws Exception;
+
+    public PageInfo<ReviewInfo> adminReviewList(String search, int page, int size) throws Exception;
 }

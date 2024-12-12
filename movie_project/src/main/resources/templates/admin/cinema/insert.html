@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="/css/admin.css">
     <script src="/script/jquery.js"></script>
     <script src="/script/adminScript.js"></script>
+    <script src="/script/movieLi.js"></script>
     <style>
+                .movieLi {
+          display: none;
+        }
         .subLi{
             display: none;
         }
@@ -30,8 +34,14 @@
             <div class="col-md-2">
                 <div style="margin-top: 100px; font-size: 26px;">
                     <ul>
-                        <li><a href="/admin/cinema/list" style="color: blue;">영화관</a></li>
-                        <li><a href="/admin/movie/list">영화관리</a></li>
+                        <li><a href="/admin/cinema/updateList" style="color: blue;">영화관 관리</a></li>
+                        <li class="mainLi">
+                            <a href="/admin/movie/list" >영화관리</a>
+                            <nav class="movieLi">
+                                <li><a href="/admin/movie/list" >영화 관리</a></li>
+                                <li><a href="/admin/cast/list">출연진 관리</a></li>
+                            </nav>
+                          </li>
                         <li class="mainLi">
                             <a href="/admin/userManager/user/list">유저관리</a>
                             <nav class="subLi">
@@ -41,6 +51,7 @@
                         </li>
                         <li><a href="/admin/banner/list">배너관리</a></li>
                         <li><a href="/admin/reviewManager/list">리뷰관리</a></li>
+                        <li><a href="/admin/notice/list">공지관리</a></li>
                     </ul>
                 </div>
             </div>
@@ -81,12 +92,12 @@
                             </tr>
                             <tr>
                                 <th style="padding: 12px 0; width: 20%; text-align: center;">이미지</th>
-                                <td><input type="file" name="mainFiles" multiple/></td>
+                                <td><input type="file" name="mainFiles"/></td>
                             </tr>
                         </table>
                         <br>
                         <div style="display: flex; justify-content: center;">
-                            <a th:href="@{/admin}" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                            <a th:href="@{/admin/cinema/updateList}" class="btn btn-primary" style="margin-right: 20px;">취소</a>
                             <input type="submit" value="생성" class="butten"/>
                         </div>
                     </form>

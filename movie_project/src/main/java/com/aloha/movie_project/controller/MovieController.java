@@ -1,10 +1,12 @@
 package com.aloha.movie_project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,10 +20,6 @@ import com.aloha.movie_project.service.ReviewService;
 import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -73,8 +71,32 @@ public class MovieController {
     ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
     ,@RequestParam(name = "size", required = false, defaultValue = "8") Integer size
     ,@RequestParam(name = "tab", required = false, defaultValue = "content") String tab) throws Exception {
+        
+        
+        
         Movie movie = movieService.movieInfo(id);
         List<Cast> castList = castService.castList(id);
+
+        List<List<Cast>> history = new ArrayList<List<Cast>>();
+        List<Cast> subHistory = null;
+       
+        for (Cast cast : castList) {
+            int SU=0;
+            List<Cast> newsubHistory = new ArrayList<>();
+            subHistory = castService.history(cast.getName());
+            
+            for (Cast cast2 : subHistory) {
+                if(SU>4){
+                    break;
+                }
+                log.info(cast2.toString());
+                newsubHistory.add(cast2);
+                SU++;
+            }
+            history.add(newsubHistory);
+        }
+        model.addAttribute("history", history);
+
         List<Files> stilList = movieService.stilList(id);
         PageInfo<ReviewInfo> reviewList = reviewService.reviewList(id, page, size);
         List<ReviewInfo> list = reviewList.getList();

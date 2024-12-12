@@ -53,4 +53,12 @@ public class ReviewServiceImpl implements ReviewService {
         PageInfo<ReviewInfo> pageInfo = new PageInfo<ReviewInfo>(reviewList, 5);
         return pageInfo;
     }
+
+    @Override
+    public PageInfo<ReviewInfo> adminReviewList(String search, int page, int size) throws Exception {
+        PageHelper.startPage(page, size);
+        List<ReviewInfo> reviewList = reviewMapper.adminReviewList(search);
+        PageInfo<ReviewInfo> pageInfo = new PageInfo<ReviewInfo>(reviewList, 5);
+        return pageInfo;
+    }
 }

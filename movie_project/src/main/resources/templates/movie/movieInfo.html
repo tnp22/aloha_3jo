@@ -92,6 +92,14 @@
                         <div class="col-md-4 text-center d-flex">
                             <img th:src="|/img?id=${cast.files.id}|" class="thumbnail">
                             <p th:text="${cast.name}" class="align-content-end ms-3" style="margin-bottom: 0;"></p>
+                            <div style="display: flex; flex-direction: column; justify-content: end; text-align: start;">
+                                <p class="align-content-end ms-3">출연작</p>
+                                <th:block th:each="subHis : ${history}" th:if="${subHis.get(0).name == cast.name}">
+                                    <th:block th:each="ssub : ${subHis}">
+                                        <a th:href="|/movie/movieInfo?id=${ssub.movie.id}|"><p th:text="${ssub.movie.title}" class="align-content-end ms-3" style="margin-bottom: 0;"></p></a>
+                                    </th:block>
+                                </th:block>
+                            </div>
                         </div>
                     </th:block>
                 </div>

@@ -1,10 +1,10 @@
 $(function(){
 
     $(".mainLi").on("mouseover",function(){
-        $(this).find(".subLi").stop().slideDown();
+        $(this).find(".movieLi").stop().slideDown();
     })
     $(".mainLi").on("mouseout",function(){
-        $(this).find(".subLi").stop().slideUp();
+        $(this).find(".movieLi").stop().slideUp();
     })
 
 })
