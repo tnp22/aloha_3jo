@@ -8,6 +8,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>영화 좌석선택 페이지</title>
   <link rel="stylesheet" href="/css/ticket.css">
+  <style>
+      .mapBACHI{
+        display: flex;
+        width: 100%;
+        margin: 4px;
+      }
+      .mapBACHI2{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        overflow: scroll;
+      }
+  </style>
 </head>
 <body layout:fragment="content">
   <style>
@@ -21,9 +35,11 @@
             <div class="col p-0">
                 <!-- 좌석 -->
                 <div class="header"><h5>좌석 선택</h5></div>
-                <div class="content p-0 d-flex justify-content-center">
-                  <div class="container" style="margin : 0 25%;" id="map">
+                <div class="content p-0">
+                  <div style="width: 100%; height:100%; display: flex; justify-content: center; align-items: center;">
+                    <div class="mapBACHI2" id="map">
                       <!-- 비동기 동적 생성?? -->
+                    </div>
                   </div>
                 </div>
             </div>
@@ -86,8 +102,9 @@
 
   <script>
       
+      
       console.log(reservationSeat);
-
+      let boidcount = 0;
       var x = mapData[0].length; 
       var y = mapData.length;
       let ascii = 65; // 정수 = 'A'
@@ -96,12 +113,15 @@
       
       var mapdiv = document.getElementById("map")
       for(var n = 0; n < y; n++){
+        let boidcountCheck=0
         // console.log(mapData[n])
         // console.log(mapData[n][0]);
         var map = document.createElement("div")
         let ascii2 = String.fromCharCode(ascii); // 아스키코드 문자변환
         map.id = ascii2;
-        map.className = "d-flex justify-content-start mb-2 mt-2"
+        map.className="mapBACHI"
+        
+        
         // map.textContent = mapData[n][0];
         mapdiv.appendChild(map);
 
@@ -118,6 +138,7 @@
           seat.textContent = seatId;
           map.appendChild(seat);
           if(mapdate == "통로" || mapdate == (seatId+"_통로")){
+            boidcountCheck++
             var seat1 = document.createElement("div")
             seat1.className = "seat";
             map.appendChild(seat1)
@@ -125,6 +146,10 @@
             // console.log(mapdate)
           }
         }
+        if(boidcount<boidcountCheck){
+          boidcount = boidcountCheck
+        }
+
 
         // 좌석 통로 구분
         count = 1;
@@ -175,6 +200,16 @@
         ascii++;
       }
 
+      let sjfql = document.getElementsByClassName("mapBACHI2")
+      for (let i = 0; i < sjfql.length; i++) {
+           if((40*y+(y+2)*4+8)>800){
+            sjfql[i].style.height = "400px";
+           }
+           else{
+            sjfql[i].style.width = 42*(x+2+boidcount)+"px";
+            sjfql[i].style.height = (40*y+(y+2)*4+8)+"px";
+           }
+      }
 
       let selectedSeats = []; // 선택된 요소를 저장할 배열
       let seats = document.querySelectorAll(".select");
