@@ -34,6 +34,14 @@ CREATE TABLE `user_auth` (
 	FOREIGN KEY (`auth`) REFERENCES `auth_list`(`type_name`) ON UPDATE CASCADE
 );
 
+CREATE TABLE `banner` (
+	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	`id`	varchar(100)	NOT NULL UNIQUE,
+	`name`	varchar(300)	NOT NULL,
+	`banner_divi` varchar(300)	NOT NULL,
+	`movie_id`	varchar(300)	NOT NULL
+);
+
 CREATE TABLE `cinema` (
 	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`id`	varchar(100)	NOT NULL UNIQUE,
@@ -83,7 +91,7 @@ CREATE TABLE `review` (
 CREATE TABLE `reserve` (
 	`no`    int AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	`id`	varchar(200)	NOT NULL,
-	`user_id`	varchar(200)	NOT NULL,
+	`username`	varchar(200)	NOT NULL,
 	`theater_list_id`	varchar(200)	NOT NULL,
 	`pos_x`	int	NOT NULL,
 	`pos_y`	int	NOT NULL

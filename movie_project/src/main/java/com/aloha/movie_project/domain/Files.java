@@ -1,6 +1,5 @@
 package com.aloha.movie_project.domain;
 
-import java.io.File;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;

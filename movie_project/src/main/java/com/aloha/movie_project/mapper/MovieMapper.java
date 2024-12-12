@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Movie;
-import com.aloha.movie_project.domain.ReviewInfo;
 
 @Mapper
 public interface MovieMapper {

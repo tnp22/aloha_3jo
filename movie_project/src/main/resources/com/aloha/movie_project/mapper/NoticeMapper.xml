@@ -24,7 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      </select>
 
      <select id="select" resultType="Notice">
-        select * from notice where id = #{id}
+        select * 
+        from notice
+        where id = #{id}
      </select>
 
      <insert id="insert">
@@ -36,7 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
      <update id="update">
          update notice
-         set title = #{title}, content = #{content}, upd_date = now()
+         set title = #{title}
+            , content = #{content}
+            , upd_date = now()
          where id = #{id}
      </update>
 

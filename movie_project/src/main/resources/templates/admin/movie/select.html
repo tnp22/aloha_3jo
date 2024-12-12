@@ -19,14 +19,25 @@
 <body>
     <div class="container-fluid " style="height: 1000px;">
         <br>
-        <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="principal.user.name"></span></a></h1>
-        <hr class="w-50 ms-0">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="principal.user.name"></span></a></h1>
+                <hr class="w-50 ms-0">
+            </div>
+            <h5><a style="margin-right: 100px;" href="/">홈으로</a></h5>
+        </div>
         <div class="row" style="height: 90%;">
             <div class="col-md-2">
                 <div style="margin-top: 100px; font-size: 26px;">
                     <ul>
                         <li><a href="/admin/cinema/list" >영화관</a></li>
-                        <li><a href="/admin/movie/list" style="color: blue;">영화관리</a></li>
+                        <li class="mainLi">
+                            <a href="/admin/movie/list" style="color: blue;">영화관리</a>
+                            <nav class="movieLi">
+                                <li><a href="/admin/movie/list" style="color: blue;">영화 관리</a></li>
+                                <li><a href="/admin/cast/list">출연진 관리</a></li>
+                            </nav>
+                          </li>
                         <li class="mainLi">
                             <a href="/admin/userManager/user/list">유저관리</a>
                             <nav class="subLi">
@@ -34,7 +45,9 @@
                                 <li><a href="/admin/userManager/auth/list" >권한 관리</a></li>
                             </nav>
                         </li>
+                        <li><a href="/admin/banner/list">배너관리</a></li>
                         <li><a href="/admin/reviewManager/list">리뷰관리</a></li>
+                        <li><a href="/admin/notice/list">공지관리</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,7 +73,7 @@
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">내용</th>
                             <td>
-                                <li th:text="${movie.content}"></li>
+                                <li style="white-space: pre-line;" th:text="${movie.content}"></li>
                             </td>
                         </tr>
                         <tr>
@@ -87,7 +100,7 @@
                             </td>
                         </tr> -->
                         <tr>
-                            <th style="padding: 12px 0; width: 20%; text-align: center;">기입 일자</th>
+                            <th style="padding: 12px 0; width: 20%; text-align: center;">생성 일자</th>
                             <td>
                                 <li th:text="${movie.regDate}"></li>
                             </td>

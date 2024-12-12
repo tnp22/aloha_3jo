@@ -113,6 +113,47 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public boolean update(Files file,String id) throws Exception {
+        log.info("file : " + file);
+
+        //파일 정보
+        MultipartFile mf = file.getFile();
+
+            // 빈 파일인지 확인
+        if (mf == null || mf.isEmpty()) {
+            log.warn("업로드된 파일이 비어 있습니다.");
+            return false; // 파일이 없거나 비어있으면 저장하지 않고 false 반환
+        }
+        delete(id);
+        String origninName = mf.getOriginalFilename();
+        long fileSize = mf.getSize();
+        byte[] fileData = mf.getBytes();
+
+        log.info("원본파일명 : " + origninName);
+        log.info("파일용량 : " + fileSize);
+        log.info("파일데이터 : " + fileData);
+
+        // ⭐ 파일 업로드
+        // 1️⃣ 파일 데이터를 업로드 경로에 복사
+        // 2️⃣ 업로드된 파일 정보를 DB 에 등록
+
+        // 1️⃣ 파일 복사
+        //  * 파일명 중복 방지 : 파일명 앞에 날짜데이터 또는 UID 를 붙여준다.
+        String fileName = UUID.randomUUID().toString() + "_" + origninName;
+        File uploadFile = new File(uploadPath, fileName);
+        // 파일 경로 : C:/upload/UID_강아지.png
+        // FileCopyUtils.copy( 파일데이터, 파일객체 )
+        FileCopyUtils.copy(fileData, uploadFile);       // 파일 업로드
+
+        // 2️⃣ DB 등록
+        file.setUrl(uploadFile.getPath());
+
+        fileMapper.insert(file);
+
+        return true;
+    }
+
+    @Override
     public List<Files> listByParent(Files file) throws Exception {
         List<Files> fileList = fileMapper.listByParent(file);
         return fileList;
