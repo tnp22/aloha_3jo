@@ -13,6 +13,7 @@
 }
 
 .notice-content{
+    width: 100%;
     border: none;  
     resize: none;
     border-bottom: 1px solid gray;
@@ -51,4 +52,35 @@
 
 .notice-bottom a:hover{
     text-decoration: underline;
+}
+textarea:focus {outline:none;}
+
+.reply-content{
+    width: 100%;
+    border: none;  
+    resize: none;
+    background-color: #f5f4f4;
+    min-height: 150px;
+}
+
+.custom-btn{
+    border: 1px solid #583BBF;
+    color: #583BBF;
+    float: right;
+}
+
+.custom-btn:hover{
+    background-color: #583BBF;
+    color: white;
+}
+
+.cancel-btn{
+    border: 1px solid #FF0E0E;
+    color: #FF0E0E;
+    float: right;
+}
+
+.cancel-btn:hover{
+    background-color: #FF0E0E;
+    color: white;
 }
