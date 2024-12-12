@@ -61,7 +61,7 @@
                                         <a th:href="|/movie/movieInfo?id=${movie.id}|" class="info-btn">상세보기</a>
                                         <br>
                                         <br>
-                                        <a th:href="|/m/t?id=${movie.id}|" class="reserve-btn">예매하기</a>
+                                        <button th:attr="data-href=|/m/t?id=${movie.id}|" class="reserve-btn">예매하기</button>
                                     </div>
                                 </div>
                                 <p class="text-center mt-2" th:text="${movie.title}"></p>
@@ -84,7 +84,7 @@
                                         <a th:href="|/movie/movieInfo?id=${expect.id}|" class="info-btn">상세보기</a>
                                         <br>
                                         <br>
-                                        <a th:href="|/reserve?id=${expect.id}|" class="reserve-btn">예매하기</a>
+                                        <button th:attr="data-href=|/m/t?id=${expect.id}|" class="reserve-btn">예매하기</button>
                                     </div>
                                 </div>
                                 <p class="text-center mt-2" th:text="${expect.title}"></p>
@@ -185,6 +185,26 @@
         <i class="fa-solid fa-arrow-up fa-2x"></i>
     </button>
     <script>
+        // 서버에서 인증 상태 데이터를 주입
+        const isAuthenticated = "[[${#authorization.expression('isAuthenticated()')}]]";
+        document.addEventListener("DOMContentLoaded", function() {
+            const reserveButtons = document.querySelectorAll(".reserve-btn");
+            console.log(isAuthenticated+'입니다.')
+            reserveButtons.forEach(button => {
+                button.addEventListener("click", function(e) {
+                    e.preventDefault(); // 기본 동작 막기
+                    e.stopPropagation(); // 이벤트 버블링 방지 (필요 시)
+                    
+                    if (isAuthenticated=='true') {
+                        // 로그인 상태일 경우 이동
+                        window.location.href = this.getAttribute('data-href');
+                    } else {
+                        // 비로그인 상태일 경우 경고창 표시
+                        alert("로그인 후 이용해 주세요.");
+                    }
+                });
+            });
+        });
         $(document).ready(function () {
             // 슬라이드 상태 추적 객체
             var sliderStates = {
