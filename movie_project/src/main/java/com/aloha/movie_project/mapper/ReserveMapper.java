@@ -18,4 +18,10 @@ public interface ReserveMapper {
     // 예매 리스트
     public List<Reserve> selectUsername(String userName);
 
+    // 예매 id 로 조회
+    public Reserve searchReserve(String id);
+
+    // 예매 id 로 삭제
+    public int delectReserve(String id);
+
 }
