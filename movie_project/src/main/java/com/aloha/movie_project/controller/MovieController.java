@@ -76,7 +76,7 @@ public class MovieController {
         Movie movie = movieService.movieInfo(id);
         List<Cast> castList = castService.castList(id);
         List<Files> stilList = movieService.stilList(id);
-        PageInfo<ReviewInfo> reviewList = reviewService.reviewList(id, page, size);
+        PageInfo<ReviewInfo> reviewList = reviewService.reviewList(id, page, size,0);
         List<ReviewInfo> list = reviewList.getList();
         double result = 0;
         for (ReviewInfo review : list) {
