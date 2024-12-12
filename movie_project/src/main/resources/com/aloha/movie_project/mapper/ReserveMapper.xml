@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" -->
+<mapper namespace="com.aloha.movie_project.mapper.ReserveMapper">
+
+     <!-- 예메 등록 -->
+     <insert id="insertReserve">
+         insert into reserve
+         (id, user_name, theater_list_id, seat, person, money)
+         VALUES
+         (#{id},#{userName},#{theaterListId},#{seat},#{person},#{money} )
+     </insert>
+
+    <!-- 예약중 좌석 검색 -->
+     <select id="selectSeat" resultType="Reserve">
+        SELECT seat FROM reserve
+     </select>
+
+    <!-- 예매 리스트 조회 (username)  -->
+    <select id="selectUsername" resultType="Reserve">
+        SELECT * FROM reserve WHERE user_name = #{userName};
+    </select>
+
+</mapper>
