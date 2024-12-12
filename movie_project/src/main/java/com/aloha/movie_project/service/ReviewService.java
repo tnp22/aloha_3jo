@@ -10,7 +10,9 @@ public interface ReviewService {
     public int updateRating( String id, int ratingValue);
     public int deleteReview( String id);
     public int deleteRating( String id);
+    
+  
     public PageInfo<ReviewInfo> reviewList(String id, int page, int size) throws Exception;
-
-    public PageInfo<ReviewInfo> adminReviewList(String search, int page, int size) throws Exception;
+    public PageInfo<ReviewInfo> reviewList(String id, int page, int size, int count) throws Exception;
+    public ReviewInfo select(String id, String username);
 }

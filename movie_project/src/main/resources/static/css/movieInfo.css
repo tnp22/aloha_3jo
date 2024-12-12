@@ -7,8 +7,8 @@
 }
 .review-user {
     display: flex;
-    align-items: center;
     gap: 15px;
+    height: 100px;
 }
 .review-user img {
     width: 50px;
@@ -96,7 +96,7 @@
 
 /* 이미지 비율 유지 및 크기 고정 */
 .modal-image-container {
-    width: 100%;
+    width: 1000px;
     max-height: 80vh;
     display: flex;
     justify-content: center;
@@ -183,6 +183,27 @@
     font-weight: bold;
 }
 
+.custom-page{
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    color: gray;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-page:hover{
+    color: #5a379e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.custom-page.active{
+    color: #5a379e;
+    font-weight: bold;
+}
+
 .icon{
     fill: gray;
     transition: fill 0.3s;
@@ -227,4 +248,74 @@ ul, li {
     -webkit-text-fill-color: #C8C8C8;
   }
 
+  .star-rating {
+    font-size: 40px;
+    color: #aaa9a9; /* 선택되지 않은 별 색상 */
+    cursor: pointer;
+    display: inline-block;
+}
+
+.star-rating .star {
+    color: #aaa9a9; /* 기본 회색 */
+    position: relative;
+    display: inline-block;
+}
+
+.star-rating .star.full {
+    color: #A88EFF; /* 채워진 별 색상 */
+}
+
+.star-rating .star.half::before {
+    content: '\2605'; /* 별 기호 */
+    position: absolute;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #A88EFF; /* 반 별 색상 */
+}
+
+.star-rating .star:hover {
+    color: #A88EFF; /* 마우스 오버 시 별 색상 */
+}
+
+.star-rating .star.half:hover::before {
+    color: #A88EFF;
+}
+/* 드롭다운 메뉴 크기 조정 */
+.dropdown-menu {
+    min-width: 120px; /* 기본 최소 너비를 줄임 */
+    font-size: 0.9rem; /* 글자 크기 조정 */
+}
+
+/* 드롭다운 항목 크기 조정 */
+.dropdown-item {
+    padding: 5px; /* 버튼 내부 여백 */
+    font-size: 0.85rem; /* 텍스트 크기 */
+}
+.custom-dropdown-btn {
+    font-size: 30px;  /* ⋮ 기호 크기 */
+    padding: 0;       /* 여백 제거 */
+    width: 40px;      /* 버튼 크기 */
+    height: 40px;     /* 버튼 크기 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    line-height: 40px; /* 세로 가운데 정렬 */
+    border: none; /* 테두리 제거 */
+    background-color: #f8f9fa; /* 배경색 */
+}
+.custom-dropdown-btn:hover {
+    background-color: #e9ecef; /* 호버 효과 */
+}
+.modal-header{
+    background-color: #583BBF;
+    color: white;
+}
+.btn-close {
+    filter: invert(1); /* SVG 색상을 반전시켜 흰색으로 만듦 */
+}
+.myReview{
+    background-color: #e3ddfa;
+}
+.custom-dropdown-btn.myReview:hover{
+    background-color: #d6cef7;
+}
 

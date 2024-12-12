@@ -13,6 +13,7 @@ public class ReviewInfo {
     private String content;
     private int ratingValue;
     private String fileId;
+    private int count;
     public ReviewInfo(){
         this.id = UUID.randomUUID().toString();
     }

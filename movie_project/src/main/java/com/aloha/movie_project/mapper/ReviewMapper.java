@@ -21,6 +21,7 @@ public interface ReviewMapper {
     public int updateRating(@Param("id") String id, @Param("ratingValue") int ratingValue);
     public int deleteReview(@Param("id") String id);
     public int deleteRating(@Param("id") String id);
+    public ReviewInfo select(@Param("id") String id, @Param("username") String username);
     // 영화 상세정보 리뷰
     public List<ReviewInfo> reviewList(String id) throws Exception;
 

@@ -23,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
      <update id="updateReview">
         update review
-        set rating_value = #{ratingValue}
-            ,content = #{content}
+        set content = #{content},
+        reg_date = reg_date
         where id = #{id} 
      </update>
      <update id="updateRating">
@@ -41,9 +41,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where review_id = #{id}
      </delete>
     <select id="reviewList" resultType="ReviewInfo">
-        select e.id, u.username, f.id fileId, e.content, a.rating_value 
-        from rating a, review e, users u, files f 
-        where a.review_id = e.id and e.user_id = u.id and u.id = f.fk_id and f.division = 'profile' and e.movie_id = #{id}
+        SELECT e.id, u.username, f.id AS fileId, e.content, a.rating_value
+        FROM rating a
+        JOIN review e ON a.review_id = e.id
+        JOIN users u ON e.user_id = u.id
+        LEFT JOIN files f ON u.id = f.fk_id AND f.division = 'profile'
+        WHERE e.movie_id = #{id}
+        ORDER BY e.reg_date DESC
+    </select>
+    <select id="select" resultType="ReviewInfo">
+        SELECT e.id, u.username, f.id AS fileId, e.content, a.rating_value
+        FROM rating a
+        JOIN review e ON a.review_id = e.id
+        JOIN users u ON e.user_id = u.id
+        LEFT JOIN files f ON u.id = f.fk_id AND f.division = 'profile'
+        WHERE e.movie_id = #{id} and u.username =#{username}
+        ORDER BY e.reg_date DESC
     </select>
 
     <select id="adminReviewList" parameterType="String" resultType="ReviewInfo">

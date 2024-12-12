@@ -98,7 +98,7 @@ public class MovieController {
         model.addAttribute("history", history);
 
         List<Files> stilList = movieService.stilList(id);
-        PageInfo<ReviewInfo> reviewList = reviewService.reviewList(id, page, size);
+        PageInfo<ReviewInfo> reviewList = reviewService.reviewList(id, page, size,0);
         List<ReviewInfo> list = reviewList.getList();
         double result = 0;
         for (ReviewInfo review : list) {
