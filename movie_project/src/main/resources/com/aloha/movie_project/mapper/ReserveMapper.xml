@@ -29,4 +29,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM reserve WHERE id = #{id}
     </select>
 
+    <!-- 예매 삭제 -->
+    <delete id="delectReserve">
+        delete from reserve
+        where id = #{id}
+    </delete>
+
 </mapper>
