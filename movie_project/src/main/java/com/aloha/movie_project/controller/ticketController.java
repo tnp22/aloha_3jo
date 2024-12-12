@@ -132,7 +132,7 @@ public class ticketController {
         model.addAttribute("mapData", mapData);
 
         // 예약된 좌석 선별
-        List<Reserve> reserve = reserveService.selectSeat();
+        List<Reserve> reserve = reserveService.selectSeat(id);
         List<String> seat = new ArrayList<>();
         for (Reserve s : reserve) {
             String[] se = s.getSeat().split(",");
