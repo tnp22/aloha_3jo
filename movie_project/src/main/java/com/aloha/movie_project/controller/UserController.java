@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.CustomUser;
+import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Users;
+import com.aloha.movie_project.service.FileService;
 import com.aloha.movie_project.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +34,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
+    private FileService fileService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     // @GetMapping("/encode")
@@ -39,7 +44,14 @@ public class UserController {
     // }
 
     @GetMapping("/mypage")
-    public String mypage(Model model) {
+    public String mypage(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
+        String username = authUser.getUsername();
+
+        Users oriUser = userService.select(username);
+        Files orifile = fileService.imageUpdate(oriUser.getId());
+
+        model.addAttribute("orifile", orifile);
+
         model.addAttribute("username", "홍길동");
         model.addAttribute("grade", "일반 등급");
         model.addAttribute("movieCount", 2);
@@ -84,7 +96,12 @@ public class UserController {
         if (authUser != null) {
             String username = authUser.getUsername();
             String profileUploadPath = "C:/upload/profiles/";
-    
+            
+            Users oriUser = userService.select(username);
+            Files orifile = fileService.imageUpdate(oriUser.getId());
+
+            model.addAttribute("orifile", orifile);
+
             // 프로필 이미지 파일 이름 생성
             String[] possibleExtensions = {"png", "jpg", "jpeg"};
             String profileImagePath = null;
@@ -111,6 +128,44 @@ public class UserController {
     
         return "user/mypageUpdate";
     }
+
+
+    /**
+     * 이미지 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_USER")
+    @PostMapping("/mypageImageUpdate")
+    public String movieInsert(Model model,
+                              Users users) throws Exception {
+
+
+        Users oriUser = userService.select(users.getUsername());
+        Files orifile = fileService.imageUpdate(oriUser.getId());
+        Files file = new Files();
+        file.setFile(users.getFile());
+        file.setDivision("profile");
+        file.setFkTable("user");
+        file.setFkId(oriUser.getId());
+        boolean result = false;
+        
+        if(orifile != null){
+           result = fileService.update(file,orifile.getId());
+        }
+        else{
+            result = fileService.upload(file);
+        }
+
+        if(result){
+
+            return "redirect:/user/mypageUpdate";
+        }
+        return "redirect:/user/mypageUpdate?error";
+    }
+
 
     @PostMapping("/mypageUpdate")
     public String mypageUpdate(@AuthenticationPrincipal CustomUser authUser,
