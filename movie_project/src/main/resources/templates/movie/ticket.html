@@ -78,6 +78,7 @@
                     <p class="m-1">극장 &nbsp; &nbsp; &nbsp; <span id="theater-info"></span></p>
                     <p class="m-1">날짜 &nbsp; &nbsp; &nbsp; <span id="date-info"></span></p>
                     <p class="m-1">시간 &nbsp; &nbsp; &nbsp; <span id="time-info"></span></p>
+                    <input type="hidden" id="seat-info" value="">
                 </div>
             </div>
         </div>
@@ -507,7 +508,7 @@
             const timeBox = document.createElement("div");
             timeBox.className = "d-flex align-items-center me-3 mb-3 time-box";
             timeBox.innerHTML = `
-              <button class="${seats !== 0 ? "btn-time" : "btn-mazin"}" data-MovieId="${movieId}" data-theater="${theater}" ${seats === 0 ? "disabled" : ""}>
+              <button class="${seats !== 0 ? "btn-time" : "btn-mazin"}" seat="${seats}" data-MovieId="${movieId}" data-theater="${theater}" ${seats === 0 ? "disabled" : ""}>
                 ${time}
               </button>
               <p class="m-0">${seats === 0 ? "매진" : `${seats}석`}</p>
@@ -524,7 +525,7 @@
       }
     }
 
-
+    var seatInfo = document.querySelector("#seat-info")
     // 시간 버튼 클릭 이벤트
     timeContainer.addEventListener("click", function (e) {
       if (e.target && e.target.classList.contains("btn-time")) {
@@ -534,6 +535,8 @@
         var movieId = e.target.getAttribute("data-movieId"); // 상영시간 무비ID 가져오기
         // console.log("아이디 : ",movieId)
         timeInfo.textContent = theater+' 상영실, '+time
+        seatInfo.textContent = e.target.getAttribute("seat")
+        // console.log(seatInfo.textContent)
 
         // **활성화된 항목 관리**: 기존 활성화된 항목 제거
         // 모든 .btn-time 버튼들을 선택
@@ -559,13 +562,21 @@
       
     // 좌석선택 이동
     function ticketSeat(movieId){
+      // seat값이랑 person 값 비교문 넣어야합 if
+      // **********************************
       let theaterListId = movieId; //햇갈릴까봐 변경 상영시간기준 영화ID
       var adult = document.getElementById("adult")
       var student = document.getElementById("student")
       var person1 = parseInt(adult.getAttribute("person"))
       var person2 = parseInt(student.getAttribute("person"))
-
+      
       var person = person1 + person2;
+
+      if(parseInt(seatInfo.textContent) < person){
+        alert("남은 좌석수가 부족합니다.")
+        return
+      }
+
       var money = (person1 * 10000) + (person2 * 5000);
 
 
