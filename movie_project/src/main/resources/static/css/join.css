@@ -94,9 +94,11 @@
 
 .form-container .form-control {
     border: 1px solid #583BBF;
+    box-sizing: border-box;
 }
 
 .form-container .form-control:focus {
     border-color: #583BBF;
-    box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.25);
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(88, 59, 191, 0.25);
 }

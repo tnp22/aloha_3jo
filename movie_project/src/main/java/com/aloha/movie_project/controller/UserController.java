@@ -7,18 +7,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.CustomUser;
+import com.aloha.movie_project.domain.Inquiry;
 import com.aloha.movie_project.domain.Users;
+import com.aloha.movie_project.service.InquiryService;
 import com.aloha.movie_project.service.UserService;
+import com.github.pagehelper.PageInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +37,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    InquiryService inquiryService;
 
     // @GetMapping("/encode")
     // public String encodePassword(@RequestParam String rawPassword) {
@@ -214,5 +221,67 @@ public class UserController {
         }
 
         return "redirect:/user/mypageUpdate";
+    }
+
+    @GetMapping("/myInquiry/inquiries")
+    public String list(Model model    
+    ,@AuthenticationPrincipal UserDetails userDetails
+    ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+    ,@RequestParam(name = "option", defaultValue = "0") int option
+    ,@RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        String username = userDetails.getUsername();
+        PageInfo<Inquiry> inquiryList = inquiryService.inquiries(page, size, option, keyword,username);
+        model.addAttribute("inquiryList", inquiryList);
+        model.addAttribute("option", option);
+        
+        return "/user/myInquiry/inquiries";
+    }
+
+    @GetMapping("/myInquiry/select/{id}")
+    public String select(Model model, @PathVariable("id") String id) {
+        Inquiry inquiry = inquiryService.select(id);
+        model.addAttribute("inquiry", inquiry);
+        return "/user/myInquiry/select";
+    }
+
+
+    @GetMapping("/myInquiry/insert")
+    public String insert() {
+        return "/user/myInquiry/insert";
+    }
+    
+    @PostMapping("/myInquiry/insert")
+    public String insert(Inquiry inquiry) {
+        int result = inquiryService.insert(inquiry);
+        if(result > 0)
+            return "redirect:/user/myInquiry/inquiries";
+        else
+            return "redirect:/user/myInquiry/insert?error";
+    }
+
+    @GetMapping("/myInquiry/update")
+    public String update(Model model, @RequestParam("id") String id) {
+        Inquiry inquiry = inquiryService.select(id);
+        model.addAttribute("inquiry", inquiry);
+        return "/user/myInquiry/update";
+    }
+
+    @PostMapping("/myInquiry/update")
+    public String update(Inquiry inquiry) {
+        int result = inquiryService.update(inquiry);
+        if(result > 0)
+            return "redirect:/user/myInquiry/select/"+inquiry.getId();
+        else
+            return "redirect:/user/myInquiry/update?error";
+    }
+
+    @GetMapping("/myInquiry/delete")
+    public String delete(@RequestParam("id") String id) {
+        int result = inquiryService.delete(id);
+        if(result > 0)
+            return "redirect:/user/myInquiry/inquiries";
+        else
+            return "redirect:/user/myInquiry/update?id="+id;
     }
 }

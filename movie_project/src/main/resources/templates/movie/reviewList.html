@@ -67,7 +67,7 @@
                                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                             </div>
                         </div>
-                        <p th:text="${review.content}"></p>
+                        <p th:text="${review.content}" style="white-space: pre-wrap;"></p>
                     </div>
                 </div>
                 <th:block th:if="${review.username == #authentication.name}">

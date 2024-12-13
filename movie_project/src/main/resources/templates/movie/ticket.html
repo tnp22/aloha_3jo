@@ -81,12 +81,22 @@
                 </div>
             </div>
         </div>
-        <div class="align-content-center d-flex">
-          <div class="m-5">
-            <p>어른<span style="margin-left: 10px; margin-right: 5px;" id="adult" person="1">1</span><button style="margin-left: 5px;" onclick="aup()">↑</button><button style="margin-left: 5px;" onclick="adown()">↓</button></p>
-            <p>학생<span style="margin-left: 10px; margin-right: 5px;" id="student" person="0">0</span><button style="margin-left: 5px;" onclick="sup()">↑</button><button style="margin-left: 5px;" onclick="sdown()">↓</button></p>
+        <div class="align-content-center d-flex align-items-center">
+          <div class="me-5">
+            <div class="d-flex mb-2 align-items-center align-content-center">
+              <p class="p-0 m-0">어른</p>
+              <span style="margin-left: 10px;" id="adult" person="1">1</span>
+              <button class="btn btn-secondary" style="margin-left: 10px;" onclick="aup()"><i class="fa-solid fa-arrow-up"></i></button>
+              <button class="btn btn-secondary" style="margin-left: 5px;" onclick="adown()"><i class="fa-solid fa-arrow-down"></i></button>
+            </div>
+            <div class="d-flex align-items-center align-content-center">
+              <p class="p-0 m-0">학생</p>
+              <span style="margin-left: 10px;" id="student" person="0">0</span>
+              <button class="btn btn-secondary" style="margin-left: 10px;" onclick="sup()"><i class="fa-solid fa-arrow-up"></i></button>
+              <button class="btn btn-secondary" style="margin-left: 5px;" onclick="sdown()"><i class="fa-solid fa-arrow-down"></i></button>
+            </div>
           </div>
-            <button class="btn reserve-btn" id="ticketSeat"><i class="fa-solid fa-angle-right fa-3x"></i><p>좌석선택</p></button>
+          <button class="btn reserve-btn" id="ticketSeat"><i class="fa-solid fa-angle-right fa-3x"></i><p>좌석선택</p></button>
         </div>
     </div>
   </div>

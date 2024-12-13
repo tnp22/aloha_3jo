@@ -17,4 +17,6 @@ public interface InquiryMapper {
     public Inquiry select(String id);
     public int replyUpdate(Inquiry inquiry);
     public int replyDelete(String id);
+    public List<Inquiry> inquiries(@Param("option")int option
+    ,@Param("keyword") String keyword,@Param("username") String username );
 }

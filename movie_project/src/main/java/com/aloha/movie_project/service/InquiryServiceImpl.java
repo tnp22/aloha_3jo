@@ -53,5 +53,13 @@ public class InquiryServiceImpl implements InquiryService {
     public int replyDelete(String id) {
         return inquiryMapper.replyDelete(id);
     }
+
+    @Override
+    public PageInfo<Inquiry> inquiries(int page, int size, int option, String keyword, String username) {
+        PageHelper.startPage(page,size);
+        List<Inquiry> inquiryList = inquiryMapper.inquiries(option,keyword,username);
+        PageInfo<Inquiry> pageInfo = new PageInfo<Inquiry>(inquiryList, 10);
+        return pageInfo;
+    }
     
 }
