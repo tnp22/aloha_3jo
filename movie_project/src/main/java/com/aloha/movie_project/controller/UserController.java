@@ -306,25 +306,6 @@ public class UserController {
         return "redirect:/user/mypageUpdate";
     }
 
-
-    @GetMapping("/reservationList")
-    public String reservationList(Model model) {
-        // 예시 데이터: 실제로는 서비스 계층에서 데이터를 가져와야 합니다.
-        List<Reserve> reservationList = Arrays.asList(
-                new Reserve(
-                        "영화 제목1", "상영관 1", "T001", "TL001", "서울",
-                        "2024-12-20", "오후 7:00", 10000, "A1, A2", 2,
-                        "UUID12345", "홍길동", "movie1.jpg"),
-                new Reserve(
-                        "영화 제목2", "상영관 2", "T002", "TL002", "부산",
-                        "2024-12-21", "오후 6:00", 12000, "B3, B4", 2,
-                        "UUID67890", "김철수", "movie2.jpg"));
-
-        // 모델에 예약 목록 추가
-        model.addAttribute("reservationList", reservationList);
-        return "/user/reservationList"; // reservationList.html 파일을 렌더링
-    }
-
     @GetMapping("/myInquiry/inquiries")
     public String list(Model model    
     ,@AuthenticationPrincipal UserDetails userDetails
