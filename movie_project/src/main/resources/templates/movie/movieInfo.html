@@ -95,9 +95,9 @@
                             </div>
                         </th:block>
                     </div>
-                    <h4>출현</h4>
+                    <h4>출연</h4>
                     <th:block th:each="cast : ${castList}" th:if="${cast.rule == 'actor'}">
-                        <div class="col-md-3 d-flex">
+                        <div class="col-md-3 d-flex" style="margin-top: 20px;">
                             <img th:src="|/img?id=${cast.files.id}|" class="thumbnail">
                             <div class="mt-3 ms-3 w-100">
                                 <p th:text="${cast.name}" class="mb-3" style="margin-bottom: 0;"></p>
