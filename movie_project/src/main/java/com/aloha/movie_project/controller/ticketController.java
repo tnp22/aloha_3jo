@@ -108,11 +108,12 @@ public class ticketController {
 
     @GetMapping("/s")
     public String seatSelectionmain(@RequestParam("theaterListId") String id, @RequestParam("person") String person,
-            Model model)
+            Model model, @AuthenticationPrincipal CustomUser authUser)
             throws Exception {
         // log.info("좌석선택");
         // log.info("상영시간ID : " + id);
         // id = "8ecb1cf9-679b-4c74-8443-b04409feb9ee";
+        model.addAttribute("authUser", authUser);
         String[] data = person.split("_");
         person = data[0];
         String money = data[1];

@@ -37,24 +37,18 @@
                                   <tr>
                                       <th>영화명</th>
                                       <td th:text="${reserve.title}"></td>
-                                      <th>카드종류</th>
-                                      <td>ISP (BC카드)</td>
+                                      <th>일시</th>
+                                      <td th:text="${reserve.date}"></td>
                                   </tr>
                                   <tr>
                                       <th>극장</th>
                                       <td th:text="${reserve.areaSub} + ' VORA'"></td>
-                                      <th>카드번호</th>
-                                      <td>0000-00**-****-0000</td>
+                                      <th>거래일시</th>
+                                      <td th:text="${ #dates.format( reserve.regDate, 'yyyy년 MM월 dd일(E) HH시 mm분' ) }"></td>
                                   </tr>
                                   <tr>
                                       <th>상영관</th>
                                       <td th:text="${reserve.theater}+' 상영관, '+${reserve.time}"></td>
-                                      <th>거래일시</th>
-                                      <td>2024-11-28 15:13:36</td>
-                                  </tr>
-                                  <tr>
-                                      <th>일시</th>
-                                      <td th:text="${reserve.date}"></td>
                                       <th>거래상태</th>
                                       <td>승인</td>
                                   </tr>

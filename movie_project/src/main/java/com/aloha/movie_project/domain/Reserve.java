@@ -19,7 +19,7 @@ public class Reserve {
     private String date; // 상영 날짜 or 날짜시간
     private String time; // 상영 시간
     private int money; // 구매가격
-
+    private Date regDate;
     private String seat; // 구매 좌석
     private int person; // 예약 인원
 
