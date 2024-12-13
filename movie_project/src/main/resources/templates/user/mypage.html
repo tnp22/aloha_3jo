@@ -25,16 +25,16 @@
                     <p>고객님은 현재 <span th:text="${grade}">일반</span> 등급입니다.</p>
                 </div>
                 <div class="user-stats">
-                    <span>시청한 영화: <strong th:text="${movieCount}">2</strong></span>
-                    <span>리뷰: <strong th:text="${reviewCount}">1</strong></span>
+                    <span>시청한 영화: <strong th:text="${movieCount}">50</strong></span>
+                    <span>리뷰: <strong th:text="${reviewCount}">50</strong></span> <!-- 리뷰 수를 여기에 바인딩 -->
                 </div>
             </div>
             <div class="mypage-main">
                 <!-- 사이드바 -->
                 <div class="mypage-sidebar">
                     <ul>
-                        <li><a th:href="@{/user/info}">나의 정보</a></li>
-                        <li><a th:href="@{/user/tickets}">예매 내역</a></li>
+                        <li><a th:href="@{/user/mypage}">나의 정보</a></li>
+                        <li><a th:href="@{/rsList}">예매 내역</a></li>
                         <li><a th:href="@{/user/inquiries}">문의 내역</a></li>
                     </ul>
                 </div>

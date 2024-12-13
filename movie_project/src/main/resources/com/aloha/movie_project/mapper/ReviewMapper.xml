@@ -64,4 +64,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from rating a, review e, users u, movie m
         where e.movie_id = m.id and a.review_id = e.id and e.user_id = u.id and e.movie_id = (SELECT m.id FROM movie m WHERE m.title LIKE CONCAT('%', #{keyword}, '%') LIMIT 1 ) 
     </select>
+
+    <select id="countUserReviews" parameterType="String" resultType="int">
+    SELECT COUNT(*)
+    FROM review
+    WHERE user_id = #{userId}
+    </select>
+    
 </mapper>

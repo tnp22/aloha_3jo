@@ -29,4 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM reserve WHERE id = #{id}
     </select>
 
+    <select id="selectReservationCountByUsername" resultType="int">
+        SELECT COUNT(*) FROM reserve WHERE user_name = #{username}
+    </select>
 </mapper>
