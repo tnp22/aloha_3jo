@@ -93,7 +93,7 @@
                 <input type="hidden" name="id" th:value="${cast.id}">
                 <br>
                 <div style="display: flex; align-items: center;">
-                    <h1>배너 수정</h1>
+                    <h1>출연진 수정</h1>
                     <button class="delete_butten" 
                                 type="button" th:onclick="remove( [[${cast.id}]] )">삭제</button>
                 </div>
@@ -153,7 +153,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="padding: 12px 0; width: 20%; text-align: center;">배너종류</th>
+                        <th style="padding: 12px 0; width: 20%; text-align: center;">역할</th>
                         <td>
                             <li>
                                 <select name="rule" id="rule">
@@ -164,7 +164,7 @@
                         </td>
                     </tr>
                 <tr>
-                    <th style="padding: 12px 0; width: 20%; text-align: center;">타이틀 파일</th>
+                    <th style="padding: 12px 0; width: 20%; text-align: center;">사진</th>
                     <td>
                         <li><input style="width: 90%;"
                             type="file" name="mainFiles" id="mainFiles"/></li>
