@@ -145,6 +145,9 @@ public class ticketController {
         model.addAttribute("money", money);
         model.addAttribute("mapData", mapData);
 
+        Movie movie_ = movieService.movieInfo(num.getMovieId());
+        model.addAttribute("movie", movie_);
+
         // 예약된 좌석 선별
         List<Reserve> reserve = reserveService.selectSeat(id);
         List<String> seat = new ArrayList<>();
@@ -229,6 +232,8 @@ public class ticketController {
 
         TheaterList num = theaterListService.select(id);
 
+        Reserve reserve = new Reserve();
+        reserve.setRegDate(new Date());
         // 시간 형식 변경
         Date date = num.getTime();
 
@@ -237,8 +242,6 @@ public class ticketController {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String formatDate = dateFormat.format(date);
         String formatTime = timeFormat.format(date);
-
-        Reserve reserve = new Reserve();
 
         reserve.setTitle(num.getMovie().getTitle());
         reserve.setTheater(num.getTheater().getName());
@@ -264,7 +267,7 @@ public class ticketController {
 
         // DB 저장
         int result = reserveService.insertReserve(reserve);
-        System.out.println("리졸트 : " + result);
+        // System.out.println("리졸트 : " + result);
         return "redirect:/m/payment";
     }
 
