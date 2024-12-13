@@ -19,7 +19,7 @@
         flex-direction: column;
         justify-content: start;
         align-items: center;
-        overflow: scroll;
+        /* overflow-y: scroll; */
       }
   </style>
 </head>
@@ -36,8 +36,13 @@
                 <!-- 좌석 -->
                 <div class="header"><h5>좌석 선택</h5></div>
                 <div class="content p-0">
-                  <div style="width: 100%; height:100%; display: flex; justify-content: center; align-items: center;">
-                    <div class="mapBACHI2" id="map">
+                  
+                  <div style="width: 100%; height:100%; position: relative; align-items: center;">
+                    
+                    <div class="mapBACHI2 " id="map" style="position: absolute; left: 50%; top:4%; transform: translate(-45%, 0);" >
+                      <div style="width: 80%; height: 30px;  margin-left: -60px; background-color: gray; text-align: center; margin-bottom: 20px;">
+                        <h1 style="margin-top: -5px; font-size: 30px; ">SCREEN</h1>
+                      </div>
                       <!-- 비동기 동적 생성?? -->
                     </div>
                   </div>
@@ -112,6 +117,11 @@
       // console.log("X = " + x)
       
       var mapdiv = document.getElementById("map")
+      if(y > 9){
+        mapdiv.classList.add(("scroll"));
+        mapdiv.style.overflowX = "hidden";
+
+      }
       for(var n = 0; n < y; n++){
         let boidcountCheck=0
         // console.log(mapData[n])

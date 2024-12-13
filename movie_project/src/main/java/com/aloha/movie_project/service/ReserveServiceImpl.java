@@ -49,4 +49,9 @@ public class ReserveServiceImpl implements ReserveService {
         return reserveMapper.searchReserve(id);
     }
 
+    @Override
+    public int delectReserve(String id) {
+        return reserveMapper.delectReserve(id);
+    }
+
 }

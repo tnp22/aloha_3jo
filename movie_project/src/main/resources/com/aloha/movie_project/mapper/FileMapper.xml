@@ -19,6 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE id = #{id}
     </select>
 
+    <!-- 조회 -->
+    <select id="imageUpdate" parameterType="String" resultType="Files">
+        SELECT * 
+        FROM files
+        WHERE fk_id = #{keyword}
+    </select>
+
     <!-- 등록 -->
     <insert id="insert">
         INSERT INTO files ( 
