@@ -38,6 +38,4 @@ public interface UserService {
     public PageInfo<Users> list(int page, int size,String search) throws Exception;
     // 권한 조회
     public List<Users> list() throws Exception;
-
-   
 }

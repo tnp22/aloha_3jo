@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -307,9 +307,15 @@ public class ticketController {
 
     @ResponseBody
     @DeleteMapping("/delete")
-    public String deleteReserv(@RequestBody Map<String, String> data) {
+    public String deleteReserv( @AuthenticationPrincipal CustomUser authUser,
+                @RequestBody Map<String, String> data) throws Exception{
         String id = data.get("id");
+
+        if(reserveService.isOwner(id,authUser.getUser().getId())){
+            return "Fail";
+        }
         int result = reserveService.delectReserve(id);
+
         if (result > 0)
             return "SUCCESS";
         return "Fail";

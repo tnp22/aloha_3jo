@@ -155,6 +155,7 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.updateEmail(user);
         return result;
     }
+    
 
     
 }

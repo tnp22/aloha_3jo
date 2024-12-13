@@ -10,6 +10,11 @@ import com.aloha.movie_project.mapper.ReserveMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+
+@Slf4j
 @Service
 public class ReserveServiceImpl implements ReserveService {
 
@@ -61,6 +66,20 @@ public class ReserveServiceImpl implements ReserveService {
     public int delectReserve(String id) {
         return reserveMapper.delectReserve(id);
 
+    }
+
+    @Override
+    public boolean isOwner(String id, String userid) throws Exception {
+        if (id == null || userid == null) {
+            log.info("id null!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            return false;
+        }
+        Reserve reserve = reserveMapper.searchReserve(id);
+        boolean rs = false;
+        if(reserve.getUserName().equals(userid)){
+            rs=true;
+        }
+        return rs;
     }
 
 }
