@@ -98,8 +98,8 @@
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">내용</th>
                             <td>
-                                <input style="width: 90%;"
-                                         type="text" name="content" id="" th:value="${movie.content}"/>
+                                <textarea style="width: 200%; height: 450px;" name="content" id="" th:text="${movie.content}">
+                                </textarea>
                             </td>
                         </tr>
                         <tr>

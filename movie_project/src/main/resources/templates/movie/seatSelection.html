@@ -59,10 +59,10 @@
             <div class="d-flex reserve-img">
                 <img th:src="|/img?id=${movie.files.id}|">
                 <div class="align-content-center ms-5">
-                  <h3 th:text="${movie.title}"></h3>
+                  <h3 id="theater-info" th:text="${movie.title}"></h3>
                 </div>
                 <div class="align-content-center ms-5">
-                    <!-- <p class="m-1">영화 &nbsp; &nbsp; &nbsp; <span id="theater-info" th:text="${movieName}"></span></p> -->
+                    <!-- <p class="m-1">영화 &nbsp; &nbsp; &nbsp; <span id="theater-info" th:text="${movieName}" style="display: none;"></span></p> -->
                     <p class="m-1">명수 &nbsp; &nbsp; &nbsp; <span type="number" id="person" th:text="${person}" th:person="${person}"> </span>
                     <p class="m-1">좌석 &nbsp; &nbsp; &nbsp; <span id="seat"></span></p>
                 </div>
