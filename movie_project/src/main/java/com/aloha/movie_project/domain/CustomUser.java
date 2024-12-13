@@ -62,6 +62,9 @@ public class CustomUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.isEnabled();
-    }
+    }       
     
+    public String getId() {
+        return user.getId();
+    }
 }

@@ -75,4 +75,11 @@ public class ReviewServiceImpl implements ReviewService {
         PageInfo<ReviewInfo> pageInfo = new PageInfo<ReviewInfo>(reviewList, 5);
         return pageInfo;
     }
+
+    @Override
+    public int countUserReviews(String userId) {
+        return reviewMapper.countUserReviews(userId);
+    }
+
+    
 }

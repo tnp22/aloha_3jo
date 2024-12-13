@@ -20,6 +20,9 @@ public interface ReserveMapper {
 
     // 예매 id 로 조회
     public Reserve searchReserve(String id);
+    
+    // 예매 수 계산
+    public int selectReservationCountByUsername(String username);
 
     // 예매 id 로 삭제
     public int delectReserve(String id);

@@ -29,6 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM reserve WHERE id = #{id}
     </select>
 
+    <!-- 예매 수 조회 -->  
+    <select id="selectReservationCountByUsername" resultType="int">
+        SELECT COUNT(*) FROM reserve WHERE user_name = #{username}
+    </select>
+
     <!-- 예매 삭제 -->
     <delete id="delectReserve">
         delete from reserve

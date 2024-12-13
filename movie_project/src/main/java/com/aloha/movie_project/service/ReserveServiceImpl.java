@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aloha.movie_project.domain.Movie;
 import com.aloha.movie_project.domain.Reserve;
 import com.aloha.movie_project.mapper.ReserveMapper;
 import com.github.pagehelper.PageHelper;
@@ -50,8 +49,18 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
     @Override
+    public int selectReservationCountByUsername(String username) {
+        try {
+            return reserveMapper.selectReservationCountByUsername(username);
+        } catch (Exception e) {
+            // 예외 로깅 또는 사용자 친화적인 메시지 처리
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving reservation count", e);
+        }
+
     public int delectReserve(String id) {
         return reserveMapper.delectReserve(id);
+
     }
 
 }
