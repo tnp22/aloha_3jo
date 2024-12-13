@@ -19,12 +19,14 @@
 <body>
     <div class="container-fluid " style="height: 1000px;">
         <br>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
+        <div>
+            <div style="display: flex; align-items: center; justify-content: start;">
+                <a style="margin-right: 30px;" href="/"><img th:src="@{/image(id='C:/upload/vora_purple_black.png')}" style="width: 105px; height: 40px;"></a>
                 <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="principal.user.name"></span></a></h1>
-                <hr class="w-50 ms-0">
             </div>
-            <h5><a style="margin-right: 100px;" href="/">홈으로</a></h5>
+            <div>
+                <hr class="ms-0" style="width: 700px;">
+            </div>           
         </div>
         <div class="row" style="height: 90%;">
             <div class="col-md-2">
@@ -32,9 +34,9 @@
                     <ul>
                         <li><a href="/admin/cinema/list" >영화관</a></li>
                         <li class="mainLi">
-                            <a href="/admin/movie/list" style="color: blue;">영화관리</a>
+                            <a href="/admin/movie/list" style="color: #583BBF;">영화관리</a>
                             <nav class="movieLi">
-                                <li><a href="/admin/movie/list" style="color: blue;">영화 관리</a></li>
+                                <li><a href="/admin/movie/list" style="color: #583BBF;">영화 관리</a></li>
                                 <li><a href="/admin/cast/list">출연진 관리</a></li>
                             </nav>
                           </li>
@@ -85,7 +87,7 @@
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">개봉일</th>
                             <td>
-                                <li th:text="${movie.releaseDate}"></li>
+                                <li th:text="${ #dates.format( movie.releaseDate, 'yyyy-MM-dd (E) HH:mm' ) }"></li>
                             </td>
                         </tr>
                         <!-- <tr>
@@ -102,13 +104,13 @@
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">생성 일자</th>
                             <td>
-                                <li th:text="${movie.regDate}"></li>
+                                <li th:text="${ #dates.format( movie.regDate, 'yyyy-MM-dd (E) HH:mm' ) }"></li>
                             </td>
                         </tr>
                         <tr>
                             <th style="padding: 12px 0; width: 20%; text-align: center;">수정 일자</th>
                             <td>
-                                <li th:text="${movie.updDate}"></li>
+                                <li th:text="${ #dates.format( movie.updDate, 'yyyy-MM-dd (E) HH:mm' ) }"></li>
                             </td>
                         </tr>
                     </table>
@@ -126,7 +128,7 @@
                 </div>
                 <br><br>
                 <div style="display: flex; justify-content: center;">
-                    <a href="/admin/movie/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                    <a href="/admin/movie/list" class="sub_butten" style="margin-right: 20px;">취소</a>
                     <a th:href="|/admin/movie/update?id=${movie.id}|" th:text="수정" class="a_butten"></a>
                 </div>
             </div>

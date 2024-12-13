@@ -57,12 +57,14 @@
 <body>
     <div class="container-fluid " style="height: 720px;">
         <br>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
+        <div>
+            <div style="display: flex; align-items: center; justify-content: start;">
+                <a style="margin-right: 30px;" href="/"><img th:src="@{/image(id='C:/upload/vora_purple_black.png')}" style="width: 105px; height: 40px;"></a>
                 <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="principal.user.name"></span></a></h1>
-                <hr class="w-50 ms-0">
             </div>
-            <h5><a style="margin-right: 100px;" href="/">홈으로</a></h5>
+            <div>
+                <hr class="ms-0" style="width: 700px;">
+            </div>           
         </div>
         <div class="row" style="height: 90%;">
             <div class="col-md-2">
@@ -83,7 +85,7 @@
                                 <li><a href="/admin/userManager/auth/list" >권한 관리</a></li>
                             </nav>
                         </li>
-                        <li><a href="/admin/banner/list" style="color: blue;">배너관리</a></li>
+                        <li><a href="/admin/banner/list" style="color: #583BBF;">배너관리</a></li>
                         <li><a href="/admin/reviewManager/list">리뷰관리</a></li>
                         <li><a href="/admin/notice/list">공지관리</a></li>
                     </ul>
@@ -127,7 +129,7 @@
                 </table>
                 <br>
                 <div style="display: flex; justify-content: center;">
-                    <a href="/admin/banner/list" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                    <a href="/admin/banner/list" class="sub_butten" style="margin-right: 20px;">취소</a>
                     <a th:href="|/admin/banner/update?id=${banner.id}|" class="a_butten">수정</a>
                 </div>
             </form>
