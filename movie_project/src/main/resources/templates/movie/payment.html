@@ -85,8 +85,9 @@
     <div class="container d-flex justify-content-center p-0 " style="height:200px;">
         <!-- 버튼 영역 -->
         <div class="text-center mt-4">
-          <button class="btn btn-secondary me-2">예매취소</button>
-          <button class="btn btn-primary" onclick="List()">예매 내역</button>
+          <button class="btn btn-secondary me-2" th:onclick="remove([[${reserve.id}]])">예매취소</button>
+          <button class="btn btn-primary me-2" onclick="List()">예매 내역</button>
+          <button class="btn btn-primary" onclick="window.location.href='/'">메인으로</button>
       </div>
     </div>
   </div>
@@ -94,6 +95,33 @@
   <script>
     function List(){
         location = '/m/rsList';
+    }
+    function remove(id){
+
+    let data = {
+        'id' : id
+    };
+
+    let request = new XMLHttpRequest();
+    let url = '/m/delete';
+    request.open('DELETE', url, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    let csrfToken = "[[${_csrf.token}]]";
+    request.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+    request.onreadystatechange = function() {
+    if( request.readyState == request.DONE && request.status == 200){
+        let response = request.responseText
+        if(response == 'SUCCESS'){
+            console.log('예매 취소 성공')
+            window.location.href = "/m/rsList";
+        }
+        else{
+            alert('예매 취소 실패')
+        }
+    }}
+
+    request.send(JSON.stringify(data));
+
     }
   </script>
 

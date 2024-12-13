@@ -330,7 +330,7 @@ public class AdminController {
     @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
     @ResponseBody
     @PostMapping("/theater/insert")
-    public String theaterInsert(Model model,
+    public String theaterInsert(Model model,@RequestParam("id") String id,
                               @RequestBody Theater theater) throws Exception {
         theater.setMap(theater.getId());
         theater.setMapSize(theater.getX() * theater.getY());
@@ -431,7 +431,7 @@ public class AdminController {
     @PreAuthorize("(hasRole('SUPER')) or ( #p1 != null and @TheaterService.isOwner(#p1,authentication.principal.user.authList))")
     @ResponseBody
     @PostMapping("/theater/update")
-    public String theaterUpate(Model model,
+    public String theaterUpate(Model model,@RequestParam("id") String id,
                               @RequestBody Theater theater) throws Exception {
         theater.setMap(theater.getId());
         theater.setMapSize(theater.getX() * theater.getY());

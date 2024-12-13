@@ -52,12 +52,14 @@
 <body>
     <div class="container-fluid " style="height: 720px;">
         <br>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
+        <div>
+            <div style="display: flex; align-items: center; justify-content: start;">
+                <a style="margin-right: 30px;" href="/"><img th:src="@{/image(id='C:/upload/vora_purple_black.png')}" style="width: 105px; height: 40px;"></a>
                 <h1><a href="/admin">ADMINISTRATOR : <span class="adminTitle" sec:authentication="principal.user.name"></span></a></h1>
-                <hr class="w-50 ms-0">
             </div>
-            <h5><a style="margin-right: 100px;" href="/">홈으로</a></h5>
+            <div>
+                <hr class="ms-0" style="width: 700px;">
+            </div>           
         </div>
         <div class="row" style="height: 90%;">
             <div class="col-md-2">
@@ -65,10 +67,10 @@
                     <ul>
                         <li><a href="/admin/cinema/list" >영화관</a></li>
                         <li class="mainLi">
-                            <a href="/admin/movie/list" style="color: blue;" >영화관리</a>
+                            <a href="/admin/movie/list" style="color: #583BBF;" >영화관리</a>
                             <nav class="movieLi">
                                 <li><a href="/admin/movie/list" >영화 관리</a></li>
-                                <li><a href="/admin/cast/list" style="color: blue;">출연진 관리</a></li>
+                                <li><a href="/admin/cast/list" style="color: #583BBF;">출연진 관리</a></li>
                             </nav>
                           </li>
                         <li class="mainLi">
@@ -172,7 +174,7 @@
                 </table>
                 <br>
                 <div style="display: flex; justify-content: center;">
-                    <a href="javascript:history.back()" class="btn btn-primary" style="margin-right: 20px;">취소</a>
+                    <a href="javascript:history.back()" class="sub_butten" style="margin-right: 20px;">취소</a>
                     <input type="submit" value="수정확인" class="butten"/>
                 </div>
             </form>
