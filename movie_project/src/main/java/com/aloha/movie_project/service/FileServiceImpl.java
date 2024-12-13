@@ -175,5 +175,11 @@ public class FileServiceImpl implements FileService {
         log.info(result + "건의 파일 정보가 삭제되었습니다.");
         return result;
     }
+
+    @Override
+    public Files imageUpdate(String fkId) throws Exception {
+        Files file = fileMapper.imageUpdate(fkId);
+        return file;
+    }
     
 }
