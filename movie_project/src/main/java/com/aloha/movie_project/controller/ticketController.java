@@ -113,6 +113,8 @@ public class ticketController {
         // log.info("좌석선택");
         // log.info("상영시간ID : " + id);
         // id = "8ecb1cf9-679b-4c74-8443-b04409feb9ee";
+        String uuuuid = UUID.randomUUID().toString();
+        model.addAttribute("uuuuid", uuuuid);
         model.addAttribute("authUser", authUser);
         String[] data = person.split("_");
         person = data[0];
