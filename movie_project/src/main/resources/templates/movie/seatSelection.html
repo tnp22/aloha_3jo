@@ -57,10 +57,12 @@
     <div class="container d-flex justify-content-between p-0" style="height:200px;">
         <div class="align-content-center">
             <div class="d-flex reserve-img">
+                <img th:src="|/img?id=${movie.files.id}|">
                 <div class="align-content-center ms-5">
+                  <h3 th:text="${movie.title}"></h3>
                 </div>
                 <div class="align-content-center ms-5">
-                    <p class="m-1">영화 &nbsp; &nbsp; &nbsp; <span id="theater-info" th:text="${movieName}"></span></p>
+                    <!-- <p class="m-1">영화 &nbsp; &nbsp; &nbsp; <span id="theater-info" th:text="${movieName}"></span></p> -->
                     <p class="m-1">명수 &nbsp; &nbsp; &nbsp; <span type="number" id="person" th:text="${person}" th:person="${person}"> </span>
                     <p class="m-1">좌석 &nbsp; &nbsp; &nbsp; <span id="seat"></span></p>
                 </div>
@@ -232,6 +234,7 @@
       let selectedSeats = []; // 선택된 요소를 저장할 배열
       let seats = document.querySelectorAll(".select");
       
+      
       // 각 요소 클릭 이벤트 추가
       seats.forEach(function(seat) {
         seat.addEventListener("click", function(e) {
@@ -262,9 +265,17 @@
           document.getElementById("seat").setAttribute("seat",`${selectedSeats.map(seat => seat.getAttribute("seatNumber")).sort().join(",")}`);
         });
       });
-      
       // 예매하기 버튼
       function reservation(){
+        var person = "[[${person}]]";
+        console.log(selectedSeats)
+        var setnum = selectedSeats.length;
+        console.log(setnum);
+        if(person != setnum){
+          alert("예약인원수만큼 좌석을 선택하시오")
+          return;
+        }
+
         // 결제 정보 가져오기
         let productName = document.getElementById('theater-info').textContent
         console.log('상품이름은 ' + productName);
