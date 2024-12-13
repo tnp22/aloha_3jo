@@ -16,8 +16,8 @@
                 <div class="profile-image-container">
                     <img id="profileImage"
                         th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
-                         style="width: 124px; height: 124px; border-radius: 50%;"
-                         alt="프로필 이미지">
+                        style="width: 124px; height: 124px; border-radius: 50%; object-fit: cover; object-position: center;"
+                        alt="프로필 이미지">
                 </div>
                 <div class="text-section">
                     <h2 th:text="${username} + '님, 반갑습니다.'"></h2>
@@ -44,9 +44,11 @@
                         <div class="logo-and-upload" style="text-align: center;">
                             <div class="logo-container">
                                 <img id="profileImage"
-                                th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
-                                     style="width: 124px; height: 124px; border-radius: 50%;"
-                                     alt="프로필 이미지">
+                                    th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
+                                    style="width: 124px; height: 124px; border-radius: 50%; object-fit: cover; object-position: center;"
+                                    alt="프로필 이미지">
+
+                                     
                             </div>
                         </div>
                         <p>회원 정보를 수정하려면 비밀번호를 다시 입력해주세요.</p>
