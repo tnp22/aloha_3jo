@@ -15,7 +15,7 @@
             <div class="mypage-header">
                 <div class="profile-image-container">
                     <img id="profileImage"
-                         th:src="@{/image(id='C:/upload/profile_default.png')}"
+                        th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
                          style="width: 124px; height: 124px; border-radius: 50%;"
                          alt="프로필 이미지">
                 </div>
@@ -33,9 +33,11 @@
                 <!-- 사이드바 -->
                 <div class="mypage-sidebar">
                     <ul>
+
                         <li><a th:href="@{/user/mypage}">나의 정보</a></li>
-                        <li><a th:href="@{/rsList}">예매 내역</a></li>
-                        <li><a th:href="@{/user/inquiries}">문의 내역</a></li>
+                        <li><a th:href="@{/m/rsList}">예매 내역</a></li>
+                        <li><a th:href="@{/user/myInquiry/inquiries}">문의 내역</a></li>
+
                     </ul>
                 </div>
                 <!-- 콘텐츠 -->
@@ -44,7 +46,7 @@
                         <div class="logo-and-upload" style="text-align: center;">
                             <div class="logo-container">
                                 <img id="profileImage"
-                                     th:src="@{/image(id='C:/upload/profile_default.png')}"
+                                th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
                                      style="width: 124px; height: 124px; border-radius: 50%;"
                                      alt="프로필 이미지">
                             </div>

@@ -81,22 +81,30 @@
                     <h4>감독</h4>
                     <div class="mb-4">
                         <th:block th:each="cast : ${castList}" th:if="${cast.rule == 'director'}">
-                            <div class="col-md-4 text-center d-flex">
+                            <div class="col-md-3 d-flex">
                                 <img th:src="|/img?id=${cast.files.id}|" class="thumbnail">
-                                <p th:text="${cast.name}" class="align-content-end ms-3" style="margin-bottom: 0;"></p>
+                                <div class="mt-3 ms-3 w-100">
+                                    <p th:text="${cast.name}" class="mb-3" style="margin-bottom: 0;"></p>
+                                    <hr class="mb-3" style="border-width:2px 0 0 0; border-style:dotted; border-color:gray;">
+                                    <th:block th:each="subHis : ${history}" th:if="${subHis.get(0).name == cast.name}">
+                                        <th:block th:each="ssub : ${subHis}">
+                                            <a th:href="|/movie/movieInfo?id=${ssub.movie.id}|"><p th:text="${ssub.movie.title}" style="margin-bottom: 0; color: black; font-size: 13px;"></p></a>
+                                        </th:block>
+                                    </th:block>
+                                </div>
                             </div>
                         </th:block>
                     </div>
                     <h4>출현</h4>
                     <th:block th:each="cast : ${castList}" th:if="${cast.rule == 'actor'}">
-                        <div class="col-md-4 text-center d-flex">
+                        <div class="col-md-3 d-flex">
                             <img th:src="|/img?id=${cast.files.id}|" class="thumbnail">
-                            <p th:text="${cast.name}" class="align-content-end ms-3" style="margin-bottom: 0;"></p>
-                            <div style="display: flex; flex-direction: column; justify-content: end; text-align: start;">
-                                <p class="align-content-end ms-3">출연작</p>
+                            <div class="mt-3 ms-3 w-100">
+                                <p th:text="${cast.name}" class="mb-3" style="margin-bottom: 0;"></p>
+                                <hr class="mb-3" style="border-width:2px 0 0 0; border-style:dotted; border-color:gray;">
                                 <th:block th:each="subHis : ${history}" th:if="${subHis.get(0).name == cast.name}">
                                     <th:block th:each="ssub : ${subHis}">
-                                        <a th:href="|/movie/movieInfo?id=${ssub.movie.id}|"><p th:text="${ssub.movie.title}" class="align-content-end ms-3" style="margin-bottom: 0;"></p></a>
+                                        <a th:href="|/movie/movieInfo?id=${ssub.movie.id}|"><p th:text="${ssub.movie.title}" style="margin-bottom: 0; color: black; font-size: 13px;"></p></a>
                                     </th:block>
                                 </th:block>
                             </div>

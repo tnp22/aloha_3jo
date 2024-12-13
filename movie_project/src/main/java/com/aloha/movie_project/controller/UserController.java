@@ -6,22 +6,34 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.CustomUser;
+
 import com.aloha.movie_project.domain.Reserve;
-import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.service.ReserveService;
 import com.aloha.movie_project.service.ReviewService;
+
+import com.aloha.movie_project.domain.Inquiry;
+import com.aloha.movie_project.domain.Users;
+import com.aloha.movie_project.service.InquiryService;
+import com.aloha.movie_project.domain.Files;
+import com.aloha.movie_project.domain.Users;
+import com.aloha.movie_project.service.FileService;
+
 import com.aloha.movie_project.service.UserService;
+import com.github.pagehelper.PageInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +47,11 @@ public class UserController {
     private UserService userService;
     
     @Autowired
+    private FileService fileService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    InquiryService inquiryService;
 
     @Autowired
     private ReserveService reserveService;
@@ -72,6 +88,7 @@ public class UserController {
         }
 
         return "user/mypage";
+
     }
 
     @PostMapping("/mypage")
@@ -110,6 +127,13 @@ public class UserController {
         if (authUser != null) {
             String username = authUser.getUsername();
             String profileUploadPath = "C:/upload/profiles/";
+            // 여기까지 기존
+            
+            Users oriUser = userService.select(username);
+            Files orifile = fileService.imageUpdate(oriUser.getId());
+
+            model.addAttribute("orifile", orifile);
+
 
             // 프로필 이미지 파일 이름 생성
             String[] possibleExtensions = { "png", "jpg", "jpeg" };
@@ -137,6 +161,44 @@ public class UserController {
 
         return "user/mypageUpdate";
     }
+
+
+    /**
+     * 이미지 생성
+     * @param model
+     * @param userAuth
+     * @return
+     * @throws Exception
+     */
+    @Secured("ROLE_USER")
+    @PostMapping("/mypageImageUpdate")
+    public String movieInsert(Model model,
+                              Users users) throws Exception {
+
+
+        Users oriUser = userService.select(users.getUsername());
+        Files orifile = fileService.imageUpdate(oriUser.getId());
+        Files file = new Files();
+        file.setFile(users.getFile());
+        file.setDivision("profile");
+        file.setFkTable("user");
+        file.setFkId(oriUser.getId());
+        boolean result = false;
+        
+        if(orifile != null){
+           result = fileService.update(file,orifile.getId());
+        }
+        else{
+            result = fileService.upload(file);
+        }
+
+        if(result){
+
+            return "redirect:/user/mypageUpdate";
+        }
+        return "redirect:/user/mypageUpdate?error";
+    }
+
 
     @PostMapping("/mypageUpdate")
     public String mypageUpdate(@AuthenticationPrincipal CustomUser authUser,
@@ -242,6 +304,7 @@ public class UserController {
         return "redirect:/user/mypageUpdate";
     }
 
+
     @GetMapping("/reservationList")
     public String reservationList(Model model) {
         // 예시 데이터: 실제로는 서비스 계층에서 데이터를 가져와야 합니다.
@@ -260,4 +323,65 @@ public class UserController {
         return "/user/reservationList"; // reservationList.html 파일을 렌더링
     }
 
+    @GetMapping("/myInquiry/inquiries")
+    public String list(Model model    
+    ,@AuthenticationPrincipal UserDetails userDetails
+    ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
+    ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
+    ,@RequestParam(name = "option", defaultValue = "0") int option
+    ,@RequestParam(name = "keyword", defaultValue = "") String keyword) {
+        String username = userDetails.getUsername();
+        PageInfo<Inquiry> inquiryList = inquiryService.inquiries(page, size, option, keyword,username);
+        model.addAttribute("inquiryList", inquiryList);
+        model.addAttribute("option", option);
+        
+        return "/user/myInquiry/inquiries";
+    }
+
+    @GetMapping("/myInquiry/select/{id}")
+    public String select(Model model, @PathVariable("id") String id) {
+        Inquiry inquiry = inquiryService.select(id);
+        model.addAttribute("inquiry", inquiry);
+        return "/user/myInquiry/select";
+    }
+
+
+    @GetMapping("/myInquiry/insert")
+    public String insert() {
+        return "/user/myInquiry/insert";
+    }
+    
+    @PostMapping("/myInquiry/insert")
+    public String insert(Inquiry inquiry) {
+        int result = inquiryService.insert(inquiry);
+        if(result > 0)
+            return "redirect:/user/myInquiry/inquiries";
+        else
+            return "redirect:/user/myInquiry/insert?error";
+    }
+
+    @GetMapping("/myInquiry/update")
+    public String update(Model model, @RequestParam("id") String id) {
+        Inquiry inquiry = inquiryService.select(id);
+        model.addAttribute("inquiry", inquiry);
+        return "/user/myInquiry/update";
+    }
+
+    @PostMapping("/myInquiry/update")
+    public String update(Inquiry inquiry) {
+        int result = inquiryService.update(inquiry);
+        if(result > 0)
+            return "redirect:/user/myInquiry/select/"+inquiry.getId();
+        else
+            return "redirect:/user/myInquiry/update?error";
+    }
+
+    @GetMapping("/myInquiry/delete")
+    public String delete(@RequestParam("id") String id) {
+        int result = inquiryService.delete(id);
+        if(result > 0)
+            return "redirect:/user/myInquiry/inquiries";
+        else
+            return "redirect:/user/myInquiry/update?id="+id;
+    }
 }

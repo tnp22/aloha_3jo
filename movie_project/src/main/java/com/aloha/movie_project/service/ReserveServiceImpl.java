@@ -57,6 +57,10 @@ public class ReserveServiceImpl implements ReserveService {
             e.printStackTrace();
             throw new RuntimeException("Error retrieving reservation count", e);
         }
+
+    public int delectReserve(String id) {
+        return reserveMapper.delectReserve(id);
+
     }
 
 }
