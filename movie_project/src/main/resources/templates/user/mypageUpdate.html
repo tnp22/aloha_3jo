@@ -16,7 +16,8 @@
 
     <!-- 유저 아이디 표시 -->
     <div style="margin-left: 290px; margin-top: 10px;">
-        <h5 th:text="${username}" style="color: #6c757d;">유저아이디</h5>
+        <h5 style="color: #6c757d; font-size: 24px; display: inline;" th:text="${username}">유저아이디</h5>
+        <span style="color: #6c757d; font-size: 16px;">님</span>
     </div>
 
     <!-- 구분선 -->
@@ -32,7 +33,7 @@
             <div class="logo-container">
                 <img id="profileImage"
                 th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
-                style="width: 124px; height: 124px; border-radius: 50%;"
+                style="width: 124px; height: 124px; border-radius: 50%; object-fit: cover; object-position: center;"
                 alt="프로필 이미지">
             </div>
             <div class="profile-upload-btn" style="margin-left: 10px; display: flex; flex-direction: column; row-gap: 9px;">

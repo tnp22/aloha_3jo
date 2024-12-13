@@ -27,4 +27,8 @@ public interface ReviewMapper {
 
     // 어드민 영화 상세정보 리뷰
     public List<ReviewInfo> adminReviewList(String search) throws Exception;
+
+    public int countUserReviews(@Param("userId") String userId);
+
+
 }

@@ -20,12 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.movie_project.domain.CustomUser;
+
+import com.aloha.movie_project.domain.Reserve;
+import com.aloha.movie_project.service.ReserveService;
+import com.aloha.movie_project.service.ReviewService;
+
 import com.aloha.movie_project.domain.Inquiry;
 import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.service.InquiryService;
 import com.aloha.movie_project.domain.Files;
 import com.aloha.movie_project.domain.Users;
 import com.aloha.movie_project.service.FileService;
+
 import com.aloha.movie_project.service.UserService;
 import com.github.pagehelper.PageInfo;
 
@@ -39,6 +45,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
     @Autowired
     private FileService fileService;
     @Autowired
@@ -46,74 +53,94 @@ public class UserController {
     @Autowired
     InquiryService inquiryService;
 
+    @Autowired
+    private ReserveService reserveService;
+
+    @Autowired
+    ReviewService reviewService;
+
     // @GetMapping("/encode")
     // public String encodePassword(@RequestParam String rawPassword) {
-    //     return passwordEncoder.encode(rawPassword);
+    // return passwordEncoder.encode(rawPassword);
     // }
 
     @GetMapping("/mypage")
     public String mypage(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
-        String username = authUser.getUsername();
+        if (authUser != null) {
+            String username = authUser.getUsername();
+            String userId = authUser.getId(); // 사용자 고유 ID (UUID)
+            Files orifile = fileService.imageUpdate(userId);
 
-        Users oriUser = userService.select(username);
-        Files orifile = fileService.imageUpdate(oriUser.getId());
+            model.addAttribute("orifile", orifile);
+            // 예매 횟수 조회
+            int movieCount = reserveService.selectReservationCountByUsername(username);
 
-        model.addAttribute("orifile", orifile);
+            // 리뷰 수 조회
+            int reviewCount = reviewService.countUserReviews(userId);
 
-        model.addAttribute("username", "홍길동");
-        model.addAttribute("grade", "일반 등급");
-        model.addAttribute("movieCount", 2);
-        model.addAttribute("reviewCount", 1);
-        return "user/mypage"; // mypage.html 파일을 반환
+
+            // 모델에 데이터 추가
+            model.addAttribute("username", username);
+            model.addAttribute("movieCount", movieCount);
+            model.addAttribute("grade", "일반"); // 임의 데이터
+            model.addAttribute("reviewCount", reviewCount); // 리뷰 수 추가
+
+        } else {
+            return "redirect:/login";
+        }
+
+        return "user/mypage";
+
     }
 
     @PostMapping("/mypage")
     public String myPage(@RequestParam("password") String password, HttpServletRequest request) {
         // 현재 로그인된 사용자의 정보를 가져오기
-        String username = request.getUserPrincipal().getName(); 
-    
+        String username = request.getUserPrincipal().getName();
+
         try {
             // DB에서 사용자 정보 가져오기
             Users user = userService.select(username);
             log.info("DB에서 가져온 사용자 비밀번호: " + user.getPassword());
-    
+
             // user가 null이 아닌지 체크
             if (user != null) {
                 // DB에서 가져온 암호화된 비밀번호와 입력된 비밀번호 비교
                 if (passwordEncoder.matches(password, user.getPassword())) {
                     // 비밀번호가 맞으면 회원 수정 페이지로 이동
-                    return "redirect:/user/mypageUpdate"; 
+                    return "redirect:/user/mypageUpdate";
                 } else {
                     // 비밀번호가 틀리면 다시 마이 페이지로
-                    return "redirect:/user/mypage?error=invalidPassword"; 
+                    return "redirect:/user/mypage?error=invalidPassword";
                 }
             } else {
                 // 사용자 정보가 없으면 에러 처리
-                return "redirect:/user/mypage?error=userNotFound"; 
+                return "redirect:/user/mypage?error=userNotFound";
             }
         } catch (Exception e) {
             // 예외 발생 시 에러 처리
             e.printStackTrace();
-            return "redirect:/user/mypage?error=serverError"; 
+            return "redirect:/user/mypage?error=serverError";
         }
     }
-    
 
     @GetMapping("/mypageUpdate")
     public String mypageUpdate(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
         if (authUser != null) {
             String username = authUser.getUsername();
             String profileUploadPath = "C:/upload/profiles/";
+            // 여기까지 기존
             
             Users oriUser = userService.select(username);
             Files orifile = fileService.imageUpdate(oriUser.getId());
 
             model.addAttribute("orifile", orifile);
 
+
             // 프로필 이미지 파일 이름 생성
-            String[] possibleExtensions = {"png", "jpg", "jpeg"};
+            String[] possibleExtensions = { "png", "jpg", "jpeg" };
             String profileImagePath = null;
-    
+
             for (String ext : possibleExtensions) {
                 File profileFile = new File(profileUploadPath + username + "." + ext);
                 if (profileFile.exists()) {
@@ -121,19 +148,19 @@ public class UserController {
                     break;
                 }
             }
-    
+
             // 기본 이미지 경로 설정
             if (profileImagePath == null) {
                 profileImagePath = "/profiles/default.png";
             }
-    
+
             model.addAttribute("username", username);
             model.addAttribute("encryptedPassword", authUser.getPassword());
             model.addAttribute("profileImage", profileImagePath);
         } else {
             return "redirect:/login";
         }
-    
+
         return "user/mypageUpdate";
     }
 
