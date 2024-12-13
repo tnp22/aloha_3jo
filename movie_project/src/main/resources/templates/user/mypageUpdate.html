@@ -31,7 +31,7 @@
         <div class="logo-and-upload" style="margin-left: 290px;">
             <div class="logo-container">
                 <img id="profileImage"
-                th:src="|/img?id=${orifile.id}|"
+                th:src="${orifile != null} ? |/img?id=${orifile.id}| : @{/image(id='C:/upload/normal.png')}"
                 style="width: 124px; height: 124px; border-radius: 50%;"
                 alt="프로필 이미지">
             </div>
