@@ -65,11 +65,13 @@ public class UserController {
     // }
 
     @GetMapping("/mypage")
-    public String mypage(@AuthenticationPrincipal CustomUser authUser, Model model) {
+    public String mypage(@AuthenticationPrincipal CustomUser authUser, Model model) throws Exception {
         if (authUser != null) {
             String username = authUser.getUsername();
             String userId = authUser.getId(); // 사용자 고유 ID (UUID)
+            Files orifile = fileService.imageUpdate(userId);
 
+            model.addAttribute("orifile", orifile);
             // 예매 횟수 조회
             int movieCount = reserveService.selectReservationCountByUsername(username);
 
