@@ -21,7 +21,7 @@
                 <h6 th:text="|작성자 : ${inquiry.username}|"></h6>
             </div>
         </div>
-        <textarea th:text="${inquiry.content}" class="w-100 p-3 notice-content mb-3" readonly style="min-height: 200px;"></textarea>
+        <p th:text="${inquiry.content}" class="w-100 p-3 notice-content mb-3" style="white-space: pre-wrap;"></p>
         <div class="mb-5">
             <th:block th:if="${inquiry.username == #authentication.name}">
                 <a class="btn list-btn me-2" th:href="|/inquiry/update?id=${inquiry.id}|">수정</a>
