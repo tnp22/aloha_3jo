@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid " style="height: 1000px;">
+    <div class="container-fluid " style="height: 98vh;">
         <br>
         <div>
             <div style="display: flex; align-items: center; justify-content: start;">
@@ -60,7 +60,7 @@
                 <div style="display: flex;">
                     <th:block th:each="files : ${movie.filesList}">
                         <th:block th:if="${files.division == 'main'}">
-                            <img class="w-25 mx-auto" style="overflow: hidden;" th:src="|/img?id=${files.id}|" th:alt="${files.id}">
+                            <img class="mx-auto" style="width: 50%; overflow: hidden;" th:src="|/img?id=${files.id}|" th:alt="${files.id}">
                         </th:block>
                     </th:block>
                     <table style="width: 100%;">
@@ -130,14 +130,14 @@
                 <div style="display: flex; justify-content: center;">
                     <a href="/admin/movie/list" class="sub_butten" style="margin-right: 20px;">취소</a>
                     <a th:href="|/admin/movie/update?id=${movie.id}|" th:text="수정" class="a_butten"></a>
+                    <div style="min-height: 200px;">
+                    </div>
                 </div>
             </div>
             <div class="col-md-2">
 
             </div>
         </div>
-        <br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br>
     </div>
 
 

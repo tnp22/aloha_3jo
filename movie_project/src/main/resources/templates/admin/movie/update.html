@@ -63,7 +63,7 @@
                     width: 37%;">
                         <th:block th:each="files : ${movie.filesList}">
                             <th:block th:if="${files.division == 'main'}">
-                                <img class="w-100 mx-auto" style="overflow: hidden;" th:src="|/img?id=${files.id}|" th:alt="${files.id}">
+                                <img class="mx-auto" style="width: 90%;overflow: hidden;" th:src="|/img?id=${files.id}|" th:alt="${files.id}">
                                 <div style="display: flex; justify-content: center; align-items: center; ">
                                     <form action="/admin/movie/mainPlus" method="post" enctype="multipart/form-data">
                                         <!-- CSRF TOKEN -->
