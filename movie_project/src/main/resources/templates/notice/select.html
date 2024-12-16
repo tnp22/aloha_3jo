@@ -13,7 +13,7 @@
     <div class="title" style="margin-bottom: 80px;">
         <h5 style="color: white;">공지사항</h5>
     </div>
-    <div class="container mb-5" style="min-height: 200px;">
+    <div class="container mb-3" style="min-height: 200px;">
         <div class="d-flex justify-content-between p-3 notice-title" style="background-color: rgb(243, 243, 243); border-top: 1px solid gray;">
             <h5 th:text="${notice.title}"></h5>
             <div class="d-flex">
@@ -21,8 +21,10 @@
                 <h6 th:text="|조회수 : ${notice.view}|"></h6>
             </div>
         </div>
-        <p th:text="${notice.content}" class="w-100 p-3 notice-content mb-4" style="white-space: pre-wrap; border-bottom: 1px solid gray;"></p>
-        <a class="btn list-btn" href="/notice/list">목록</a>
+        <p th:text="${notice.content}" class="p-3 notice-content mb-4" style="white-space: pre-wrap; border-bottom: 1px solid gray;"></p>
+        <div class="mb-4 d-flex justify-content-end">
+            <a class="btn list-btn" href="/notice/list">목록</a>
+        </div>
     </div>
     <div class="container" style="margin-bottom: 80px;">
         <th:block th:if="${before != null}">
