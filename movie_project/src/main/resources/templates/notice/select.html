@@ -21,7 +21,7 @@
                 <h6 th:text="|조회수 : ${notice.view}|"></h6>
             </div>
         </div>
-        <textarea th:text="${notice.content}" class="w-100 p-3 notice-content mb-4" readonly style="border: none;  resize: none; border-bottom: 1px solid gray;"></textarea>
+        <p th:text="${notice.content}" class="w-100 p-3 notice-content mb-4" style="white-space: pre-wrap; border-bottom: 1px solid gray;"></p>
         <a class="btn list-btn" href="/notice/list">목록</a>
     </div>
     <div class="container" style="margin-bottom: 80px;">
