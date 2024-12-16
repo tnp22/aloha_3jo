@@ -59,10 +59,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY e.reg_date DESC
     </select>
 
-    <select id="adminReviewList" parameterType="String" resultType="ReviewInfo">
+    <select id="adminReviewList" resultType="ReviewInfo">
         select e.id, u.username, e.content, a.rating_value, m.title
-        from rating a, review e, users u, movie m
-        where e.movie_id = m.id and a.review_id = e.id and e.user_id = u.id and e.movie_id = (SELECT m.id FROM movie m WHERE m.title LIKE CONCAT('%', #{keyword}, '%') LIMIT 1 ) 
+        from review e
+            JOIN rating a ON e.id = a.review_id
+            JOIN users u ON e.user_id = u.id
+            JOIN movie m ON e.movie_id = m.id
+    </select>
+
+    <select id="searchAdminReviewList" parameterType="String" resultType="ReviewInfo">
+        select e.id, u.username, e.content, a.rating_value, m.title
+        from review e
+            JOIN rating a ON e.id = a.review_id
+            JOIN users u ON e.user_id = u.id
+            JOIN movie m ON e.movie_id = m.id
+        where e.movie_id = (SELECT m.id FROM movie m WHERE m.title LIKE CONCAT('%', #{keyword}, '%') LIMIT 1 ) 
     </select>
 
     <select id="countUserReviews" parameterType="String" resultType="int">

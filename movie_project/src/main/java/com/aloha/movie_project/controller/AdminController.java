@@ -1694,13 +1694,21 @@ public class AdminController {
     public String reviewList(Model model
                       ,@RequestParam(name = "page", required = false, defaultValue = "1") Integer page
                       ,@RequestParam(name = "size", required = false, defaultValue = "10") Integer size
-                      ,@RequestParam(name = "search", required = false, defaultValue = "") String search) throws Exception {
+                      ,@RequestParam(name = "search", required = false) String search) throws Exception {
+        
+        PageInfo<ReviewInfo> pageInfo = null;
         // 데이터 요청
-        PageInfo<ReviewInfo> pageInfo = reviewService.adminReviewList(search, page, size);
+        if(search != null && !search.equals("")){
+            pageInfo = reviewService.adminReviewList(search, page, size);
+            model.addAttribute("search", search);
+        }
+        else{
+            pageInfo = reviewService.adminReviewList(page, size);
+        }
 
         // 모델 등록
         model.addAttribute("pageInfo", pageInfo);
-        model.addAttribute("search", search);
+        
         // 뷰 페이지 지정
         return "/admin/reviewManager/list";
     }
