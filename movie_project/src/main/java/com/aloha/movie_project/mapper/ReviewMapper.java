@@ -26,7 +26,11 @@ public interface ReviewMapper {
     public List<ReviewInfo> reviewList(String id) throws Exception;
 
     // 어드민 영화 상세정보 리뷰
-    public List<ReviewInfo> adminReviewList(String search) throws Exception;
+    public List<ReviewInfo> adminReviewList() throws Exception;
+
+    // 어드민 영화 상세정보 리뷰
+    public List<ReviewInfo> searchAdminReviewList(String search) throws Exception;
+
 
     public int countUserReviews(@Param("userId") String userId);
 
