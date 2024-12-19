@@ -20,6 +20,7 @@
 }
 
 .list-btn{
+    float: right;
     background-color: #583BBF;
     color: white;
 }
