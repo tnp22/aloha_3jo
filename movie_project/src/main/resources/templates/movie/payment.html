@@ -95,8 +95,8 @@
     let data = {
         'id' : id
     };
-
-    let request = new XMLHttpRequest();
+    if (confirm("삭제하시겠습니까?")) {
+        let request = new XMLHttpRequest();
     let url = '/m/delete';
     request.open('DELETE', url, true);
     request.setRequestHeader('Content-Type', 'application/json');
@@ -115,6 +115,8 @@
     }}
 
     request.send(JSON.stringify(data));
+    }
+
 
     }
   </script>
