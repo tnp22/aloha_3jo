@@ -107,11 +107,11 @@
 
         function remove(id){
 
-
             let data = {
                 'id' : id
             };
 
+            if (confirm("삭제하시겠습니까?")) {
             let request = new XMLHttpRequest();
             let url = '/m/delete';
             request.open('DELETE', url, true);
@@ -131,7 +131,7 @@
             }}
 
             request.send(JSON.stringify(data));
-
+            }
         }
     </script>
 </body>
