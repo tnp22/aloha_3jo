@@ -116,7 +116,7 @@
     var ticketList = /*[[${ticketList}]]*/ [];
 
     // 출력(값불러오기) 예문
-    // console.log("리스트 : ", ticketList); // list[] 안에있는 모든값 로그 출력
+    console.log("리스트 : ", ticketList); // list[] 안에있는 모든값 로그 출력
     // console.log("리스트 : ", ticketList[0].theaterName); // JSON 데이터 출력 ?관 출력
     // console.log("리스트 : ", ticketList[1].theaterName); // JSON 데이터 출력 ?관 출력
   </script>
@@ -150,7 +150,15 @@
         }
     }
 
+    // ticketList 정렬 (areaSub -> time 순서로 정렬)
+    ticketList.sort((a, b) => {
+        if (a.areaSub === b.areaSub) {
+            return new Date(a.time) - new Date(b.time); // 시간 순 정렬
+        }
+        return a.areaSub.localeCompare(b.areaSub); // areaSub 기준 정렬
+    });
     // // 지역데이터에 비교해서 극장 데이터 저장
+    console.log("여기서부터")
     for (var R of Region) {
       let Theater = [];
       let regionDate = {}; // areaSub을 기준으로 그룹화하기 위해 객체 사용
@@ -158,40 +166,46 @@
         // console.log(list.theaterName) // 상영관 출력
         if (R === list.area) {
           Theater.push(list.areaSub);
-
+          
           const dateObj = new Date(list.time);
           // 날짜 분리 (연-월-일)
           const datePart = dateObj.toISOString().split("T")[0]; // "2024-12-23"
-
+          
           // 다음 요소 확인 및 초기화 조건
-          if (index + 1 < ticketList.length) {
-            if (list.areaSub != ticketList[index + 1].areaSub) {
-              // 새로운 areaSub로 넘어가면 초기화
-              regionDate[list.areaSub] = [];
-            }
-          }
+          // if (index + 1 < ticketList.length) {
+          //   if (list.areaSub != ticketList[index + 1].areaSub) {
+          //     // 새로운 areaSub로 넘어가면 초기화
+          //     regionDate[list.areaSub] = [];
+          //   }
+          // }
           // areaSub 기준으로 날짜 추가
+          // if (!regionDate[list.areaSub]) {
+          //   regionDate[list.areaSub] = []; // areaSub 키가 존재하지 않으면 초기화
+          // }
+          // regionDate[list.areaSub].push(datePart);
           if (!regionDate[list.areaSub]) {
-            regionDate[list.areaSub] = []; // areaSub 키가 존재하지 않으면 초기화
-          }
-          regionDate[list.areaSub].push(datePart);
+                regionDate[list.areaSub] = []; // 초기화는 딱 한 번만 수행
+            }
+            if (!regionDate[list.areaSub].includes(datePart)) {
+                regionDate[list.areaSub].push(datePart); // 중복 방지
+            }
+          // console.log(regionDate[list.areaSub])
           // console.log(list.areaSub);
           // console.log(datePart);
-
-
+          
+          
           // 날짜 기준 시간 분리 (시:분) + seat 분리
           const timePart = dateObj.toTimeString().slice(0, 5); // "15:40"
           // console.log(index + " " +list.seat)
           // console.log(timePart);
         }
       }
-
       Theaters.push(Theater);
       Dates.push(regionDate); // 이제 Dates에는 areaSub 기준으로 나눈 객체가 저장됨
     }
     // console.log(Theaters)
     // console.log(Dates)
-
+    console.log(Dates)
     
 
     const regionTheaterData = {};
