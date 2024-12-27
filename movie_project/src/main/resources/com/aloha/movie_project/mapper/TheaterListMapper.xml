@@ -121,7 +121,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             movie m ON tl.movie_id = m.id  <!-- 수정된 부분 -->
         WHERE
             <![CDATA[tl.time >= CURRENT_TIMESTAMP]]> and m.id LIKE CONCAT('%', #{keyword}, '%')
-        order by `time` asc
     </select>
 
 </mapper>
