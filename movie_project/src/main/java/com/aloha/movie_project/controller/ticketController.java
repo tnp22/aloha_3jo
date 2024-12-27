@@ -73,7 +73,7 @@ public class ticketController {
                 String[] re = r.getSeat().split(",");
                 MaxPerson += re.length;
             }
-            System.out.println(MaxPerson);
+            //System.out.println(MaxPerson);
             TicketList ticket = new TicketList();
             Cinema cinema = t.getCinema();
             Movie movie = t.getMovie();
@@ -193,7 +193,7 @@ public class ticketController {
             reserve.setDate(formatDate);
             reserve.setTime(formatTime);
         }
-        System.out.println("Reserve : " + reserve);
+        //System.out.println("Reserve : " + reserve);
         // System.out.println("넘 있나?" + num);
         // 영화사진
         Movie movie_ = movieService.movieInfo(num.getMovieId());
@@ -257,12 +257,12 @@ public class ticketController {
         reserve.setTheaterId(num.getTheaterId());
         reserve.setTheaterListId(num.getId());
         reserve.setUserName(userName);
-        System.out.println(reserve);
+        //System.out.println(reserve);
 
         session.setAttribute("reserve", reserve);
 
-        System.out.println("시트 : " + seat);
-        System.out.println(seat == null);
+        //System.out.println("시트 : " + seat);
+        //System.out.println(seat == null);
         if (seat == null) {
             return "/m/s?theaterListId=0c701709-0c0d-49dd-b96f-8c30961eee2d&person=1_10000&error";
         }
