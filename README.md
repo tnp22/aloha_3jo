@@ -104,24 +104,30 @@
   ![image](https://github.com/user-attachments/assets/6ca8c54c-ae92-4ec2-93ca-4ae34d56e0dd)
   ![image](https://github.com/user-attachments/assets/413f4434-6ddc-40ca-8008-812eb8348d8c)
   ![image](https://github.com/user-attachments/assets/c7b3f221-997b-4cae-af72-66be05073424)
-  ![image](https://github.com/user-attachments/assets/68e6036b-51d2-4c81-8833-7a5bdc508d21)
 
 
 </details>                                                                                                                    
-
 ---
 &nbsp;
 # 📊 **화면 설계**
 
 <details>
   <summary><h3>👨‍💻 <strong>사용자</strong></h3></summary>
-  ![image](https://github.com/user-attachments/assets/3ffa7d7e-6191-4f24-902d-d5b24452606e)
+
+![image](https://github.com/user-attachments/assets/d60cf186-d21b-42a4-ab31-4307a7b56f10)
+![image](https://github.com/user-attachments/assets/d08327eb-b5f0-46a5-aacc-5b37a245ee78)
+![image](https://github.com/user-attachments/assets/b313e903-cdb1-4fb4-b062-bfd76b2e8e2a)
+![image](https://github.com/user-attachments/assets/f580fb55-ee95-4edd-8dbe-30947e69bbe6)
+![image](https://github.com/user-attachments/assets/c7dfcb24-168b-4ca3-a0c6-02e5dc169a39)
+![image](https://github.com/user-attachments/assets/6e6db105-b726-40e4-97cf-be9fddf63fff)
+
 
 </details>
 
 <details>
   <summary><h3>🛠️<strong>관리자</strong></h3></summary>
-    ![image](https://github.com/user-attachments/assets/6fc56aed-50ee-4bf1-a09a-61305d753eb5)
+
+![image](https://github.com/user-attachments/assets/6fc56aed-50ee-4bf1-a09a-61305d753eb5)
     ![image](https://github.com/user-attachments/assets/d3196651-1bff-4ac3-84bf-d3ee8622782f)
     ![image](https://github.com/user-attachments/assets/559306e2-0292-4ccf-a8c3-bb4e81fa9eae)
     ![image](https://github.com/user-attachments/assets/066e64cf-ea44-4de5-b21b-f1fe01d165ab)
@@ -143,9 +149,15 @@
     ![image](https://github.com/user-attachments/assets/de6327d0-4193-4eea-99a6-76067987e214)
     ![image](https://github.com/user-attachments/assets/bbe33c7d-4f1e-4a96-bf85-515972490a76)
     ![image](https://github.com/user-attachments/assets/1505ff40-c722-4854-891d-9387a51b4cc0)
+
+
 </details>
+
+
+
 ---
 
+&nbsp;
 # **🎯 주요 기능**
 
 ### **✅ 스프링 시큐리티를 사용한 권한 접근**
