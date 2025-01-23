@@ -1,3 +1,11 @@
+# 영화 예매 시스템
+
+기간: 2024/11/27 ~ 2024/12/13
+기술스택: CSS, HTML5, JSP, Java, JavaScript, MySQL, SpringBoot
+인원: 4
+
+![캡처.PNG](%25EC%25BA%25A1%25EC%25B2%2598.png)
+
 # 프로젝트 영상
 
 [https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1JpZ6G&index=7](https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1JpZ6G&index=7)
