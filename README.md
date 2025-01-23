@@ -1,9 +1,11 @@
 
-![캡처.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/f4521a23-1755-40c1-96f9-acf68ac665aa/%EC%BA%A1%EC%B2%98.png)
+![image](https://github.com/user-attachments/assets/b11f4554-9c35-44f0-9542-0cbdd457d45c)
+
 
 # 프로젝트 영상
 
-https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1JpZ6G&index=7
+<a href="https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1JpZ6G&index=7" target="_blank">**발표 영상 링크**</a>
+
 
 # 프로젝트 주제
 
@@ -57,140 +59,104 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
    ![image](https://github.com/user-attachments/assets/cf5e4ba4-6103-4350-9a8e-00bdbe862735)
 </details>
 
-## **🗒️ 기능 정의서**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/0c65acbd-8d1e-4ca4-a357-a73c9172f989/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/804481ff-4e1f-4c49-8003-bd7fda42fe74/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/0702d2c3-daf1-47bd-94ae-045eaca22115/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/ceaf0bec-9927-4ee4-8e11-ea31f8e59f77/image.png)
-
-## **🗂️ ERD**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/dcb8d584-66ef-4ca4-b6c1-7a95a166ec0b/image.png)
-
-## **📃 테이블 정의서**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/177a12e9-1712-4ceb-a1ba-b1d5a1cf17ee/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/b30558a1-67a1-4ea9-be5a-4c6539961005/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/26d059b7-0b78-47f6-b591-b4a87cf6de9a/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/e4d46b5c-3e25-48b0-b510-35eba72c6dd8/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/8d5b4a67-6034-4aca-864d-f808d1222b85/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/b029333a-8577-4a57-a640-68bae463808d/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/19d19242-299e-4be6-b938-eff0d235c501/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/142e583e-0efe-4810-9c43-aac2be8431d3/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/93faa997-703f-4760-8ef8-2815932c8a87/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/06c42bba-13e5-433a-8e2b-434f09d4b50a/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/faa0ba15-db02-4793-9f1d-10c05d05148e/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/42122dd0-cf71-4334-81bb-d72429737c6c/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/c538225b-7752-4bdf-9d55-2cb6b3880394/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/5677f16e-9e0c-4406-8af2-4ec7bad0a3d6/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/289319f9-169e-47ef-ba0d-f6a9ec5165f7/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/b62bf4c2-69ba-470c-94b1-22d74bf36482/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/70d340bd-e58c-4ad5-bb7a-bd7d5d7715cf/image.png)
-
-## **📊 화면 설계**
-
-### **👨‍💻 사용자**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/0fd8b602-1d77-4fba-a269-2b771670d122/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/d3951b79-ea3b-446c-bc64-a2bcba138c27/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/7f9a271f-455d-4c7d-8898-d0727f281af9/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/f06c1e0b-e45d-4c97-bc4b-c2e4667c83ee/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/94978bb6-69a4-4c78-9e81-f6db8ab12662/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/be1f72b8-9ecb-4020-8db6-d562a16a844a/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/16ca43d6-a64b-46c5-b4fa-8c376294463a/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/010701f4-2029-4f9f-aa75-cf838053d2e3/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/d870dec2-d4a1-4a6e-b296-d2032599448f/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/574c071f-2398-4902-94be-642391ec62ae/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/cbb00ffa-3016-4614-845f-1a6507ef57b1/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/56155adf-be30-479a-beea-00849d3aaed9/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/7d345821-717e-4198-9aa8-9356a7b28b48/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/794e66f1-1cd9-44a2-9457-325cfaf6c260/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/357386a0-7756-4e25-996a-93ab7240aad1/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/198e5bd6-0ef2-478b-bfb1-df215104547a/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/92220fb6-aad4-4957-bf7b-d198fcc1e40c/image.png)
-
-### **🛠️관리자**
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/c818287b-c469-4581-b214-596ff34a7b04/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/d1622e3d-085e-4c8e-a1f2-f0225dbd93fa/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/8a3c8273-bc9c-4259-8c11-e82c1ba7b128/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/5bcda13d-8e57-4d17-87ac-8f5c7ab8a17e/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/436a691e-0139-4d20-b88f-d54044ca90b8/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/9259c09b-fa47-42b8-9ea3-6d0b3a622727/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/27ff1dac-0bb9-419e-9b58-b394ecaca1b7/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/5d7311d0-632b-4367-9ad2-e5b047cf7bde/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/7deda046-41b3-4e72-80ce-3c7e8c308c35/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/bf8cd5b8-b0dd-4b43-9555-0dc82925e9f1/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/fecf58e3-8067-4007-b7fd-60e12e7bb175/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/dbef6af3-b4c7-4b0b-8d54-f82b54d38b72/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/711e237b-1e7d-4dca-8443-679405be05d0/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/6cae96a3-7cff-4e95-a8ae-d7d9f9e5a290/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/4d4dd54b-9d99-407b-ad05-e176515bf68a/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/3d8c53d0-2d8c-4c4a-900e-576c1f8cf4a8/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/cc93bbb7-07c6-462d-bf9d-3ddc8fdf4f9d/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/bc29d101-9cd8-4040-8d80-ab4ed0888c7b/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/4a0c1e8a-1511-4d9d-8478-693222d1d12d/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/e2a0da88-5cda-4c31-957c-0089dccab316/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/5094b67a-dc41-4532-863f-e5c9b43db578/image.png)
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/492c973e-52cd-4c32-ab05-2f521798c443/image.png)
-
+<details>
+<summary><h2>🗒️ <strong>기능 정의서</strong></h2></summary>
+  
+  ![image](https://github.com/user-attachments/assets/8734c1a1-2dea-4040-bdd8-7be721a5fd69)
+  ![image](https://github.com/user-attachments/assets/8f3d8ad0-70c1-42cd-9578-7824e5aec8a9)
+  ![image](https://github.com/user-attachments/assets/427f8b90-e9f1-4b1d-814c-fe48c47b4856)
+  ![image](https://github.com/user-attachments/assets/66383ae4-8229-4962-99d8-ca1b22383be0)
+
+
+
+
+</details>
+
+---
+
+<details>
+<summary><h2>🗂️ <strong>ERD</strong></h2></summary>
+  
+ ![image](https://github.com/user-attachments/assets/45db6bef-3834-4513-a164-efa74ee3e999)
+
+
+</details>
+
+---
+
+<details>
+  <summary><h2>📃 <strong>테이블 정의서</strong></h2></summary>
+
+  ![image](https://github.com/user-attachments/assets/421fffa7-47d3-4754-ab70-535109dacc8e)
+  ![image](https://github.com/user-attachments/assets/ec71fc4a-7e3d-42ad-9256-95182c9d20e7)
+  ![image](https://github.com/user-attachments/assets/10ded960-3d99-43bd-8f13-472781a2d02e)
+  ![image](https://github.com/user-attachments/assets/6b40196d-feb8-4567-a3d7-57cc7caad56e)
+  ![image](https://github.com/user-attachments/assets/e0b5d07b-8c74-489e-9eec-a2c0a0dcfaf1)
+  ![image](https://github.com/user-attachments/assets/2d27f195-c852-4ef0-ab58-2bcd88e9e76f)
+  ![image](https://github.com/user-attachments/assets/ff07ca1f-4ba7-45c4-8016-a70ab02679f5)
+  ![image](https://github.com/user-attachments/assets/a13cb0d9-30ea-471c-a806-36fe8e63b1f2)
+  ![image](https://github.com/user-attachments/assets/cee10db1-23e1-4868-99ec-0fa5b7e07c6b)
+  ![image](https://github.com/user-attachments/assets/f7dfd9ae-08ce-4569-afdb-c40f4c7d5f1e)
+  ![image](https://github.com/user-attachments/assets/8cdd8c4f-b879-4a23-8182-6afeb56b7445)
+  ![image](https://github.com/user-attachments/assets/a545db09-875e-4e28-844c-79aa6dd4d6f2)
+  ![image](https://github.com/user-attachments/assets/b6401873-5400-45d0-92c7-21ff6685e0b4)
+  ![image](https://github.com/user-attachments/assets/9175dbcd-4ea0-4341-bcb4-d4500b382149)
+  ![image](https://github.com/user-attachments/assets/6ca8c54c-ae92-4ec2-93ca-4ae34d56e0dd)
+  ![image](https://github.com/user-attachments/assets/413f4434-6ddc-40ca-8008-812eb8348d8c)
+  ![image](https://github.com/user-attachments/assets/c7b3f221-997b-4cae-af72-66be05073424)
+
+</details>                                                                                                                    
+
+---
+&nbsp;
+# 📊 **화면 설계**
+
+<details>
+  <summary><h3>👨‍💻 <strong>사용자</strong></h3></summary>
+![image](https://github.com/user-attachments/assets/76a481d8-1b96-4a9e-a6f2-96b868e6ea05)
+![image](https://github.com/user-attachments/assets/0aa3289c-c82f-4afc-9af2-9c9a4af86011)
+![image](https://github.com/user-attachments/assets/47f3d32a-8630-4158-9aaf-10be682341db)
+![image](https://github.com/user-attachments/assets/0970eaad-211e-4e00-8287-5c0a9eb00890)
+![image](https://github.com/user-attachments/assets/9b536ce7-5c58-4d59-8a86-bcd818bd21a4)
+![image](https://github.com/user-attachments/assets/cd3a835a-f5da-486b-93ac-20eafeaf6199)
+![image](https://github.com/user-attachments/assets/445307d5-7232-4519-af3f-a3c53ebfb0b5)
+![image](https://github.com/user-attachments/assets/b0894e21-f4b8-4ccf-af9d-8ea882e0f233)
+![image](https://github.com/user-attachments/assets/c6d067a0-2891-424e-ae6d-5ed442e0d720)
+![image](https://github.com/user-attachments/assets/53df1ee7-d7a3-4e10-994b-f78d32eaa47a)
+![image](https://github.com/user-attachments/assets/8c6135dc-0a80-4253-863f-c602aa8b302e)
+![image](https://github.com/user-attachments/assets/ca38b0c4-59b2-41d5-afae-62d4fe3c0b7f)
+![image](https://github.com/user-attachments/assets/e98a7239-cfed-4847-ac07-d68e9aa5c27f)
+![image](https://github.com/user-attachments/assets/ce1896cb-d292-47be-ab8c-6d119743edc4)
+![image](https://github.com/user-attachments/assets/9b1679ac-9acc-4e62-ba0c-3996b6286f01)
+![image](https://github.com/user-attachments/assets/671a9acd-80a2-49aa-b26d-6d01b6a8ee78)
+![image](https://github.com/user-attachments/assets/9af63d7d-ff53-4d13-9f39-a3c9d356baeb)
+</details>
+
+<details>
+  <summary><h3>🛠️<strong>관리자</strong></h3></summary>
+![image](https://github.com/user-attachments/assets/6fc56aed-50ee-4bf1-a09a-61305d753eb5)
+![image](https://github.com/user-attachments/assets/d3196651-1bff-4ac3-84bf-d3ee8622782f)
+![image](https://github.com/user-attachments/assets/559306e2-0292-4ccf-a8c3-bb4e81fa9eae)
+![image](https://github.com/user-attachments/assets/066e64cf-ea44-4de5-b21b-f1fe01d165ab)
+![image](https://github.com/user-attachments/assets/53e68f51-bb67-4caa-9699-d0824fa32e42)
+![image](https://github.com/user-attachments/assets/324b4db6-0ea0-4560-a9c2-982af2477602)
+![image](https://github.com/user-attachments/assets/e215cd66-c5bb-43bd-a0bb-e28496f2e31f)
+![image](https://github.com/user-attachments/assets/664a5bc3-dd43-4230-a493-25b86b144ab9)
+![image](https://github.com/user-attachments/assets/4508e2a4-f488-4eab-8c03-66a74c14e034)
+![image](https://github.com/user-attachments/assets/b067668a-c592-404d-9b30-c0759ee82800)
+![image](https://github.com/user-attachments/assets/9d15c970-84d3-47ca-9fbc-30b1b567f94f)
+![image](https://github.com/user-attachments/assets/faed6ac5-225e-471d-923c-e5c9513bf097)
+![image](https://github.com/user-attachments/assets/59e1d5c8-048d-429e-a389-99a4ddd85aa6)
+![image](https://github.com/user-attachments/assets/479684b1-c2a5-4ccd-bc58-e4d327674d58)
+![image](https://github.com/user-attachments/assets/c87eb9ac-a2d1-454f-8a2e-5986b12e5b3a)
+![image](https://github.com/user-attachments/assets/0624bf91-d795-4969-9724-e8b2baa92a63)
+![image](https://github.com/user-attachments/assets/68ca2c85-e4b7-455f-8e50-6de707e5c7d6)
+![image](https://github.com/user-attachments/assets/af8be756-e842-4c22-a41d-71a2a8578e50)
+![image](https://github.com/user-attachments/assets/ffd8d3c6-72bc-4d36-ac63-4c9f22831554)
+![image](https://github.com/user-attachments/assets/de6327d0-4193-4eea-99a6-76067987e214)
+![image](https://github.com/user-attachments/assets/bbe33c7d-4f1e-4a96-bf85-515972490a76)
+![image](https://github.com/user-attachments/assets/1505ff40-c722-4854-891d-9387a51b4cc0)
+</details>
 ---
 
 # **🎯 주요 기능**
@@ -205,21 +171,34 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 # **📝 개별 평가**
 
-### 문봉현
+<details>
+<summary><h3><strong>문봉현</strong></h3></summary>
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/54514175-8a85-4a35-8156-2839804d6090/image.png)
+![image](https://github.com/user-attachments/assets/2b07a093-32af-483d-ba90-c1d7c582c8a7)
 
-### 변종우
+</details>
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/19290d6d-f4aa-4281-90cc-6c6a7c979291/image.png)
 
-### 이동혁
+<details>
+<summary><h3><strong>변종우</strong></h3></summary>
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/5e7f1a4c-b7d6-41e4-afe2-22ab7917e828/image.png)
+![image](https://github.com/user-attachments/assets/f55d06dd-6480-4b51-9150-79cf317cb195)
 
-### 김준경
+</details>
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/b002b539-f613-420f-a569-e43705b102c7/image.png)
+<details>
+<summary><h3><strong>이동혁</strong></h3></summary>
+
+![image](https://github.com/user-attachments/assets/928bedb3-fa7c-4d7b-a281-4b0e18d42d6d)
+
+</details>
+
+<details>
+<summary><h3><strong>김준경</strong></h3></summary>
+
+![image](https://github.com/user-attachments/assets/73516c65-62ee-4677-b009-3cd68fb49118)
+
+</details>
 
 ---
 
