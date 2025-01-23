@@ -1,8 +1,5 @@
 # 영화 예매 시스템
-
-![캡처.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/f4521a23-1755-40c1-96f9-acf68ac665aa/%EC%BA%A1%EC%B2%98.png)
-
-# 프로젝트 영상
+![캡처 (2)](https://github.com/user-attachments/assets/5b3926de-4766-4231-a841-03677ec87ef2)
 
 # 프로젝트 주제
 
