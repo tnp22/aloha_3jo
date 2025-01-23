@@ -50,11 +50,12 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ---
 
-## **📑 요구사항 정의서**
-
-![image](https://github.com/user-attachments/assets/02a6856f-4ae0-4ec2-8366-69908e8195a7)
-![image](https://github.com/user-attachments/assets/cf5e4ba4-6103-4350-9a8e-00bdbe862735)
-
+<details>
+<summary><h2>📑 <strong>요구사항 정의서</strong></h2></summary>
+  
+   ![image](https://github.com/user-attachments/assets/02a6856f-4ae0-4ec2-8366-69908e8195a7)
+   ![image](https://github.com/user-attachments/assets/cf5e4ba4-6103-4350-9a8e-00bdbe862735)
+</details>
 
 ## **🗒️ 기능 정의서**
 
