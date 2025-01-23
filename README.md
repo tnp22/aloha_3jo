@@ -112,7 +112,7 @@
 # 📊 **화면 설계**
 
 <details>
-  <summary><h3>👨‍💻 <strong>사용자</strong></h3></summary
+  <summary><h3>👨‍💻 <strong>사용자</strong></h3></summary>
     ![image](https://github.com/user-attachments/assets/07a85b4c-f902-493f-b077-cc5c6a36eeaa)
 
 
