@@ -106,7 +106,8 @@
   ![image](https://github.com/user-attachments/assets/c7b3f221-997b-4cae-af72-66be05073424)
 
 
-</details>                                                                                                                    
+</details>  
+
 ---
 &nbsp;
 # 📊 **화면 설계**
@@ -114,14 +115,23 @@
 <details>
   <summary><h3>👨‍💻 <strong>사용자</strong></h3></summary>
 
-![image](https://github.com/user-attachments/assets/d60cf186-d21b-42a4-ab31-4307a7b56f10)
-![image](https://github.com/user-attachments/assets/d08327eb-b5f0-46a5-aacc-5b37a245ee78)
-![image](https://github.com/user-attachments/assets/b313e903-cdb1-4fb4-b062-bfd76b2e8e2a)
-![image](https://github.com/user-attachments/assets/f580fb55-ee95-4edd-8dbe-30947e69bbe6)
-![image](https://github.com/user-attachments/assets/c7dfcb24-168b-4ca3-a0c6-02e5dc169a39)
-![image](https://github.com/user-attachments/assets/6e6db105-b726-40e4-97cf-be9fddf63fff)
-
-
+![image](https://github.com/user-attachments/assets/f33574c5-fd40-41e1-92ff-da7ec591e41b)
+![image](https://github.com/user-attachments/assets/9ebf6dd1-adf2-4d88-8613-421552f31578)
+![image](https://github.com/user-attachments/assets/c96c5f4d-b5c0-4fe0-bb80-d60a7e80d4ab)
+![image](https://github.com/user-attachments/assets/f257f56c-d2f4-4fbf-ac35-15a8cdc029d9)
+![image](https://github.com/user-attachments/assets/e1ae7a9e-4f9b-47d1-a410-908fcd00fd11)
+![image](https://github.com/user-attachments/assets/29c6e08a-9daf-4250-8229-51d433d3f23d)
+![image](https://github.com/user-attachments/assets/3ad01cb7-d4a9-47da-a8dd-f88e992346d2)
+![image](https://github.com/user-attachments/assets/56c11884-3e69-4f4b-a593-ba0b58a68c1f)
+![image](https://github.com/user-attachments/assets/4ffed4ef-1eef-4593-8c3b-038718879c7d)
+![image](https://github.com/user-attachments/assets/180abf6f-bac6-4486-b990-2dedad02edab)
+![image](https://github.com/user-attachments/assets/d1595be0-84ee-4a93-b3da-7d3df3ce4665)
+![image](https://github.com/user-attachments/assets/0d502801-0bc5-47ef-95ed-282eba6b2750)
+![image](https://github.com/user-attachments/assets/dcd45a51-48c0-49df-b430-11f2e1ad11fa)
+![image](https://github.com/user-attachments/assets/ffc59631-0a0f-4bcd-a4fa-39cbacb0520a)
+![image](https://github.com/user-attachments/assets/b3d21d9d-65cb-438d-960d-ed4f4585a029)
+![image](https://github.com/user-attachments/assets/f931ffbb-63f1-403d-bb79-80f315c9b0c4)
+![image](https://github.com/user-attachments/assets/b1450253-a260-44b7-8732-6bcc1da1b5f7)
 </details>
 
 <details>
