@@ -113,7 +113,8 @@
 
 <details>
   <summary><h3>👨‍💻 <strong>사용자</strong></h3></summary>
-    ![image](https://github.com/user-attachments/assets/07a85b4c-f902-493f-b077-cc5c6a36eeaa)
+    ![image](https://github.com/user-attachments/assets/ca437f57-b056-459b-807e-8fd6611870dc)
+
 
 
 </details>
