@@ -185,7 +185,8 @@
 <details>
 <summary><h3><strong>문봉현</strong></h3></summary>
 
-![image](https://github.com/user-attachments/assets/2b07a093-32af-483d-ba90-c1d7c582c8a7)
+![image](https://github.com/user-attachments/assets/3993403a-d53a-4657-8507-4b53f148f49e)
+
 
 </details>
 
