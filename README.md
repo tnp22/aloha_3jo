@@ -44,7 +44,7 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ### **3️⃣ DB 설계, 피그마 화면 설계**
 
-### **4️⃣ **기능 개발 ****
+### 4️⃣ **** 기능 개발 ****
 
 ### **5️⃣ 테스트 및 수정, 결과보고서 작성**
 
