@@ -1,5 +1,4 @@
-# 영화 예매 시스템
-![캡처 (2)](https://github.com/user-attachments/assets/5b3926de-4766-4231-a841-03677ec87ef2)
+![캡처.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/f4521a23-1755-40c1-96f9-acf68ac665aa/%EC%BA%A1%EC%B2%98.png)
 
 # 프로젝트 영상
 
@@ -17,15 +16,15 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ---
 
-## **프로젝트 인원**
+# **프로젝트 인원**
 
 - 4명
 
-## **프로젝트 기간**
+# **프로젝트 기간**
 
 - 2024-11-27 ~ 2024-12-13
 
-## **👥 팀 구성**
+# **👥 팀 구성**
 
 | **이름** | **담당 기능** |
 | --- | --- |
@@ -35,7 +34,9 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 | 이동혁 | 영화관 관리, 상영관 관리, 유저-권한 관리, 영화-출연진 관리, 배너 관리, 공지 관리, 메인화면(배너) |
 | 김준경 | 예매 페이지 맵 생성, 상영관 맵 생성, 상영관 맵 불러오기, 상영관 맵 수정 |
 
-## **🚀 프로젝트 수행 절차**
+---
+
+# **🚀 프로젝트 수행 절차**
 
 ### **1️⃣ 주제선정 및 기획 의도 선정**
 
@@ -46,6 +47,8 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 ### **4️⃣ **기능 개발 ****
 
 ### **5️⃣ 테스트 및 수정, 결과보고서 작성**
+
+---
 
 ## **📑 요구사항 정의서**
 
@@ -187,7 +190,9 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/492c973e-52cd-4c32-ab05-2f521798c443/image.png)
 
-## **🎯 주요 기능**
+---
+
+# **🎯 주요 기능**
 
 ### **✅ 스프링 시큐리티를 사용한 권한 접근**
 
@@ -195,7 +200,9 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ### **✅ 포트원 결제 api를 사용한 예매 시스템**
 
-## **📝 개별 평가**
+---
+
+# **📝 개별 평가**
 
 ### 문봉현
 
@@ -213,7 +220,9 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a68b1891-4c35-454d-8949-e461fe367ed5/b002b539-f613-420f-a569-e43705b102c7/image.png)
 
-## 담당 역할 및 어필
+---
+
+# 담당 역할 및 어필
 
 ### 역할
 
@@ -234,7 +243,7 @@ https://www.youtube.com/watch?v=9M2KXyZ3ARg&list=PL4C2AmBC9jOZZEOwZ67P_Nb_WoQ1Jp
 
 ---
 
-## 기술 스택
+# 기술 스택
 
 ### 사용 언어
 
