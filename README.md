@@ -59,6 +59,8 @@
    ![image](https://github.com/user-attachments/assets/cf5e4ba4-6103-4350-9a8e-00bdbe862735)
 </details>
 
+---
+
 <details>
 <summary><h2>🗒️ <strong>기능 정의서</strong></h2></summary>
   
